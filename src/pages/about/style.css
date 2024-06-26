@@ -1,0 +1,40 @@
+.about-banner{
+    background: url('../../../public/images/aboutus/about_us_banner.jpg') no-repeat center top !important;
+    background-size:cover !important;
+    color: #fff;
+    min-height: 80vh !important;
+    background-attachment: fixed !important;
+}
+.profile-card img{
+    height: 300px;
+    object-fit: contain;
+    object-fit: cover;
+}
+.profile-card{
+    /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+    margin-bottom: 20px;
+}
+.wall-frames{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    overflow: auto;
+}
+.frame-card{
+    min-width: 300px;
+}
+.frame-card img{
+    height: 200px;
+    object-fit: cover;
+}
+.frame-card img:hover{
+    transform: scale(1.1);
+    transition: 0.8s;
+    cursor: pointer;
+}
+
+@media (max-width:768px){
+    .profile-card img{
+        height: fit-content !important;
+    }
+}
