@@ -5,6 +5,7 @@ import { Dropdown } from 'react-bootstrap';
 import axios from 'axios';
 import Loading from '../../components/popups/Loading';
 import { useNavigate } from 'react-router-dom';
+import { useDialog } from '../../components/popups/DialogContext';
 
 function MainFunctionHallBooking() {
     const [ApplicationNo, setApplicationNo] = useState(null)
@@ -192,11 +193,10 @@ function MainFunctionHallBooking() {
         form.submit();
     };
     const navigate = useNavigate()
-
+    const {openDialog} = useDialog();
     const submitForm = (e) => {
         e.preventDefault()
         setIsLoading(true)
-      if(validateForm()){
         axios.post('https://sporti-backend-2-o22y.onrender.com/api/payment', formData)
         .then(response => {
             const { success, user } = response.data;
@@ -204,17 +204,17 @@ function MainFunctionHallBooking() {
             if (success) {
                 setIsLoading(false);
                 // createPaymentForm(formData.username, formData.email, formData.phoneNumber, formData.serviceName, user.applicationNo)
-                setMessage(`Booking submitted successfully with application number ${user.applicationNo}`);
-                openModal('Success', `Booking submitted successfully with application number ${user.applicationNo}`)
+                // setMessage(`Booking submitted successfully with application number ${user.applicationNo}`);
+                // openModal('Success', `Booking submitted successfully with application number ${user.applicationNo}`)
+                openDialog('Success', `Booking submitted successfully with application number ${user.applicationNo} `, false);
                 navigate(`/payment/${user.applicationNo}`);
 
             } else {
                 setIsLoading(false);
-                setMessage('Failed to submit booking');
+                openDialog('Error', 'Your application is not confirmed please wait until confirm, the application will confirm within 24 working hours after booking.', true);
             }
         })
         .catch(error => console.error('Error submitting form:', error));
-      }
     };
     if(isLoading){
         return <Loading/>
@@ -225,7 +225,7 @@ function MainFunctionHallBooking() {
             <div className="row">
                 <div className="col-md-8">
                     <h1 className="fs-1">Book Our services</h1>
-                   <form action="" onSubmit={submitForm}>
+                   <form>
                    <div className="row">
                             <div className="col-md-12">
                                 {/* <div className="form-group mt-3">
@@ -331,7 +331,7 @@ function MainFunctionHallBooking() {
                             </div>
                         </div>
                     </div>
-                    <button className="btn btn-primary mt-4" type='submit'>Send Request</button>
+                    <button className="btn btn-primary mt-4" type='button' onClick={submitForm}>Send Request</button>
                    </form>
                 </div>
                 <div className="col-md-4">
