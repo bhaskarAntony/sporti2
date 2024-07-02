@@ -56,7 +56,7 @@ const Payment = () => {
         const checksum = generateHash512(requestDataString);
 
         // Append checksum and return URL
-        const formValue = `${requestDataString}|CheckSum=${checksum}|ReturnURL=http://localhost:58851/College/Purenewal.aspx`;
+        const formValue = `${requestDataString}|CheckSum=${checksum}|ReturnURL=http://localhost:3000`;
 
         // Create form element
         const form = document.createElement('form');
@@ -74,11 +74,12 @@ const Payment = () => {
 
         // Append form to body and submit
         document.body.appendChild(form);
-        if(!booking.status === 'pending') {
-            form.submit();
-        }else{
-            openDialog('Error', 'Your application is not confirmed please wait until confirm, the application will confirm within 24 working hours after booking.', true);
-        }
+        // if(!booking.status === 'pending') {
+        //     form.submit();
+        // }else{
+        //     openDialog('Error', 'Your application is not confirmed please wait until confirm, the application will confirm within 24 working hours after booking.', true);
+        // }
+        form.submit();
     };
 
     if (loading) return <Loading/>

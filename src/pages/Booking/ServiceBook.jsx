@@ -1,42 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import SuccessPopup from '../../components/popups/SuccessPopup';
-import CryptoJS from 'crypto-js';
-import { Dropdown } from 'react-bootstrap';
 import axios from 'axios';
 import Loading from '../../components/popups/Loading';
 import { useNavigate } from 'react-router-dom';
 import { useDialog } from '../../components/popups/DialogContext';
+import { Dropdown } from 'react-bootstrap';
+import './style.css'; // Include the CSS file
 
 function MainFunctionHallBooking() {
-    const [ApplicationNo, setApplicationNo] = useState(null)
     const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        phoneNumber: '',
-        sporti: '',
-        checkIn: '',
-        checkOut: '',
+        officerName: '',
+        officerDesignation: '',
+        officerCadre: '',
+        officerEmail: '',
+        officerPhoneNumber: '',
+        checkInDate: '',
+        checkOutDate: '',
         serviceName: '',
         serviceType: '',
-        Paidamount:'pending',
-        Paiddatetime:'pending',
-        K1TranNo:'pending',    
-        SPORTIPWD:'pending',
-        SPORTIUSRID:'pending',
-        CheckSum:'pending'
+        totalCost: 0,
     });
-    const [showmodal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [desc, setDesc] = useState(null);
     const [title, setTitle] = useState(null);
-    const [message, setMessage] = useState('');
-    const [isLoading, setIsLoading] = useState(false)
-    const [errors, setErrors] = useState({
-        username: '',
-        email: '',
-        phoneNumber: '',
-        serviceName: '',
-        serviceType: ''
-    });
+    const [isLoading, setIsLoading] = useState(false);
+    const [errors, setErrors] = useState({});
+    const [selectedLanguage, setSelectedLanguage] = useState(null); // State for selected language
+
+    const navigate = useNavigate();
+    const { openDialog } = useDialog();
+
+    useEffect(() => {
+        calculateTotalCost(); // Calculate total cost on initial render
+    }, [formData.serviceName, formData.serviceType]); // Run when serviceName or serviceType changes
 
     const handleClose = () => {
         setShowModal(false);
@@ -54,7 +50,6 @@ function MainFunctionHallBooking() {
             ...formData,
             [name]: value
         });
-        // Reset error message when input changes
         setErrors({
             ...errors,
             [name]: ''
@@ -63,35 +58,55 @@ function MainFunctionHallBooking() {
 
     const validateForm = () => {
         let isValid = true;
-        const newErrors = { ...errors };
+        const newErrors = {};
 
-        if (!formData.username.trim()) {
-            newErrors.username = 'Username is required';
+        if (!formData.officerName.trim()) {
+            newErrors.officerName = 'Officer\'s name is required';
             isValid = false;
         }
 
-        if (!formData.email.trim()) {
-            newErrors.email = 'Email is required';
-            isValid = false;
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Invalid email address';
+        if (!formData.officerDesignation.trim()) {
+            newErrors.officerDesignation = 'Designation is required';
             isValid = false;
         }
 
-        if (!formData.phoneNumber.trim()) {
-            newErrors.phoneNumber = 'Phone number is required';
-            isValid = false;
-        } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
-            newErrors.phoneNumber = 'Invalid phone number';
+        if (!formData.officerCadre.trim()) {
+            newErrors.officerCadre = 'Cadre is required';
             isValid = false;
         }
 
-        if (formData.serviceName==null) {
+        if (!formData.officerEmail.trim()) {
+            newErrors.officerEmail = 'Email is required';
+            isValid = false;
+        } else if (!/\S+@\S+\.\S+/.test(formData.officerEmail)) {
+            newErrors.officerEmail = 'Invalid email address';
+            isValid = false;
+        }
+
+        if (!formData.officerPhoneNumber.trim()) {
+            newErrors.officerPhoneNumber = 'Phone number is required';
+            isValid = false;
+        } else if (!/^\d{10}$/.test(formData.officerPhoneNumber)) {
+            newErrors.officerPhoneNumber = 'Invalid phone number';
+            isValid = false;
+        }
+
+        if (!formData.checkInDate) {
+            newErrors.checkInDate = 'Check-in date is required';
+            isValid = false;
+        }
+
+        if (!formData.checkOutDate) {
+            newErrors.checkOutDate = 'Check-out date is required';
+            isValid = false;
+        }
+
+        if (!formData.serviceName) {
             newErrors.serviceName = 'Service name is required';
             isValid = false;
         }
 
-        if (!formData.serviceType==null) {
+        if (!formData.serviceType) {
             newErrors.serviceType = 'Service type is required';
             isValid = false;
         }
@@ -145,219 +160,177 @@ function MainFunctionHallBooking() {
                     total = 0;
             }
         }
+        setFormData({
+            ...formData,
+            totalCost: total
+        });
         return total;
     };
 
-    const generateHash512 = (text) => {
-        const hash = CryptoJS.SHA512(text);
-        return hash.toString(CryptoJS.enc.Hex);
+    const handleLanguageChange = (language) => {
+        setSelectedLanguage(language);
     };
 
-    const createPaymentForm = (name, email, phonenumber, service, applicationNo) => {
-        const requestData = {
-            K1USRID: 'K1SPOTIUSER',
-            K1PWD: '39d16932b27ba15a4c77fd09f8817b2dbce0089dfd45b602fdad8881127002560c5249a77c9dce96fc88a035a1393553ca80f1196b2f89a27b701525533fc55c',
-            Name: formData.username,
-            AppNo: applicationNo,
-            Email: formData.email,
-            Phone: formData.phoneNumber,
-            ProductInfo: formData.serviceName,
-            AmountPaid: calculateTotalCost(),
-        };
-
-        // Concatenate parameters in the specified order
-        const requestDataString = `K1USRID=${requestData.K1USRID}|K1PWD=${requestData.K1PWD}|Name=${requestData.Name}|AppNo=${requestData.AppNo}|Phone=${requestData.Phone}|Email=${requestData.Email}|ProductInfo=${requestData.ProductInfo}|AmountPaid=${requestData.AmountPaid}`;
-
-        // Generate checksum based on concatenated string
-        const checksum = generateHash512(requestDataString);
-
-        // Append checksum and return URL
-        const formValue = `${requestDataString}|CheckSum=${checksum}|ReturnURL=http://localhost:3000/payment`;
-
-        // Create form element
-        const form = document.createElement('form');
-        form.id = 'FormPost';
-        form.method = 'post';
-        form.action = 'https://koneportal.cmsuat.co.in:1443/SPORTI/Index/UXhBakNVanVwTFRWM3IremdWSjV5dz09';
-
-        // Create and append input for SPORTIFormData
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.id = 'SPORTIFormData';
-        input.name = 'SPORTIFormData';
-        input.value = formValue;
-        form.appendChild(input);
-
-        // Append form to body and submit
-        document.body.appendChild(form);
-        form.submit();
+    const translateToKannada = (text) => {
+        // Dummy translation logic, replace with actual translation mechanism
+        switch (text) {
+            case 'Officer\'s Name':
+                return 'ಅಧಿಕಾರಿಗಳ ಹೆಸರು';
+            case 'Designation':
+                return 'ಹುದ್ದೆ';
+            case 'Cadre':
+                return 'ಶ್ರೇಣಿ';
+            case 'Email':
+                return 'ಇಮೇಲ್';
+            case 'Phone Number':
+                return 'ದೂರವಾಣಿ ಸಂಖ್ಯೆ';
+            case 'Check-in Date':
+                return 'ಚೆಕ್-ಇನ್ ದಿನಾಂಕ';
+            case 'Check-out Date':
+                return 'ಚೆಕ್-ಔಟ್ ದಿನಾಂಕ';
+            case 'Service Name':
+                return 'ಸೇವೆಯ ಹೆಸರು';
+            case 'Service Type':
+                return 'ಸೇವೆಯ ರೀತಿ';
+            case 'Total Cost (₹)':
+                return 'ಒಟ್ಟು ವೆಚ್ಚ (₹)';
+            case 'Submit':
+                return 'ಸಲ್ಲಿಸಿ';
+            case 'Cancel':
+                return 'ರದ್ದುಮಾಡಿ';
+            default:
+                return text;
+        }
     };
-    const navigate = useNavigate()
-    const {openDialog} = useDialog();
+
     const submitForm = (e) => {
-        e.preventDefault()
-        setIsLoading(true)
-        axios.post('https://sporti-backend-2-o22y.onrender.com/api/payment', formData)
-        .then(response => {
-            const { success, user } = response.data;
-            console.log(response)
-            if (success) {
-                setIsLoading(false);
-                // createPaymentForm(formData.username, formData.email, formData.phoneNumber, formData.serviceName, user.applicationNo)
-                // setMessage(`Booking submitted successfully with application number ${user.applicationNo}`);
-                // openModal('Success', `Booking submitted successfully with application number ${user.applicationNo}`)
-                openDialog('Success', `Booking submitted successfully with application number ${user.applicationNo} `, false);
-                navigate(`/payment/${user.applicationNo}`);
+        e.preventDefault();
+        if (!validateForm()) {
+            return;
+        }
 
-            } else {
+        setIsLoading(true);
+        axios.post('http://localhost:3005/api/payment', formData)
+            .then(response => {
+                const { success, user } = response.data;
+                if (success) {
+                    setIsLoading(false);
+                    openDialog('Success', `Booking submitted successfully with application number ${user.applicationNo}`, false);
+                    navigate(`/payment/${user.applicationNo}`);
+                } else {
+                    setIsLoading(false);
+                    openDialog('Error', 'Your application is not confirmed. Please wait until confirmation. The application will be confirmed within 24 working hours after booking.', true);
+                }
+            })
+            .catch((error) => {
                 setIsLoading(false);
-                openDialog('Error', 'Your application is not confirmed please wait until confirm, the application will confirm within 24 working hours after booking.', true);
-            }
-        })
-        .catch(error => console.error('Error submitting form:', error));
+                console.error('Error submitting form:', error);
+            });
     };
-    if(isLoading){
-        return <Loading/>
+
+    if (isLoading) {
+        return <Loading />;
     }
 
     return (
         <div className='main-function-hall-booking container-fluid p-3 p-md-5'>
             <div className="row">
-                <div className="col-md-8">
-                    <h1 className="fs-1">Book Our services</h1>
-                   <form>
-                   <div className="row">
-                            <div className="col-md-12">
-                                {/* <div className="form-group mt-3">
-                                    <label htmlFor="username" className="form-label">Username</label>
-                                    <input type="text" className="form-control" name="username" id="username" value={formData.username} onChange={handleFormChange} />
-                                    {errors.username && <small className="text-danger">{errors.username}</small>}
-                                </div> */}
-                            </div>
-                            <div className="col-md-12">
-                                <div className="form-group mt-3">
-                                    <label htmlFor="username" className="form-label">Officer's Name</label>
-                                    <input type="text" className="form-control" name="username" id="username" value={formData.username} onChange={handleFormChange} />
-                                    {errors.username && <small className="text-danger">{errors.username}</small>}
-                                </div>
-                            </div>
-
-                            <div className="col-md-12">
-                                <div className="form-group mt-3">
-                                    <label htmlFor="username" className="form-label">Designation</label>
-                                    <input type="text" className="form-control" name="designation" id="designation" value={formData.designation} onChange={handleFormChange} />
-                                    {errors.username && <small className="text-danger">{errors.username}</small>}
-                                </div>
-                            </div>
-
-                            <div className="col-md-12">
-                                <div className="form-group mt-3">
-                                    <label htmlFor="username" className="form-label">Cadre</label>
-                                    <input type="text" className="form-control" name="cadre" id="cader" value={formData.cadre} onChange={handleFormChange} />
-                                    {errors.username && <small className="text-danger">{errors.username}</small>}
-                                </div>
-                            </div>
-                            <div className="col-md-12">
-                                <div className="form-group mt-3">
-                                    <label htmlFor="email" className="form-label">Email</label>
-                                    <input type="text" className="form-control" name="email" id="email" value={formData.email} onChange={handleFormChange} />
-                                    {errors.email && <small className="text-danger">{errors.email}</small>}
-                                </div>
+                <div className="col-md-8 m-auto bg-white p-0">
+                    <div className="bg-main p-3 text-center">
+                        <h1 className="fs-3 text-light">{selectedLanguage === 'kannada' ? 'ಕರ್ನಾಟಕ ಸರ್ಕಾರ ಸೇವೆ ಬುಕ್ಕಿಂಗ್ ವೇಳಾಪಟ್ಟಿ' : 'Karnataka Government Service Booking Form'}</h1>
+                        <p className="text-light">
+                            {selectedLanguage === 'kannada' ? 'ಈ ಫಾರಂ ಅಧಿಕಾರಿಗಳಿಗೆ ಇತರ ಸಲಹೆಗಳಿಂದ ಬಹುಮಾನಗಳನ್ನು ಪುಡಿಸುವ ಅವಕಾಶವನ್ನು ಒದಗಿಸುತ್ತದೆ.' : 'This form provides an opportunity for officers to book various sports services offered through the department.'}
+                        </p>
+                    </div>
+                    <form onSubmit={submitForm} className="p-3">
+                        <div className="mb-3">
+                            <label htmlFor="officerName" className="form-label">{selectedLanguage === 'kannada' ? 'ಅಧಿಕಾರಿಗಳ ಹೆಸರು' : 'Officer\'s Name'}</label>
+                            <input type="text" className={`form-control ${errors.officerName ? 'is-invalid' : ''}`} id="officerName" name="officerName" value={formData.officerName} onChange={handleFormChange} />
+                            {errors.officerName && <div className="invalid-feedback">{errors.officerName}</div>}
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="officerDesignation" className="form-label">{selectedLanguage === 'kannada' ? 'ಹುದ್ದೆ' : 'Designation'}</label>
+                            <input type="text" className={`form-control ${errors.officerDesignation ? 'is-invalid' : ''}`} id="officerDesignation" name="officerDesignation" value={formData.officerDesignation} onChange={handleFormChange} />
+                            {errors.officerDesignation && <div className="invalid-feedback">{errors.officerDesignation}</div>}
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="officerCadre" className="form-label">{selectedLanguage === 'kannada' ? 'ಶ್ರೇಣಿ' : 'Cadre'}</label>
+                            <input type="text" className={`form-control ${errors.officerCadre ? 'is-invalid' : ''}`} id="officerCadre" name="officerCadre" value={formData.officerCadre} onChange={handleFormChange} />
+                            {errors.officerCadre && <div className="invalid-feedback">{errors.officerCadre}</div>}
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="officerEmail" className="form-label">{selectedLanguage === 'kannada' ? 'ಇಮೇಲ್' : 'Email'}</label>
+                            <input type="email" className={`form-control ${errors.officerEmail ? 'is-invalid' : ''}`} id="officerEmail" name="officerEmail" value={formData.officerEmail} onChange={handleFormChange} />
+                            {errors.officerEmail && <div className="invalid-feedback">{errors.officerEmail}</div>}
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="officerPhoneNumber" className="form-label">{selectedLanguage === 'kannada' ? 'ದೂರವಾಣಿ ಸಂಖ್ಯೆ' : 'Phone Number'}</label>
+                            <input type="tel" className={`form-control ${errors.officerPhoneNumber ? 'is-invalid' : ''}`} id="officerPhoneNumber" name="officerPhoneNumber" value={formData.officerPhoneNumber} onChange={handleFormChange} />
+                            {errors.officerPhoneNumber && <div className="invalid-feedback">{errors.officerPhoneNumber}</div>}
+                        </div>
+                        <div className="row mb-3">
+                            <div className="col-md-6">
+                                <label htmlFor="checkInDate" className="form-label">{selectedLanguage === 'kannada' ? 'ಚೆಕ್-ಇನ್ ದಿನಾಂಕ' : 'Check-in Date'}</label>
+                                <input type="date" className={`form-control ${errors.checkInDate ? 'is-invalid' : ''}`} id="checkInDate" name="checkInDate" value={formData.checkInDate} onChange={handleFormChange} />
+                                {errors.checkInDate && <div className="invalid-feedback">{errors.checkInDate}</div>}
                             </div>
                             <div className="col-md-6">
-                                <div className="form-group mt-3">
-                                    <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
-                                    <input type="text" className="form-control" name="phoneNumber" id="phoneNumber" value={formData.phoneNumber} onChange={handleFormChange} />
-                                    {errors.phoneNumber && <small className="text-danger">{errors.phoneNumber}</small>}
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-group mt-3">
-                                    <label htmlFor="check" className="form-label">checkin</label>
-                                    <input type="date" className="form-control" name="checkIn" id="phoneNumber" value={formData.checkIn} onChange={handleFormChange} />
-                                    {errors.checkIn && <small className="text-danger">{errors.checkIn}</small>}
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-group mt-3">
-                                    <label htmlFor="check" className="form-label">check out</label>
-                                    <input type="date" className="form-control" name="checkOut" id="phoneNumber" value={formData.checkOut} onChange={handleFormChange} />
-                                    {errors.checkOut && <small className="text-danger">{errors.checkOut}</small>}
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-group mt-3">
-                                    <label htmlFor="check" className="form-label">Sporti</label>
-                                   <select name="sporti" className='form-select' id="" value={formData.sporti} onChange={handleFormChange}>
-                                    <option value="sporti1">SPORTI-1</option>
-                                    <option value="sporti2">SPORTI-2</option>
-                                   </select>
-                                </div>
-                            </div>
-                        <div className="col-md-6">
-                            <div className="form-group mt-3">
-                                <label htmlFor="serviceName" className="form-label">Service Name</label>
-                                <Dropdown className='w-100'>
-                                    <Dropdown.Toggle className='bg-light text-dark border-secondary w-100 text-start'>
-                                        {formData.serviceName || 'Select Service Name'}
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => setFormData({ ...formData, serviceName: 'Main Event Hall Booking' })}>Main Event Hall Booking</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => setFormData({ ...formData, serviceName: 'Conference Hall Booking' })}>Conference Hall Booking</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => setFormData({ ...formData, serviceName: 'Training Hall Booking' })}>Training Hall Booking</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => setFormData({ ...formData, serviceName: 'Barbeque Area Booking' })}>Barbeque Area Booking</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => setFormData({ ...formData, serviceName: 'Badminton' })}>BADMINTON Booking</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => setFormData({ ...formData, serviceName: 'mini theatre' })}>MINI THEATRE Booking</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => setFormData({ ...formData, serviceName: 'table tennis' })}>TABLE TENNIS Booking</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                                {errors.serviceName && <small className="text-danger">{errors.serviceName}</small>}
+                                <label htmlFor="checkOutDate" className="form-label">{selectedLanguage === 'kannada' ? 'ಚೆಕ್-ಔಟ್ ದಿನಾಂಕ' : 'Check-out Date'}</label>
+                                <input type="date" className={`form-control ${errors.checkOutDate ? 'is-invalid' : ''}`} id="checkOutDate" name="checkOutDate" value={formData.checkOutDate} onChange={handleFormChange} />
+                                {errors.checkOutDate && <div className="invalid-feedback">{errors.checkOutDate}</div>}
                             </div>
                         </div>
-                        <div className="col-md-6">
-                            <div className="form-group mt-3">
-                                <label htmlFor="serviceType" className="form-label">Service Type</label>
-                                <Dropdown className='w-100'>
-                                    <Dropdown.Toggle className='bg-light text-dark border-secondary w-100 text-start'>
-                                        {formData.serviceType || 'Select Service Type'}
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => setFormData({ ...formData, serviceType: 'Private Parties' })}>Private Parties</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => setFormData({ ...formData, serviceType: 'Senior Police Officers of Other Govt Department' })}>Senior Police Officers of Other Govt Department</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => setFormData({ ...formData, serviceType: 'Serving and Senior Police Officers' })}>Serving and Senior Police Officers</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                                {errors.serviceType && <small className="text-danger">{errors.serviceType}</small>}
+                        <div className="mb-3">
+                            <label htmlFor="serviceName" className="form-label">{selectedLanguage === 'kannada' ? 'ಸೇವೆಯ ಹೆಸರು' : 'Service Name'}</label>
+                            <Dropdown>
+                                <Dropdown.Toggle variant="secondary" id="serviceName-dropdown">
+                                    {formData.serviceName ? translateToKannada(formData.serviceName) : 'Select Service'}
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => setFormData({...formData, serviceName: 'Main Event Hall Booking'})}>{translateToKannada('Main Event Hall Booking')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setFormData({...formData, serviceName: 'Conference Hall Booking'})}>{translateToKannada('Conference Hall Booking')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setFormData({...formData, serviceName: 'Barbeque Area Booking'})}>{translateToKannada('Barbeque Area Booking')}</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            {errors.serviceName && <div className="invalid-feedback">{errors.serviceName}</div>}
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="serviceType" className="form-label">{selectedLanguage === 'kannada' ? 'ಸೇವೆಯ ರೀತಿ' : 'Service Type'}</label>
+                            <Dropdown>
+                                <Dropdown.Toggle variant="secondary" id="serviceType-dropdown">
+                                    {formData.serviceType ? translateToKannada(formData.serviceType) : 'Select Type'}
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => setFormData({...formData, serviceType: 'Private Parties'})}>{translateToKannada('Private Parties')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setFormData({...formData, serviceType: 'Senior Police Officers of Other Govt Department'})}>{translateToKannada('Senior Police Officers of Other Govt Department')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setFormData({...formData, serviceType: 'Serving and Senior Police Officers'})}>{translateToKannada('Serving and Senior Police Officers')}</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            {errors.serviceType && <div className="invalid-feedback">{errors.serviceType}</div>}
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">{selectedLanguage === 'kannada' ? 'ಒಟ್ಟು ವೆಚ್ಚ (₹)' : 'Total Cost (₹)'}</label>
+                            <input type="text" className="form-control" value={formData.totalCost} readOnly />
+                        </div>
+                        <div className="d-flex justify-content-between mb-3">
+                            <Dropdown>
+                                <Dropdown.Toggle variant="primary" id="language-dropdown">
+                                    {selectedLanguage === 'kannada' ? 'ಭಾಷೆ' : 'Language'}
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => handleLanguageChange(null)}>English</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => handleLanguageChange('kannada')}>ಕನ್ನಡ</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            <div className='d-flex justify-content-end'>
+                                <button type="submit" className="blue-btn rounded-1">{selectedLanguage === 'kannada' ? 'ಸಲ್ಲಿಸಿ' : 'Submit'}</button>
+                                <button type="button" className="btn btn-danger ms-2 rounded-1" onClick={() => navigate('/')}>{selectedLanguage === 'kannada' ? 'ರದ್ದುಮಾಡಿ' : 'Cancel'}</button>
                             </div>
                         </div>
-                    </div>
-                    <button className="btn btn-primary mt-4" type='button' onClick={submitForm}>Send Request</button>
-                   </form>
-                </div>
-                <div className="col-md-4">
-                    <div className="card">
-                        <ul className="list-group">
-                            <li className='list-group-item'>Username: {formData.username}</li>
-                            <li className='list-group-item'>Email: {formData.email}</li>
-                            <li className='list-group-item'>Phone Number: {formData.phoneNumber}</li>
-                            <li className='list-group-item'>SPORTI: {formData.sporti}</li>
-                            <li className='list-group-item'>Check In: {formData.checkIn}</li>
-                            <li className='list-group-item'>Check Out: {formData.checkOut}</li>
-                            <li className='list-group-item'>Service Name: {formData.serviceName}</li>
-                            <li className='list-group-item'>Service Type: {formData.serviceType}</li>
-                            <li className='list-group-item'>Service Price: {calculateTotalCost()}</li>
-                            <li className='list-group-item'><h1 className='fs-2 fw-bold'>Total: {calculateTotalCost()}</h1> </li>
-                           
-                        </ul>
-                    </div>
+                    </form>
                 </div>
             </div>
-            <div className="row">
-                <div className="col-md-12">
-                    {message && <p>{message}</p>}
-                </div>
-            </div>
-            <SuccessPopup show={showmodal} close={handleClose} title={title} desc={desc}/>
+            {showModal && <SuccessPopup title={title} desc={desc} handleClose={handleClose} />}
         </div>
     );
 }

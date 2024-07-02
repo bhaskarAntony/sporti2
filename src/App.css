@@ -23,15 +23,22 @@
   font-family: "DM Sans",sans-serif !important;
  
 }
-.app{
+/* .app{
 background-color: var(--bg-color) !important; 
-}
+} */
 /* .sporti1{
   background: url(../public/images/sporti1/sport1_cover.jpg) no-repeat center top !important;
   background-size: contain;
   min-height: 70vh !important;
 } */
 
+/* *{
+  color: #fff !important;
+  background: #0c0c0c !important;
+}
+.app h1{
+  color: #F6D776 !important;
+} */
 .sporti2{
   background: url('../public/images/sporti2/sporti2_banner.jpg') no-repeat center !important;
   background-size: cover !important;
@@ -171,6 +178,9 @@ text-align: center;
 }
 .fs{
   font-size: 3rem !important;
+}
+.bg-main{
+  background: var(--gradient);
 }
 
 
