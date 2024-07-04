@@ -210,7 +210,7 @@ function MainFunctionHallBooking() {
         }
 
         setIsLoading(true);
-        axios.post('http://localhost:3005/api/payment', formData)
+        axios.post('https://sporti-backend-2-o22y.onrender.com/api/payment', formData)
             .then(response => {
                 const { success, user } = response.data;
                 if (success) {

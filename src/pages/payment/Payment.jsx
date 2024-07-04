@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './style.css'
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import { useParams } from 'react-router-dom';
@@ -86,23 +87,35 @@ const Payment = () => {
     if (error) return <p>{ openDialog('Error', 'something went wrong please refresh the page to try...', true)}</p>;
 
     return (
-        <div className='p-5'>
+        <div className='p-2 p-md-4 payment'>
        <div className="row">
-        <div className="col-md-6 m-auto">
-        <div className="card p-3 shadow w-100">
-           <h1 className='fs-1'>Booking Details</h1>
-           <hr />
-           <ul className="list-group">
-           <li className="list-group-item"> <p className='fs-4'><b>Username:</b> {booking.username}</p></li>
-           <li  className="list-group-item"> <p className='fs-4'><b>Email:</b> {booking.email}</p></li>
-         <li  className="list-group-item">   <p className='fs-4'><b>Service:</b> {booking.serviceName}</p></li>
-            <li  className="list-group-item"><p className='fs-4'><b>Check-in:</b> {new Date(booking.checkIn).toLocaleDateString()}</p></li>
-           <li  className="list-group-item"> <p className='fs-4'><b>Check-out:</b> {new Date(booking.checkOut).toLocaleDateString()}</p></li>
-           <li className="d-flex gap-3 list-group-item flex-nowrap">
-          <button onClick={createPaymentForm} className='blue-btn w-100'>Online Payment</button>
-          <button onClick={createPaymentForm} className='blue-btn w-100'>Offline Payment</button>
-          </li>
+        <div className="col-md-8 m-auto">
+        <div className="card border-0 rounded-0  w-100 p-0">
+          <div className="bg-main p-3 text-center">
+          <h1 className='fs-3 text-light'>SPORTI service booking details</h1>
+          <p className="fs-6 text-light text-center">Here you can find all yoir application details for SPORTI service once it confirm pay ammount throgh online or offline.</p>
+        
+          <p className="fs-6 text-light"></p>
+          </div>
+      
+         <div className="p-3">
+         <ul className="list-group rounded-1">
+           <li className="list-group-item"> <p className='fs-5'><b>Username:</b> {booking.username}</p></li>
+           <li  className="list-group-item"> <p className='fs-5'><b>Email:</b> {booking.email}</p></li>
+         <li  className="list-group-item">   <p className='fs-5'><b>Service:</b> {booking.serviceName}</p></li>
+            <li  className="list-group-item"><p className='fs-5'><b>Check-in:</b> {new Date(booking.checkIn).toLocaleDateString()}</p></li>
+           <li  className="list-group-item"> <p className='fs-5'><b>Check-out:</b> {new Date(booking.checkOut).toLocaleDateString()}</p></li>
            </ul>
+         </div>
+           <div className="d-flex gap-3  flex-nowrap justify-content-end p-2">
+          <button onClick={createPaymentForm} className='btn btn-success rounded-1 m-1'>Pay Online</button>
+          <button onClick={createPaymentForm} className='btn btn-danger rounded-1 m-1'>Pay Offline </button>
+          </div>
+         
+           <div className="bg-main text-light p-3">
+            <p className="fs-5 text-center">Note</p>
+           <p className="fs-6 text-center">you can pay money throgh online or offline once the admin is confirm your service request it once confirm you will get sms message if you are already goth sms means your application has been verified now you can pay the money if you are not got any sms please visite later to this page and search your appliation number and check your application status if your appliation is reject then also you will get sms notification this precess will happen in 24 working hours for further information plase contact SPORTI team.</p>
+           </div>
            </div>
         </div>
        </div>
