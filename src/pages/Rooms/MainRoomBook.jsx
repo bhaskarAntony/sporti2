@@ -30,6 +30,8 @@ function MainRoomBook() {
     const [desc, setDesc] = useState(null);
     const [title, setTitle] = useState(null);
     const [selectedLanguage, setSelectedLanguage] = useState('english');
+    const [numberOfDays, setNumberOfDays] = useState(0);
+    const [perDayCost, setPerDayCost] = useState(0);
 
     useEffect(() => {
         const totalCost = calculateTotalCost();
@@ -37,7 +39,8 @@ function MainRoomBook() {
             ...prevFormData,
             totalCost,
         }));
-    }, [formData.roomType, formData.guestType, formData.noGuests]);
+    }, [formData.roomType, formData.guestType, formData.noGuests, formData.checkIn, formData.checkOut]);
+
 
     const handleClose = () => {
         setShowModal(false);
@@ -160,8 +163,18 @@ function MainRoomBook() {
                 roomPrice = 0;
         }
 
-        return roomPrice * formData.noGuests;
+        setPerDayCost(roomPrice);
+
+        const checkInDate = new Date(formData.checkIn);
+        const checkOutDate = new Date(formData.checkOut);
+        const diffTime = Math.abs(checkOutDate - checkInDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        setNumberOfDays(diffDays);
+
+        return roomPrice * formData.noGuests * diffDays;
     };
+
 
     const renderRoomTypes = () => {
         if (formData.sporti === 'SPORTI-1' || formData.sporti === 'SPORTI-2') {

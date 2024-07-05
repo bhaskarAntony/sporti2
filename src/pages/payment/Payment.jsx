@@ -47,7 +47,7 @@ const Payment = () => {
             Email: booking.email,
             Phone: booking.phoneNumber,
             ProductInfo: booking.serviceName,
-            AmountPaid: calculateTotalCost(),
+            AmountPaid: booking.totalCost,
         };
 
         // Concatenate parameters in the specified order
