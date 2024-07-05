@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './style.css'
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDialog } from '../../components/popups/DialogContext';
 import Loading from '../../components/popups/Loading';
 
@@ -75,14 +75,18 @@ const Payment = () => {
 
         // Append form to body and submit
         document.body.appendChild(form);
-        // if(!booking.status === 'pending') {
-        //     form.submit();
-        // }else{
-        //     openDialog('Error', 'Your application is not confirmed please wait until confirm, the application will confirm within 24 working hours after booking.', true);
-        // }
-        form.submit();
+        if(!booking.status === 'pending') {
+            form.submit();
+        }else{
+            openDialog('Error', 'Your application is not confirmed please wait until confirm, the application will confirm within 24 working hours after booking.', true);
+        }
     };
+    const navigate = useNavigate()
 
+    const OfflinePay = () =>{
+        openDialog('success', 'you can pay payment at offline.');
+        navigate('/');
+    }
     if (loading) return <Loading/>
     if (error) return <p>{ openDialog('Error', 'something went wrong please refresh the page to try...', true)}</p>;
 
@@ -103,13 +107,15 @@ const Payment = () => {
            <li className="list-group-item"> <p className='fs-5'><b>Username:</b> {booking.username}</p></li>
            <li  className="list-group-item"> <p className='fs-5'><b>Email:</b> {booking.email}</p></li>
          <li  className="list-group-item">   <p className='fs-5'><b>Service:</b> {booking.serviceName}</p></li>
-            <li  className="list-group-item"><p className='fs-5'><b>Check-in:</b> {new Date(booking.checkIn).toLocaleDateString()}</p></li>
-           <li  className="list-group-item"> <p className='fs-5'><b>Check-out:</b> {new Date(booking.checkOut).toLocaleDateString()}</p></li>
+            {/* <li  className="list-group-item"><p className='fs-5'><b>Check-in:</b> {new Date(booking.checkIn).toLocaleDateString()}</p></li>
+           <li  className="list-group-item"> <p className='fs-5'><b>Check-out:</b> {new Date(booking.checkOut).toLocaleDateString()}</p></li> */}
+
+           <li  className="list-group-item"> <p className='fs-5'><b>Total Amount</b> {booking.totalCost}</p></li>
            </ul>
          </div>
            <div className="d-flex gap-3  flex-nowrap justify-content-end p-2">
           <button onClick={createPaymentForm} className='btn btn-success rounded-1 m-1'>Pay Online</button>
-          <button onClick={createPaymentForm} className='btn btn-danger rounded-1 m-1'>Pay Offline </button>
+          <button onClick={OfflinePay} className='btn btn-danger rounded-1 m-1'>Pay Offline </button>
           </div>
          
            <div className="bg-main text-light p-3">
