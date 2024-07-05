@@ -79,16 +79,16 @@ function Header({ toggleTheme, theme }) {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ul>
-            <li><a href="/"><i className="bi bi-house-door-fill"></i> {isKannada ? 'ಮನೆ' : 'Home'}</a></li>
-            <li><a href="/about"><i className="bi bi-file-person-fill"></i> {isKannada ? 'ನಮ್ಮ ಬಗ್ಗೆ' : 'About Us'}</a></li>
+            <li><a href="/"> {isKannada ? 'ಮನೆ' : 'Home'}</a></li>
+            <li><a href="/about"> {isKannada ? 'ನಮ್ಮ ಬಗ್ಗೆ' : 'About Us'}</a></li>
             <li><a href="/services/sporti1">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-1' : 'SPORTI-1'}</a></li>
             <li><a href="/services/sporti2">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</a></li>
             <li><a href="/login">{isKannada ? 'ಲಾಗಿನ್' : 'Login'}</a></li>
-            <li><a href="/events&gallery"><i className="bi bi-images"></i> {isKannada ? 'ಈವೆಂಟ್‌ಗಳು ಮತ್ತು ಗ್ಯಾಲರಿ' : 'Events & Gallery'}</a></li>
-            <li><a href="/faqs"><i className="bi bi-stars"></i> {isKannada ? 'ಪ್ರಶ್ನೆಗಳು' : "FAQ's"}</a></li>
+            <li><a href="/events&gallery">{isKannada ? 'ಈವೆಂಟ್‌ಗಳು ಮತ್ತು ಗ್ಯಾಲರಿ' : 'Events & Gallery'}</a></li>
+            <li><a href="/faqs">{isKannada ? 'ಪ್ರಶ್ನೆಗಳು' : "FAQ's"}</a></li>
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownServices2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i className="bi bi-stars"></i> {isKannada ? 'ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ' : 'Contact us'}
+                {isKannada ? 'ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ' : 'Contact us'}
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdownServices2">
                 <li><a className="dropdown-item text-dark" href="/contact/sporti1">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-1' : 'SPORTI-1'}</a></li>

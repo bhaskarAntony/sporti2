@@ -73,7 +73,7 @@ function App(){
  
   return (
     <div className="App overflow-hidden">
-      <button onClick={()=>setIsKannada(!isKannada)}>{isKannada?'To English':'To Kannada'}</button>
+      {/* <button onClick={()=>setIsKannada(!isKannada)}>{isKannada?'To English':'To Kannada'}</button> */}
    <TranslationHOC>
     <BrowserRouter>
     <ScrollToTop/>

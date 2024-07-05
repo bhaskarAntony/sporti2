@@ -17,7 +17,7 @@ function MainFunctionHallBooking() {
         checkInDate: '',
         checkOutDate: '',
         serviceType: '',
-        serviceName: 'Room Booking',
+        serviceName: '',
         roomType: '',
         noGuests: 1,
         totalCost: 0,
