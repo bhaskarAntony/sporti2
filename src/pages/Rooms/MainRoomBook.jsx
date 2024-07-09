@@ -140,13 +140,16 @@ function MainRoomBook() {
                 } else if (formData.guestType === 'Officers from Other States') {
                     roomPrice = 2100;
                 }
+                else if (formData.guestType === 'Serving and Senior Police Officers') {
+                    roomPrice = 1600;
+                }
                 break;
             case 'VIP':
                 if (formData.guestType === 'Officers from Karnataka') {
                     roomPrice = 1300;
                 } else if (formData.guestType === 'Officers from Other States') {
                     roomPrice = 1600;
-                } else if (formData.guestType === 'Others') {
+                } else if (formData.guestType === 'Serving and Senior Police Officers') {
                     roomPrice = 2700;
                 }
                 break;
@@ -155,7 +158,7 @@ function MainRoomBook() {
                     roomPrice = 800;
                 } else if (formData.guestType === 'Officers from Other States') {
                     roomPrice = 1100;
-                } else if (formData.guestType === 'Others') {
+                } else if (formData.guestType === 'Serving and Senior Police Officers') {
                     roomPrice = 1600;
                 }
                 break;
@@ -373,7 +376,7 @@ function MainRoomBook() {
                                         <Dropdown.Menu>
                                             <Dropdown.Item eventKey="Officers from Karnataka">{selectedLanguage === 'kannada' ? 'ಕರ್ನಾಟಕದ ಅಧಿಕಾರಿಗಳು' : 'Officers from Karnataka'}</Dropdown.Item>
                                             <Dropdown.Item eventKey="Officers from Other States">{selectedLanguage === 'kannada' ? 'ಇತರೆ ರಾಜ್ಯಗಳ ಅಧಿಕಾರಿಗಳು' : 'Officers from Other States'}</Dropdown.Item>
-                                            <Dropdown.Item eventKey="Others">{selectedLanguage === 'kannada' ? 'ಇತರೆ' : 'Others'}</Dropdown.Item>
+                                            <Dropdown.Item eventKey="Serving and Senior Police Officers">{selectedLanguage === 'kannada' ? 'ಇತರೆ' : 'Serving and Senior Police Officers'}</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     {errors.serviceType && <small className="text-danger">{errors.guestType}</small>}
