@@ -191,7 +191,7 @@ function MainFunctionHallBooking() {
 
         setNumberOfDays(diffDays);
 
-        return baseCost * formData.noGuests;
+        return baseCost;
     };
 
     const handleLanguageChange = (language) => {
