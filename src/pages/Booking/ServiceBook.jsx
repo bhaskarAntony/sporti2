@@ -22,6 +22,7 @@ function MainFunctionHallBooking() {
         noGuests: 1,
         totalCost: 0,
         applicationNo: '',
+        eventdate:''
     });
 
     const navigate = useNavigate();
@@ -112,15 +113,12 @@ function MainFunctionHallBooking() {
             isValid = false;
         }
 
-        if (!formData.checkInDate) {
-            newErrors.checkInDate = 'Check-in date is required';
+        if (!formData.eventdate) {
+            newErrors.eventdate = 'event date is required';
             isValid = false;
         }
 
-        if (!formData.checkOutDate) {
-            newErrors.checkOutDate = 'Check-out date is required';
-            isValid = false;
-        }
+      
 
         if (!formData.serviceName) {
             newErrors.serviceName = 'Service name is required';
@@ -193,7 +191,7 @@ function MainFunctionHallBooking() {
 
         setNumberOfDays(diffDays);
 
-        return baseCost * formData.noGuests * diffDays;
+        return baseCost * formData.noGuests;
     };
 
     const handleLanguageChange = (language) => {
@@ -257,7 +255,6 @@ function MainFunctionHallBooking() {
                 console.error('Error submitting form:', error);
             });
     };
-
     if (isLoading) {
         return <Loading />;
     }
@@ -310,15 +307,11 @@ function MainFunctionHallBooking() {
                             {errors.phoneNumber && <span className="text-danger">{errors.phoneNumber}</span>}
                         </div>
                         <div className="form-group mb-3">
-                            <label htmlFor="checkInDate">{selectedLanguage === 'kannada' ? translateToKannada('Check-in Date') : 'Check-in Date'}</label>
-                            <input type="date" className="form-control" id="checkInDate" name="checkInDate" value={formData.checkInDate} onChange={handleFormChange} />
-                            {errors.checkInDate && <span className="text-danger">{errors.checkInDate}</span>}
+                            <label htmlFor="eventdate">{selectedLanguage === 'kannada' ? translateToKannada('Event date') : 'Event date'}</label>
+                            <input type="date" className="form-control" id="eventdate" name="eventdate" value={formData.eventdate} onChange={handleFormChange} />
+                            {errors.eventdate && <span className="text-danger">{errors.eventdate}</span>}
                         </div>
-                        <div className="form-group mb-3">
-                            <label htmlFor="checkOutDate">{selectedLanguage === 'kannada' ? translateToKannada('Check-out Date') : 'Check-out Date'}</label>
-                            <input type="date" className="form-control" id="checkOutDate" name="checkOutDate" value={formData.checkOutDate} onChange={handleFormChange} />
-                            {errors.checkOutDate && <span className="text-danger">{errors.checkOutDate}</span>}
-                        </div>
+                      
                         <div className="form-group mb-3">
                             <label htmlFor="serviceName">{selectedLanguage === 'kannada' ? translateToKannada('Service Name') : 'Service Name'}</label>
                             <Dropdown onSelect={(value) => handleDropdownChange('serviceName', value)}>
