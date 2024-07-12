@@ -328,7 +328,7 @@ function MainFunctionHallBooking() {
                                         <Dropdown.Item eventKey="Conference Hall Booking">Conference Hall Booking</Dropdown.Item>
                                         <Dropdown.Item eventKey="Barbeque Area Booking">Barbeque Area Booking</Dropdown.Item>
                                       </Fragment>
-                                    ):sporti === "sporti-2"?(
+                                    ):sporti == "sporti-2"?(
                                       <Fragment>
                                         
                                         <Dropdown.Item eventKey="Conference Hall Booking">Conference Hall Booking</Dropdown.Item>

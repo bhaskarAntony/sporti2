@@ -84,8 +84,6 @@ const fontSizeClasses = [
         <Hero />
         <Recents />
         <About />
-  
-      
       </div>
     );
   }
