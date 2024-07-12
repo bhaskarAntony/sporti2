@@ -264,7 +264,7 @@ function MainFunctionHallBooking() {
             <div className="row">
                 <div className="col-md-8 m-auto bg-white p-0">
                     <div className="bg-main p-3 text-center">
-                        <h1 className="fs-3 text-light">{selectedLanguage === 'kannada' ? 'ಕರ್ನಾಟಕ ಸರ್ಕಾರ ಸೇವೆ ಬುಕ್ಕಿಂಗ್ ವೇಳಾಪಟ್ಟಿ' : 'Karnataka Government Service Booking Form'}</h1>
+                        <h1 className="fs-3 text-light">{selectedLanguage === 'kannada' ? 'ಕರ್ನಾಟಕ ಸರ್ಕಾರ ಸೇವೆ ಬುಕ್ಕಿಂಗ್ ವೇಳಾಪಟ್ಟಿ' : 'SPORTI Services Booking Form'}</h1>
                         <p className="text-light">
                             {selectedLanguage === 'kannada' ? 'ಈ ಫಾರಂ ಅಧಿಕಾರಿಗಳಿಗೆ ಇತರ ಸಲಹೆಗಳಿಂದ ಬಹುಮಾನಗಳನ್ನು ಪುಡಿಸುವ ಅವಕಾಶವನ್ನು ಒದಗಿಸುತ್ತದೆ.' : 'This form provides an opportunity for officers to book various sports services offered through the department.'}
                         </p>

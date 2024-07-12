@@ -5,13 +5,13 @@ import about from '../../data/AboutSection';
 function About() {
     const {isKannada} = useLanguage();
   return (
-    <div className='about-container p-3 px-md-5 bg-light py-1'>
+    <div className='about-container p-3 px-md-5  py-1'>
         <div className="row align-items-center">
             <div className="col-12 col-md-6">
                 <div className="about-left mb-3">
-                    <p className="fs-4">{isKannada?about.tag_ka:about.tag_en}</p>
-                <h1 className="fs-3 fw-bold title">{isKannada?about.heading_ka:about.heading_en}</h1>
-                <p className="fs-6 text-secondary">{isKannada?about.desc_ka:about.desc_en}</p>
+                    <p className="">{isKannada?about.tag_ka:about.tag_en}</p>
+                <h1 className=" fw-bold title">{isKannada?about.heading_ka:about.heading_en}</h1>
+                <p className=" gray-text">{isKannada?about.desc_ka:about.desc_en}</p>
                 </div>
                 <div className="btns d-flex flex-wrap gap-3 mt-3"> 
                     <a href='/about' className="main-btn">Know More</a>

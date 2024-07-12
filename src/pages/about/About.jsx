@@ -57,7 +57,7 @@ function About() {
         </div>
       </div>
 
-      <div className="bg-light p-3">
+      <div className="light p-3 ">
         <div className="ourteam container">
           <div className="text-center">
             <i className="bi bi-stars fs-2 text-warning"></i>

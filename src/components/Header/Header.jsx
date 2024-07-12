@@ -29,7 +29,7 @@ function Header({ toggleTheme, theme }) {
             <Navbar.Brand href="/">
               <div className='d-flex gap-2 align-items-center logo'>
                 <img src={logo} alt="logooo" className='main-logo' />
-                <h1 className="fs-3 fw-bold m-0 text-black">
+                <h1 className="f3 fw-bold m-0">
                   {isKannada ? 'ಸ್ಪೊರ್ಟಿ' : 'SPORTI'}
                 </h1>
               </div>

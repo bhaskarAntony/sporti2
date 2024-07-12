@@ -47,5 +47,15 @@
 .step-card{
     padding: 10px;
 }   
+.high-contrast {
+    background: black !important;
+    color: rgb(248, 202, 0) !important;
+  }
+  
+  .high-contrast button {
+    background: white;
+    color: black;
+  }
+  
 
 

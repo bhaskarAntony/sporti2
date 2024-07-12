@@ -45,18 +45,23 @@ import ScrollToTop from './components/ScrollToTop';
 // import Payment from './pages/payment/Payment';
 import { useLanguage } from './context/LangaugeContext';
 import Payment from './pages/payment/Payment';
+import { Dropdown } from 'react-bootstrap';
 // import Payment from './pages/paymentpage/Payment';
 // import Verify from './pages/Verification/Verify';
+import FontSizeChanger from 'react-font-size-changer';
 
 function App(){
-  useEffect(()=>{
-    Aos.init();
-  }, [])
+  const [isHighContrast, setIsHighContrast] = useState(false);
+ 
 
   const [fontSize, setFontSize] = useState('16px'); // Default font size
 
   const handleFontSizeChange = (event) => {
     setFontSize(event.target.value);
+  };
+
+  const toggleHighContrast = () => {
+    setIsHighContrast(prevState => !prevState);
   };
 
   const [theme, setTheme] = useState('light');
@@ -70,10 +75,58 @@ function App(){
   };
   const {logout} = useAuth();
   const {setIsKannada, isKannada} = useLanguage();
- 
+
+  const highContrastClass = isHighContrast ? 'high-contrast' : '';
+
+  const [fontSizeIndex, setFontSizeIndex] = useState(3); // Default to 'fs-4'
+  const isAuthenticated = true;
+
+  const increaseFontSize = () => {
+    if (fontSizeIndex > 0) {
+      setFontSizeIndex(prevIndex => prevIndex - 1);
+    }
+  };
+
+  const decreaseFontSize = () => {
+    if (fontSizeIndex < fontSizeClasses.length - 1) {
+      setFontSizeIndex(prevIndex => prevIndex + 1);
+    }
+  };
+
+
+  const fontSizeClasses = [
+    'fs-1', 'fs-2', 'fs-3', 'fs-4', 'fs-5', 'fs-6', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'display-1','display-2', 'display-3', 'display-4', 'display-5', 'display-6'
+  ];
+  const fontSizeClass = fontSizeClasses[fontSizeIndex];
   return (
-    <div className="App overflow-hidden">
-      {/* <button onClick={()=>setIsKannada(!isKannada)}>{isKannada?'To English':'To Kannada'}</button> */}
+    <div className={`App overflow-hidden ${highContrastClass} ${fontSizeClass}`}>
+    <div className='d-flex justify-content-end gap-2 p-1 gradient align-items-center'>
+    <button className='btn btn-dark rounded-1 btn-sm' onClick={()=>setIsKannada(!isKannada)}>{isKannada?'To English':'To Kannada'}</button>
+      <button className="btn btn-dark btn-sm rounded-1" onClick={toggleHighContrast}>{isHighContrast ? 'Disable High Contrast' : 'Enable High Contrast'}</button>
+
+      <button className="fbtn border-0 rounded" onClick={increaseFontSize}>A+</button>
+       <button className="fbtn border-0 rounded" onClick={decreaseFontSize}>A-</button>
+                        {/* <FontSizeChanger
+        targets={['.content', '.content p', '.content h1', '.content h2', '.content h3', '.content h4', '.content h5', '.content h6', '.content span', '.content .f6']}
+        options={{
+          stepSize: 1,
+          range: 3
+        }}
+        customButtons={{
+          up: <button className="fbtn border-0 rounded" onClick={increaseFontSize}>A+</button>,
+          down: <button className="fbtn border-0 rounded" onClick={decreaseFontSize}>A-</button>,
+          style: {
+            backgroundColor: 'transparent',
+            border:'none',
+            color: 'black',
+            WebkitBoxSizing: 'border-box',
+            WebkitBorderRadius: '5px',
+            width: '30px'
+          },
+          buttonsMargin: 10
+        }}
+      /> */}
+    </div>
    <TranslationHOC>
     <BrowserRouter>
     <ScrollToTop/>

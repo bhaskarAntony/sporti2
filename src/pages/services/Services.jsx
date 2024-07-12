@@ -4,6 +4,8 @@ import './style.css';
 import { Link, useParams } from 'react-router-dom';
 import ImagePopup from '../../components/popups/ImagePopup';
 import Loading from '../../components/popups/Loading';
+import { useLanguage } from '../../context/LangaugeContext';
+import document from '../../components/documents/menu.pdf'
 
 function Services() {
   const { sporti } = useParams(); // Destructure sporti from useParams()
@@ -11,6 +13,7 @@ function Services() {
   const [showmodal, setShowModal] = useState(false)
   const [image, setImage] = useState(null)
   const [title, setTitle] = useState(null)
+  const {isKannada} = useLanguage()
 
   useEffect(() => {
     // Fetch and set service based on sporti parameter
@@ -30,6 +33,7 @@ function Services() {
     setImage(url)
     setTitle(name)
   }
+ 
 
   return (
     <div className='services'>
@@ -44,6 +48,18 @@ function Services() {
           </div>
         </div>
       </div>
+    {
+      sporti == 'sporti2'?(
+        <div className="row p-3 p-md-5">
+      <div className="col-md-6 m-auto">
+      <div className="alert alert-primary text-center">
+        <h1 className="alert-title">Download the menu</h1>
+        <a href={document} className="btn btn btn-primary" download={document}>Download Menu</a>
+      </div>
+      </div>
+    </div>
+      ):(null)
+    }
 
       <div className="container bg-white p-3 py-5">
         <div className="text-center mb-5">
@@ -56,11 +72,11 @@ function Services() {
             {service.services.map((item, index) => (
               <div className={`row p-3 rounded-3 mb-4 align-items-center ${index % 2 === 0 ? 'order-1' : 'order-2'}`} key={index}>
                 <div className="col-12 col-md-3">
-                  <img src={item.image} alt="" className="w-100 mb-3 rounded" onClick={()=>openModal(item.image, item.title)} />
+                  <img src={item.image} alt="" className="w-100 mb-3 rounded" onClick={()=>openModal(item.image, item.title_en)} />
                 </div>
                 <div className="col-12 col-md-9">
-                  <h1 className="fs-4 title fw-bold">{item.title}</h1>
-                  <p className="mt-2 lead text-secondary">{item.desc}</p>
+                  <h1 className="fs-4 title fw-bold">{isKannada ?(item.title_kn):(item.title_en)}</h1>
+                  <p className="mt-2 lead gray-text">{isKannada ?(item.desc_kn):(item.desc)}</p>
                   {
                     item.isBook ? (
                     //   <Link to={`/services/book/${item.title.trim('-')}`} className='blue-btn rounded-5'>
@@ -83,9 +99,9 @@ function Services() {
                 {service.services.map((item, index) => (
                   <div className="col-6" key={index}>
                     <div className="service-card">
-                      <img src={item.image} alt="" className="w-100 h-100" onClick={()=>openModal(item.image, item.title)} />
+                      <img src={item.image} alt="" className="w-100 h-100" onClick={()=>openModal(item.image, item.title_en)} />
                       <div className="service-info text-center">
-                        <span className="fs-6 text-white">{item.title}</span>
+                        <span className="fs-6 text-white">{item.title_en}</span>
                       </div>
                     </div>
                   </div>
