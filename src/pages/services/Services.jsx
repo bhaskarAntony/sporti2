@@ -75,7 +75,7 @@ function Services() {
                   <img src={item.image} alt="" className="w-100 mb-3 rounded" onClick={()=>openModal(item.image, item.title_en)} />
                 </div>
                 <div className="col-12 col-md-9">
-                  <h1 className="fs-4 title fw-bold">{isKannada ?(item.title_kn):(item.title_en)}</h1>
+                  <h1 className="fs-4 title fw-bold">{isKannada ?(item.title_kn):(item.title)}</h1>
                   <p className="mt-2 lead gray-text">{isKannada ?(item.desc_kn):(item.desc)}</p>
                   {
                     item.isBook ? (

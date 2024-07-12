@@ -3,11 +3,15 @@ import { Dropdown } from 'react-bootstrap';
 import SuccessPopup from '../../components/popups/SuccessPopup';
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDialog } from '../../components/popups/DialogContext';
 import Loading from '../../components/popups/Loading';
+import { useLanguage } from '../../context/LangaugeContext';
 
 function MainRoomBook() {
+    const {iskannada} = useLanguage()
+    alert(iskannada)
+    const {sporti} = useParams();
     const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         username: '',
@@ -17,7 +21,7 @@ function MainRoomBook() {
         phoneNumber: '',
         checkIn: '',
         checkOut: '',
-        sporti: '',
+        sporti: sporti,
         serviceType: '',
         serviceName:'Room Booking',
         roomType: '',
@@ -29,7 +33,6 @@ function MainRoomBook() {
     const [showModal, setShowModal] = useState(false);
     const [desc, setDesc] = useState(null);
     const [title, setTitle] = useState(null);
-    const [selectedLanguage, setSelectedLanguage] = useState('english');
 
     useEffect(() => {
         const totalCost = calculateTotalCost();
@@ -167,9 +170,9 @@ function MainRoomBook() {
         if (formData.sporti === 'SPORTI-1' || formData.sporti === 'SPORTI-2') {
             return (
                 <>
-                    <Dropdown.Item eventKey="Family">{selectedLanguage === 'kannada' ? 'ಕುಟುಂಬ' : 'Family'}</Dropdown.Item>
-                    <Dropdown.Item eventKey="VIP">{selectedLanguage === 'kannada' ? 'ವಿಐಪಿ' : 'VIP'}</Dropdown.Item>
-                    <Dropdown.Item eventKey="Standard">{selectedLanguage === 'kannada' ? 'ಸಾಮಾನ್ಯ' : 'Standard'}</Dropdown.Item>
+                    <Dropdown.Item eventKey="Family">{iskannada ? 'ಕುಟುಂಬ' : 'Family'}</Dropdown.Item>
+                    <Dropdown.Item eventKey="VIP">{iskannada ? 'ವಿಐಪಿ' : 'VIP'}</Dropdown.Item>
+                    <Dropdown.Item eventKey="Standard">{iskannada ? 'ಸಾಮಾನ್ಯ' : 'Standard'}</Dropdown.Item>
                 </>
             );
         } else {
@@ -251,21 +254,21 @@ function MainRoomBook() {
             <div className="row">
                 <div className="col-md-8 m-auto bg-white p-0">
                 <div className="bg-main p-3 text-center">
-                        <h1 className="fs-3 text-light">{selectedLanguage === 'kannada' ? 'ಕರ್ನಾಟಕ ಸರ್ಕಾರ ಸೇವೆ ಬುಕ್ಕಿಂಗ್ ವೇಳಾಪಟ್ಟಿ' : 'Karnataka Government SPORTI Room Booking Form'}</h1>
+                        <h1 className="fs-3 text-light">{iskannada ? 'ಕರ್ನಾಟಕ ಸರ್ಕಾರ ಸೇವೆ ಬುಕ್ಕಿಂಗ್ ವೇಳಾಪಟ್ಟಿ' : 'Karnataka Government SPORTI Room Booking Form'}</h1>
                         <p className="text-light">
-                            {selectedLanguage === 'kannada' ? 'ಈ ಫಾರಂ ಅಧಿಕಾರಿಗಳಿಗೆ ಇತರ ಸಲಹೆಗಳಿಂದ ಬಹುಮಾನಗಳನ್ನು ಪುಡಿಸುವ ಅವಕಾಶವನ್ನು ಒದಗಿಸುತ್ತದೆ.' : 'This form provides an opportunity for officers to book various rooms offered through the department.'}
+                            {iskannada ? 'ಈ ಫಾರಂ ಅಧಿಕಾರಿಗಳಿಗೆ ಇತರ ಸಲಹೆಗಳಿಂದ ಬಹುಮಾನಗಳನ್ನು ಪುಡಿಸುವ ಅವಕಾಶವನ್ನು ಒದಗಿಸುತ್ತದೆ.' : 'This form provides an opportunity for officers to book various rooms offered through the department.'}
                         </p>
-                   <div className="d-flex justify-content-end">
+                   {/* <div className="d-flex justify-content-end">
                    <Dropdown onSelect={(value) => setSelectedLanguage(value)} className='w-auto'>
                         <Dropdown.Toggle variant="secondary" id="dropdown-language">
-                            {selectedLanguage === 'kannada' ? 'ಕನ್ನಡ' : 'English'}
+                            {iskannada ? 'ಕನ್ನಡ' : 'English'}
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item eventKey="english">English</Dropdown.Item>
                             <Dropdown.Item eventKey="kannada">ಕನ್ನಡ</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                   </div>
+                   </div> */}
                     </div>
                    
                  
@@ -274,59 +277,60 @@ function MainRoomBook() {
                         <div className="row">
                             <div className="col-md-12">
                                 <div className="form-group mt-3">
-                                    <label htmlFor="username" className="form-label">{selectedLanguage === 'kannada' ? 'ಬಳಕೆದಾರರ ಹೆಸರು' : 'Username'}</label>
+                                    <label htmlFor="username" className="form-label">{iskannada ? 'ಬಳಕೆದಾರರ ಹೆಸರು' : 'Username'}</label>
                                     <input type="text" className="form-control" name="username" id="username" value={formData.username} onChange={handleFormChange} />
                                     {errors.username && <small className="text-danger">{errors.username}</small>}
                                 </div>
                             </div>
                             <div className="col-md-12">
                                 <div className="form-group mt-3">
-                                    <label htmlFor="officerDesignation" className="form-label">{selectedLanguage === 'kannada' ? 'ಹುದ್ದೆ' : 'Designation'}</label>
+                                    <label htmlFor="officerDesignation" className="form-label">{iskannada ? 'ಹುದ್ದೆ' : 'Designation'}</label>
                                     <input type="text" className="form-control" name="officerDesignation" id="officerDesignation" value={formData.officerDesignation} onChange={handleFormChange} />
                                     {errors.officerDesignation && <small className="text-danger">{errors.officerDesignation}</small>}
                                 </div>
                             </div>
                             <div className="col-md-12">
                                 <div className="form-group mt-3">
-                                    <label htmlFor="email" className="form-label">{selectedLanguage === 'kannada' ? 'ಇಮೇಲ್' : 'Email'}</label>
-                                    <input type="text" className="form-control" name="email" id="email" value={formData.email} onChange={handleFormChange} />
-                                    {errors.email && <small className="text-danger">{errors.email}</small>}
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-group mt-3">
-                                    <label htmlFor="phoneNumber" className="form-label">{selectedLanguage === 'kannada' ? 'ಫೋನ್ ನಂಬರ್' : 'Phone Number'}</label>
-                                    <input type="text" className="form-control" name="phoneNumber" id="phoneNumber" value={formData.phoneNumber} onChange={handleFormChange} />
-                                    {errors.phoneNumber && <small className="text-danger">{errors.phoneNumber}</small>}
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-group mt-3">
-                                    <label htmlFor="checkIn" className="form-label">{selectedLanguage === 'kannada' ? 'ಚೆಕ್-ಇನ್' : 'Check-In'}</label>
-                                    <input type="datetime-local" className="form-control" name="checkIn" id="checkIn" value={formData.checkIn} onChange={handleFormChange} />
-                                    {errors.checkIn && <small className="text-danger">{errors.checkIn}</small>}
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-group mt-3">
-                                    <label htmlFor="checkOut" className="form-label">{selectedLanguage === 'kannada' ? 'ಚೆಕ್-ಔಟ್' : 'Check-Out'}</label>
-                                    <input type="datetime-local" className="form-control" name="checkOut" id="checkOut" value={formData.checkOut} onChange={handleFormChange} />
-                                    {errors.checkOut && <small className="text-danger">{errors.checkOut}</small>}
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-group mt-3">
-                                    <label htmlFor="officerCadre" className="form-label">{selectedLanguage === 'kannada' ? 'ಅಧಿಕಾರಿ ಕೇಡರ್' : 'Officer Cadre'}</label>
+                                    <label htmlFor="officerCadre" className="form-label">{iskannada ? 'ಅಧಿಕಾರಿ ಕೇಡರ್' : 'Officer Cadre'}</label>
                                     <input type="text" className="form-control" name="officerCadre" id="officerCadre" value={formData.officerCadre} onChange={handleFormChange} />
                                     {errors.officerCadre && <small className="text-danger">{errors.officerCadre}</small>}
                                 </div>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-12">
                                 <div className="form-group mt-3">
-                                    <label htmlFor="sporti" className="form-label">{selectedLanguage === 'kannada' ? 'SPORTI' : 'SPORTI'}</label>
+                                    <label htmlFor="email" className="form-label">{iskannada ? 'ಇಮೇಲ್' : 'Email'}</label>
+                                    <input type="text" className="form-control" name="email" id="email" value={formData.email} onChange={handleFormChange} />
+                                    {errors.email && <small className="text-danger">{errors.email}</small>}
+                                </div>
+                            </div>
+                            <div className="col-md-12">
+                                <div className="form-group mt-3">
+                                    <label htmlFor="phoneNumber" className="form-label">{iskannada ? 'ಫೋನ್ ನಂಬರ್' : 'Phone Number'}</label>
+                                    <input type="text" className="form-control" name="phoneNumber" id="phoneNumber" value={formData.phoneNumber} onChange={handleFormChange} />
+                                    {errors.phoneNumber && <small className="text-danger">{errors.phoneNumber}</small>}
+                                </div>
+                            </div>
+                            <div className="col-md-12">
+                                <div className="form-group mt-3">
+                                    <label htmlFor="checkIn" className="form-label">{iskannada ? 'ಚೆಕ್-ಇನ್' : 'Check-In'}</label>
+                                    <input type="datetime-local" className="form-control" name="checkIn" id="checkIn" value={formData.checkIn} onChange={handleFormChange} />
+                                    {errors.checkIn && <small className="text-danger">{errors.checkIn}</small>}
+                                </div>
+                            </div>
+                            <div className="col-md-12">
+                                <div className="form-group mt-3">
+                                    <label htmlFor="checkOut" className="form-label">{iskannada ? 'ಚೆಕ್-ಔಟ್' : 'Check-Out'}</label>
+                                    <input type="datetime-local" className="form-control" name="checkOut" id="checkOut" value={formData.checkOut} onChange={handleFormChange} />
+                                    {errors.checkOut && <small className="text-danger">{errors.checkOut}</small>}
+                                </div>
+                            </div>
+                            
+                            <div className="col-md-12">
+                                <div className="form-group mt-3">
+                                    <label htmlFor="sporti" className="form-label">{iskannada ? 'SPORTI' : 'SPORTI'}</label>
                                     <Dropdown onSelect={(value) => handleDropdownChange('sporti', value)}>
                                         <Dropdown.Toggle variant="secondary" id="dropdown-sporti">
-                                            {formData.sporti || (selectedLanguage === 'kannada' ? 'SPORTI ಆಯ್ಕೆಮಾಡಿ' : 'Select SPORTI')}
+                                            {formData.sporti || (iskannada ? 'SPORTI ಆಯ್ಕೆಮಾಡಿ' : 'Select SPORTI')}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
                                             <Dropdown.Item eventKey="SPORTI-1">SPORTI-1</Dropdown.Item>
@@ -336,12 +340,12 @@ function MainRoomBook() {
                                     {errors.sporti && <small className="text-danger">{errors.sporti}</small>}
                                 </div>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-12">
                                 <div className="form-group mt-3">
-                                    <label htmlFor="roomType" className="form-label">{selectedLanguage === 'kannada' ? 'ಕೊಠಡಿ ಪ್ರಕಾರ' : 'Room Type'}</label>
+                                    <label htmlFor="roomType" className="form-label">{iskannada ? 'ಕೊಠಡಿ ಪ್ರಕಾರ' : 'Room Type'}</label>
                                     <Dropdown onSelect={(value) => handleDropdownChange('roomType', value)}>
                                         <Dropdown.Toggle variant="secondary" id="dropdown-roomType">
-                                            {formData.roomType || (selectedLanguage === 'kannada' ? 'ಕೊಠಡಿ ಪ್ರಕಾರ ಆಯ್ಕೆಮಾಡಿ' : 'Select Room Type')}
+                                            {formData.roomType || (iskannada ? 'ಕೊಠಡಿ ಪ್ರಕಾರ ಆಯ್ಕೆಮಾಡಿ' : 'Select Room Type')}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
                                             {renderRoomTypes()}
@@ -350,17 +354,17 @@ function MainRoomBook() {
                                     {errors.roomType && <small className="text-danger">{errors.roomType}</small>}
                                 </div>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-12">
                                 <div className="form-group mt-3">
-                                    <label htmlFor="guestType" className="form-label">{selectedLanguage === 'kannada' ? 'ಅತಿಥಿ ಪ್ರಕಾರ' : 'Guest Type'}</label>
+                                    <label htmlFor="guestType" className="form-label">{iskannada ? 'ಅತಿಥಿ ಪ್ರಕಾರ' : 'Guest Type'}</label>
                                     <Dropdown onSelect={(value) => handleDropdownChange('guestType', value)}>
                                         <Dropdown.Toggle variant="secondary" id="dropdown-guestType">
-                                            {formData.serviceType || (selectedLanguage === 'kannada' ? 'ಅತಿಥಿ ಪ್ರಕಾರ ಆಯ್ಕೆಮಾಡಿ' : 'Select Guest Type')}
+                                            {formData.serviceType || (iskannada ? 'ಅತಿಥಿ ಪ್ರಕಾರ ಆಯ್ಕೆಮಾಡಿ' : 'Select Guest Type')}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
-                                            <Dropdown.Item eventKey="Officers from Karnataka">{selectedLanguage === 'kannada' ? 'ಕರ್ನಾಟಕದ ಅಧಿಕಾರಿಗಳು' : 'Officers from Karnataka'}</Dropdown.Item>
-                                            <Dropdown.Item eventKey="Officers from Other States">{selectedLanguage === 'kannada' ? 'ಇತರೆ ರಾಜ್ಯಗಳ ಅಧಿಕಾರಿಗಳು' : 'Officers from Other States'}</Dropdown.Item>
-                                            <Dropdown.Item eventKey="Others">{selectedLanguage === 'kannada' ? 'ಇತರೆ' : 'Others'}</Dropdown.Item>
+                                            <Dropdown.Item eventKey="Officers from Karnataka">{iskannada ? 'ಕರ್ನಾಟಕದ ಅಧಿಕಾರಿಗಳು' : 'Officers from Karnataka'}</Dropdown.Item>
+                                            <Dropdown.Item eventKey="Officers from Other States">{iskannada ? 'ಇತರೆ ರಾಜ್ಯಗಳ ಅಧಿಕಾರಿಗಳು' : 'Officers from Other States'}</Dropdown.Item>
+                                            <Dropdown.Item eventKey="Others">{iskannada ? 'ಇತರೆ' : 'Others'}</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     {errors.serviceType && <small className="text-danger">{errors.guestType}</small>}
@@ -368,18 +372,18 @@ function MainRoomBook() {
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group mt-3">
-                                    <label htmlFor="noGuests" className="form-label">{selectedLanguage === 'kannada' ? 'ಅತಿಥಿಗಳ ಸಂಖ್ಯೆ' : 'Number of Guests'}</label>
+                                    <label htmlFor="noGuests" className="form-label">{iskannada ? 'ಅತಿಥಿಗಳ ಸಂಖ್ಯೆ' : 'Number of Guests'}</label>
                                     <input type="number" className="form-control" name="noGuests" id="noGuests" value={formData.noGuests} onChange={handleFormChange} min="1" />
                                 </div>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-12">
                                 <div className="form-group mt-3">
-                                    <label className="form-label">{selectedLanguage === 'kannada' ? 'ಒಟ್ಟು ವೆಚ್ಚ (₹)' : 'Total Cost (₹)'}</label>
+                                    <label className="form-label">{iskannada ? 'ಒಟ್ಟು ವೆಚ್ಚ (₹)' : 'Total Cost (₹)'}</label>
                                     <input type="text" className="form-control" value={formData.totalCost} readOnly />
                                 </div>
                             </div>
                             <div className="col-md-12 mt-4 p-3 d-flex justify-content-end gap-2">
-                            <button type="submit" className="blue-btn rounded-1 m-1">{selectedLanguage === 'kannada' ? 'ಸಲ್ಲಿಸು' : 'Submit'}</button>
+                            <button type="submit" className="blue-btn rounded-1 m-1">{iskannada ? 'ಸಲ್ಲಿಸು' : 'Submit'}</button>
                             <button className="btn btn-danger rounded-1 m-1" type='reset'>Cancel</button>
                             </div>
                         </div>

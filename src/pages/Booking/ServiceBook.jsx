@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import SuccessPopup from '../../components/popups/SuccessPopup';
 import axios from 'axios';
 import Loading from '../../components/popups/Loading';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDialog } from '../../components/popups/DialogContext';
 import { Dropdown } from 'react-bootstrap';
 import './style.css'; // Include the CSS file
 
 function MainFunctionHallBooking() {
+    const {sporti} = useParams()
     const [formData, setFormData] = useState({
         username: '',
         officerDesignation: '',
@@ -22,7 +23,8 @@ function MainFunctionHallBooking() {
         noGuests: 1,
         totalCost: 0,
         applicationNo: '',
-        eventdate:''
+        eventdate:'',
+        sporti:sporti
     });
 
     const navigate = useNavigate();
@@ -319,9 +321,22 @@ function MainFunctionHallBooking() {
                                     {formData.serviceName || (selectedLanguage === 'kannada' ? 'ಸೇವೆಯ ಹೆಸರು' : 'Select Service')}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item eventKey="Main Event Hall Booking">Main Event Hall Booking</Dropdown.Item>
-                                    <Dropdown.Item eventKey="Conference Hall Booking">Conference Hall Booking</Dropdown.Item>
-                                    <Dropdown.Item eventKey="Barbeque Area Booking">Barbeque Area Booking</Dropdown.Item>
+                                  {
+                                    sporti =="sporti-1"?(
+                                      <Fragment>
+                                          <Dropdown.Item eventKey="Main Event Hall Booking">Main Event Hall Booking</Dropdown.Item>
+                                        <Dropdown.Item eventKey="Conference Hall Booking">Conference Hall Booking</Dropdown.Item>
+                                        <Dropdown.Item eventKey="Barbeque Area Booking">Barbeque Area Booking</Dropdown.Item>
+                                      </Fragment>
+                                    ):sporti === "sporti-2"?(
+                                      <Fragment>
+                                        
+                                        <Dropdown.Item eventKey="Conference Hall Booking">Conference Hall Booking</Dropdown.Item>
+                                        <Dropdown.Item eventKey="Barbeque Area Booking">Training Room Booking</Dropdown.Item>
+                                      </Fragment>
+                                    ):(null)
+                                  }
+                                   
                                 </Dropdown.Menu>
                             </Dropdown>
                             {errors.serviceName && <span className="text-danger">{errors.serviceName}</span>}

@@ -25,7 +25,7 @@ function Header({ toggleTheme, theme }) {
       {/* <ThemeToggle toggleTheme={toggleTheme} theme={theme} /> */}
       <Navbar expand="lg" className="navbar p-0">
         <Container fluid className='p-0'>
-          <div className="logo-container d-flex align-items-center bg-white">
+          <div className="logo-container d-flex align-items-center ">
             <Navbar.Brand href="/">
               <div className='d-flex gap-2 align-items-center logo'>
                 <img src={logo} alt="logooo" className='main-logo' />

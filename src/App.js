@@ -136,7 +136,7 @@ function App(){
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/cart' element={<FoodCart/>}/>
-      <Route path='/room' element={<MainRoomBook/>}/>
+      <Route path='/room/:sporti' element={<MainRoomBook/>}/>
       <Route path='/roomview/:id/:sportiId' element={<RoomView/>}/>
       <Route path='/event' element={<Event/>}/>
       <Route path='/about' element={<About/>}/>
@@ -157,7 +157,7 @@ function App(){
       <Route path='/food' element={<Food/>}/>
       <Route path='/payment/:applicationNo' element={<Payment/>}/>
       {/* <Route path='/payment/:applicationNo' element={<Payment/>}/> */}
-      <Route path='/services/book' element={<ServiceBook/>}/>
+      <Route path='/services/book/:sporti' element={<ServiceBook/>}/>
      </Route>
 
      <Route path='/services/:sporti' element={<Services/>}/>
@@ -165,7 +165,6 @@ function App(){
       <Route path='/additional-details/:id' element={<AdditionalDetailsForm/>}/>
       <Route path='/admin/:id' element={<Admin/>}/>
       <Route path='/view/:id' element={<View/>}/>
-      <Route path='/conference-hall' element={<ConferenceHallBook/>}/>
     </Routes>
     <Footer/>
     </BrowserRouter>

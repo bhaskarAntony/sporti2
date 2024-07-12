@@ -82,17 +82,10 @@ const fontSizeClasses = [
     return (
       <div>
         <Hero />
-        <h1 className='f1'>hello</h1>
-        {/* The rest of your JSX content goes here, e.g., */}
         <Recents />
         <About />
-        {/* Add more content here */}
   
-        <div className="control-buttons text-center mt-4">
-          <button className="btn btn-primary me-2" onClick={increaseFontSize}>Increase Font Size</button>
-          <button className="btn btn-secondary me-2" onClick={decreaseFontSize}>Decrease Font Size</button>
-          <button className="btn btn-dark" onClick={toggleHighContrast}>{isHighContrast ? 'Disable High Contrast' : 'Enable High Contrast'}</button>
-        </div>
+      
       </div>
     );
   }

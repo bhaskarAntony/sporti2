@@ -268,3 +268,10 @@ text-align: center;
   justify-content: center;
   margin-top: 5px;
 }
+.high-contrast .dropdown-menu, .high-contrast .dropdown-item{
+  background: #F6D776 !important;
+}
+.high-contrast .dropdown-item:hover{
+  background: #000000 !important;
+  color: #F6D776 !important;
+}
