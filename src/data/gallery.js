@@ -2,146 +2,146 @@ const gallerydata = [
    {
     id:1,
     title:'Sporti-1 Gallery',
-    image:'./images/events/SportiGallery/1.JPG',
+    image:'./images/events/SportiGallery/1.jpg',
     images:[
         {
-            original:'/images/events/SportiGallery/1.JPG',
-            thumbnail:'/images/events/SportiGallery/1.JPG'
+            original:'/images/events/SportiGallery/1.jpg',
+            thumbnail:'/images/events/SportiGallery/1.jpg'
         },
         {
-            original:'/images/events/SportiGallery/2.JPG',
-            thumbnail:'/images/events/SportiGallery/2.JPG'
+            original:'/images/events/SportiGallery/2.jpg',
+            thumbnail:'/images/events/SportiGallery/2.jpg'
         },
         {
-            original:'/images/events/SportiGallery/3.JPG',
-            thumbnail:'/images/events/SportiGallery/3.JPG'
+            original:'/images/events/SportiGallery/3.jpg',
+            thumbnail:'/images/events/SportiGallery/3.jpg'
         },
         {
-            original:'/images/events/SportiGallery/4.JPG',
-            thumbnail:'/images/events/SportiGallery/4.JPG'
+            original:'/images/events/SportiGallery/4.jpg',
+            thumbnail:'/images/events/SportiGallery/4.jpg'
         },
         {
-            original:'/images/events/SportiGallery/5.JPG',
-            thumbnail:'/images/events/SportiGallery/5.JPG'
+            original:'/images/events/SportiGallery/5.jpg',
+            thumbnail:'/images/events/SportiGallery/5.jpg'
         },
         {
-            original:'/images/events/SportiGallery/6.JPG',
-            thumbnail:'/images/events/SportiGallery/6.JPG'
+            original:'/images/events/SportiGallery/6.jpg',
+            thumbnail:'/images/events/SportiGallery/6.jpg'
         },
         {
-            original:'/images/events/SportiGallery/7.JPG',
-            thumbnail:'/images/events/SportiGallery/7.JPG'
+            original:'/images/events/SportiGallery/7.jpg',
+            thumbnail:'/images/events/SportiGallery/7.jpg'
         },
         {
-            original:'/images/events/SportiGallery/8.JPG',
-            thumbnail:'/images/events/SportiGallery/8.JPG'
+            original:'/images/events/SportiGallery/8.jpg',
+            thumbnail:'/images/events/SportiGallery/8.jpg'
         },
         {
-            original:'/images/events/SportiGallery/9.JPG',
-            thumbnail:'/images/events/SportiGallery/9.JPG'
+            original:'/images/events/SportiGallery/9.jpg',
+            thumbnail:'/images/events/SportiGallery/9.jpg'
         },
         {
-            original:'/images/events/SportiGallery/10.JPG',
-            thumbnail:'/images/events/SportiGallery/10.JPG'
+            original:'/images/events/SportiGallery/10.jpg',
+            thumbnail:'/images/events/SportiGallery/10.jpg'
         },
         {
-            original:'/images/events/SportiGallery/12.JPG',
-            thumbnail:'/images/events/SportiGallery/12.JPG'
+            original:'/images/events/SportiGallery/12.jpg',
+            thumbnail:'/images/events/SportiGallery/12.jpg'
         },
         {
-            original:'/images/events/SportiGallery/13.JPG',
-            thumbnail:'/images/events/SportiGallery/13.JPG'
+            original:'/images/events/SportiGallery/13.jpg',
+            thumbnail:'/images/events/SportiGallery/13.jpg'
         },
         {
-            original:'/images/events/SportiGallery/14.JPG',
-            thumbnail:'/images/events/SportiGallery/14.JPG'
+            original:'/images/events/SportiGallery/14.jpg',
+            thumbnail:'/images/events/SportiGallery/14.jpg'
         },
         {
-            original:'/images/events/SportiGallery/15.JPG',
-            thumbnail:'/images/events/SportiGallery/15.JPG'
+            original:'/images/events/SportiGallery/15.jpg',
+            thumbnail:'/images/events/SportiGallery/15.jpg'
         },
         {
-            original:'/images/events/SportiGallery/16.JPG',
-            thumbnail:'/images/events/SportiGallery/16.JPG'
+            original:'/images/events/SportiGallery/16.jpg',
+            thumbnail:'/images/events/SportiGallery/16.jpg'
         },
         {
-            original:'/images/events/SportiGallery/17.JPG',
-            thumbnail:'/images/events/SportiGallery/17.JPG'
+            original:'/images/events/SportiGallery/17.jpg',
+            thumbnail:'/images/events/SportiGallery/17.jpg'
         },
         {
-            original:'/images/events/SportiGallery/18.JPG',
-            thumbnail:'/images/events/SportiGallery/18.JPG'
+            original:'/images/events/SportiGallery/18.jpg',
+            thumbnail:'/images/events/SportiGallery/18.jpg'
         },
         {
-            original:'/images/events/SportiGallery/19.JPG',
-            thumbnail:'/images/events/SportiGallery/19.JPG'
+            original:'/images/events/SportiGallery/19.jpg',
+            thumbnail:'/images/events/SportiGallery/19.jpg'
         },
         {
-            original:'/images/events/SportiGallery/20.JPG',
-            thumbnail:'/images/events/SportiGallery/20.JPG'
+            original:'/images/events/SportiGallery/20.jpg',
+            thumbnail:'/images/events/SportiGallery/20.jpg'
         },
         {
-            original:'/images/events/SportiGallery/21.JPG',
-            thumbnail:'/images/events/SportiGallery/21.JPG'
+            original:'/images/events/SportiGallery/21.jpg',
+            thumbnail:'/images/events/SportiGallery/21.jpg'
         },
         {
-            original:'/images/events/SportiGallery/22.JPG',
-            thumbnail:'/images/events/SportiGallery/22.JPG'
+            original:'/images/events/SportiGallery/22.jpg',
+            thumbnail:'/images/events/SportiGallery/22.jpg'
         },
         {
-            original:'/images/events/SportiGallery/23.JPG',
-            thumbnail:'/images/events/SportiGallery/23.JPG'
+            original:'/images/events/SportiGallery/23.jpg',
+            thumbnail:'/images/events/SportiGallery/23.jpg'
         }
     ]
    },
    {
     id:2,
     title:'Sporti-2 Gallery',
-    image:'/images/sporti2_gallery/image5.JPG',
+    image:'/images/sporti2_gallery/image5.jpg',
     images:[
         {
-            original:'/images/sporti2_gallery/image1.JPG',
-            thumbnail:'/images/events/SportiGallery/1.JPG'
+            original:'/images/sporti2_gallery/image1.jpg',
+            thumbnail:'/images/events/SportiGallery/1.jpg'
         },
         {
-            original:'/images/sporti2_gallery/image2.JPG',
-            thumbnail:'/images/events/SportiGallery/2.JPG'
+            original:'/images/sporti2_gallery/image2.jpg',
+            thumbnail:'/images/events/SportiGallery/2.jpg'
         },
         {
-            original:'/images/sporti2_gallery/image3.JPG',
-            thumbnail:'/images/events/SportiGallery/3.JPG'
+            original:'/images/sporti2_gallery/image3.jpg',
+            thumbnail:'/images/events/SportiGallery/3.jpg'
         },
         {
-            original:'/images/sporti2_gallery/image4.JPG',
-            thumbnail:'/images/events/SportiGallery/4.JPG'
+            original:'/images/sporti2_gallery/image4.jpg',
+            thumbnail:'/images/events/SportiGallery/4.jpg'
         },
         {
-            original:'/images/sporti2_gallery/image5.JPG',
-            thumbnail:'/images/events/SportiGallery/5.JPG'
+            original:'/images/sporti2_gallery/image5.jpg',
+            thumbnail:'/images/events/SportiGallery/5.jpg'
         },
         {
-            original:'/images/sporti2_gallery/image6.JPG',
-            thumbnail:'/images/events/SportiGallery/6.JPG'
+            original:'/images/sporti2_gallery/image6.jpg',
+            thumbnail:'/images/events/SportiGallery/6.jpg'
         },
         {
-            original:'/images/sporti2_gallery/image7.JPG',
-            thumbnail:'/images/events/SportiGallery/7.JPG'
+            original:'/images/sporti2_gallery/image7.jpg',
+            thumbnail:'/images/events/SportiGallery/7.jpg'
         },
         {
-            original:'/images/sporti2_gallery/image8.JPG',
-            thumbnail:'/images/events/SportiGallery/8.JPG'
+            original:'/images/sporti2_gallery/image8.jpg',
+            thumbnail:'/images/events/SportiGallery/8.jpg'
         },
         {
-            original:'/images/sporti2_gallery/image9.JPG',
-            thumbnail:'/images/events/SportiGallery/9.JPG'
+            original:'/images/sporti2_gallery/image9.jpg',
+            thumbnail:'/images/events/SportiGallery/9.jpg'
         },
         {
-            original:'/images/sporti2_gallery/image10.JPG',
-            thumbnail:'/images/events/SportiGallery/10.JPG'
+            original:'/images/sporti2_gallery/image10.jpg',
+            thumbnail:'/images/events/SportiGallery/10.jpg'
         },
         {
-            original:'/images/sporti2_gallery/image11.JPG',
-            thumbnail:'/images/events/SportiGallery/12.JPG'
+            original:'/images/sporti2_gallery/image11.jpg',
+            thumbnail:'/images/events/SportiGallery/12.jpg'
         },
        
     ]
