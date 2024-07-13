@@ -244,7 +244,7 @@ function MainFunctionHallBooking() {
                 const { success, user } = response.data;
                 if (success) {
                     setIsLoading(false);
-                    openDialog('Success', `Booking submitted successfully with application number ${user.applicationNo}`, false);
+                    openDialog('Success', `Your booking request has been sent. It usually takes less than 24 hours to review the request. SMS will be sent to registered mobile number regarding booking details. ${user.applicationNo}`, false);
                     navigate(`/payment/${user.applicationNo}`);
                 } else {
                     setIsLoading(false);

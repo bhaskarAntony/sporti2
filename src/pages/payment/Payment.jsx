@@ -97,7 +97,7 @@ const Payment = () => {
         <div className="card border-0 rounded-0  w-100 p-0">
           <div className="bg-main p-3 text-center">
           <h1 className='fs-3 text-light'>SPORTI service booking details</h1>
-          <p className="fs-6 text-light text-center">Here you can find all yoir application details for SPORTI service once it confirm pay ammount throgh online or offline.</p>
+          <p className="fs-6 text-light text-center">Your booking request has been sent. It usually takes less than 24 hours to review the request. SMS will be sent to registered mobile number regarding booking details.</p>
         
           <p className="fs-6 text-light"></p>
           </div>
@@ -114,13 +114,13 @@ const Payment = () => {
            </ul>
          </div>
            <div className="d-flex gap-3  flex-nowrap justify-content-end p-2">
-          <button onClick={createPaymentForm} className='btn btn-success rounded-1 m-1'>Pay Online</button>
-          <button onClick={OfflinePay} className='btn btn-danger rounded-1 m-1'>Pay Offline </button>
+          {/* <button onClick={createPaymentForm} className='btn btn-success rounded-1 m-1'>Pay Online</button>
+          <button onClick={OfflinePay} className='btn btn-danger rounded-1 m-1'>Pay Offline </button> */}
           </div>
          
            <div className="bg-main text-light p-3">
             <p className="fs-5 text-center">Note</p>
-           <p className="fs-6 text-center">you can pay money throgh online or offline once the admin is confirm your service request it once confirm you will get sms message if you are already goth sms means your application has been verified now you can pay the money if you are not got any sms please visite later to this page and search your appliation number and check your application status if your appliation is reject then also you will get sms notification this precess will happen in 24 working hours for further information plase contact SPORTI team.</p>
+           <p className="fs-6 text-center">you can pay money throgh online or offline once the admin is confirm your service request it once confirm you will get sms message if you are already got sms means your application has been verified now you can pay the money if you are not got any sms please visite later to this page and search your appliation number and check your application status if your appliation is reject then also you will get sms notification this precess will happen in 24 working hours for further information plase contact SPORTI team.</p>
            </div>
            </div>
         </div>

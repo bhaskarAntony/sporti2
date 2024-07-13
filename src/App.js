@@ -101,12 +101,13 @@ function App(){
   return (
     <div className={`App overflow-hidden ${highContrastClass} ${fontSizeClass}`}>
     <div className='d-flex justify-content-end gap-2 p-1 gradient align-items-center'>
-    <button className='btn btn-dark rounded-1 btn-sm' onClick={()=>setIsKannada(!isKannada)}>{isKannada?'To English':'To Kannada'}</button>
+      <button className='btn btn-dark rounded-1 btn-sm' onClick={() => setIsKannada(!isKannada)}>
+      {isKannada ? 'To English' : 'ಕನ್ನಡಕ್ಕೆ'}
+    </button>
       <button className="btn btn-dark btn-sm rounded-1" onClick={toggleHighContrast}>{isHighContrast ? 'Disable High Contrast' : 'Enable High Contrast'}</button>
-
       <button className="fbtn border-0 rounded" onClick={increaseFontSize}>A+</button>
        <button className="fbtn border-0 rounded" onClick={decreaseFontSize}>A-</button>
-                        {/* <FontSizeChanger
+        {/* <FontSizeChanger
         targets={['.content', '.content p', '.content h1', '.content h2', '.content h3', '.content h4', '.content h5', '.content h6', '.content span', '.content .f6']}
         options={{
           stepSize: 1,
