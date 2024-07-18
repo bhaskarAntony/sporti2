@@ -89,7 +89,10 @@ function Header({ toggleTheme, theme }) {
         <Offcanvas.Body>
           <ul>
             <li><a href="/"> {isKannada ? 'ಮನೆ' : 'Home'}</a></li>
-            <li><a href="/about"> {isKannada ? 'ನಮ್ಮ ಬಗ್ಗೆ' : 'About Us'}</a></li>
+           {
+            isAuthenticated?(
+              <>
+               <li><a href="/about"> {isKannada ? 'ನಮ್ಮ ಬಗ್ಗೆ' : 'About Us'}</a></li>
             <li><a href="/services/sporti1">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-1' : 'SPORTI-1'}</a></li>
             <li><a href="/services/sporti2">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</a></li>
             <li><a href="/login">{isKannada ? 'ಲಾಗಿನ್' : 'Login'}</a></li>
@@ -104,6 +107,9 @@ function Header({ toggleTheme, theme }) {
                 <li><a className="dropdown-item text-dark" href="/contact/sporti2">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</a></li>
               </ul>
             </li>
+              </>
+            ):(null)
+           }
           </ul>
         </Offcanvas.Body>
       </Offcanvas>
