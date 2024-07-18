@@ -45,6 +45,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Payment from './pages/payment/Payment';
 import { Dropdown } from 'react-bootstrap';
 import FontSizeChanger from 'react-font-size-changer';
+import ErrorPage from './pages/notFound/ErrorPage';
 
 function App() {
   const [isHighContrast, setIsHighContrast] = useState(false);
@@ -151,8 +152,13 @@ function App() {
           <ScrollToTop />
           <Header toggleTheme={toggleTheme} theme={theme} />
           <Routes>
+            
             <Route path='/' element={isAuthenticated ? <Home /> : <Login />} />
-            <Route path='/cart' element={<FoodCart />} />
+          
+            {
+              isAuthenticated?(
+                <>
+                  <Route path='/cart' element={<FoodCart />} />
             <Route path='/room/:sporti' element={<MainRoomBook />} />
             <Route path='/roomview/:id/:sportiId' element={<RoomView />} />
             <Route path='/event' element={<Event />} />
@@ -180,6 +186,10 @@ function App() {
             <Route path='/additional-details/:id' element={<AdditionalDetailsForm />} />
             <Route path='/admin/:id' element={<Admin />} />
             <Route path='/view/:id' element={<View />} />
+                </>
+              ):(null)
+            }
+              <Route path='/*' element={<ErrorPage />} />
           </Routes>
           <Footer />
         </BrowserRouter>
