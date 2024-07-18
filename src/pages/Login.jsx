@@ -12,38 +12,39 @@ const Login = (props) => {
   const [password, setPassword] = useState('');
   const { setIsAuthenticated, setUser } = useAuth();
   const navigate = useNavigate();
-  const { location } = useAuth();
   const { openDialog } = useDialog();
   const { isKannada } = useLanguage();
 
-  const login = async (e) => {
+  const login = async (email, password) => {
     setLoading(true);
     try {
       const response = await axios.post('http://localhost:3005/api/login', { email, password });
       setUser(response.data.user);
-      setLoading(false);
-      setIsAuthenticated(true);
+    
       localStorage.setItem('token', response.data.token);
-      navigate('/');
+      setIsAuthenticated(true);
+      console.log(response.data.token);
+      // navigate('/');
     } catch (error) {
-      setLoading(false);
       openDialog(
         isKannada ? 'ಅಮಾನ್ಯ ಇಮೇಲ್ ಅಥವಾ ಪಾಸ್ವರ್ಡ್' : 'Invalid email or password',
         isKannada ? 'ದಯವಿಟ್ಟು ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.' : 'Please check the details and try again.',
         true
       );
       console.error('Login failed', error);
+    } finally {
+      setLoading(false);
     }
   };
-
-  if (loading) {
-    return <Loading />;
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await login(email, password);
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="container-fluid p-3 p-md-5">
@@ -56,28 +57,30 @@ const Login = (props) => {
             <form onSubmit={handleSubmit}>
               <h2>{isKannada ? 'ಲಾಗಿನ್ ಮಾಡಿ' : 'Login'}</h2>
               <div className="form-group mt-3">
-                <label htmlFor="" className="form-label">{isKannada ? 'ಇಮೇಲ್ ವಿಳಾಸ' : 'Email Address'}</label>
+                <label htmlFor="email" className="form-label">{isKannada ? 'ಇಮೇಲ್ ವಿಳಾಸ' : 'Email Address'}</label>
                 <input
                   type="email"
+                  id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={isKannada ? 'ಇಮೇಲ್' : 'Email'}
-                  className='form-control'
+                  className="form-control"
                   required
                 />
               </div>
               <div className="form-group mt-3">
-                <label htmlFor="" className="form-label">{isKannada ? 'ಪಾಸ್ವರ್ಡ್' : 'Password'}</label>
+                <label htmlFor="password" className="form-label">{isKannada ? 'ಪಾಸ್ವರ್ಡ್' : 'Password'}</label>
                 <input
                   type="password"
+                  id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder={isKannada ? 'ಪಾಸ್ವರ್ಡ್' : 'Password'}
+                  className="form-control"
                   required
-                  className='form-control'
                 />
               </div>
-              <button type="submit" className='blue-btn mt-3 w-100 btn-lg'>{isKannada ? 'ಲಾಗಿನ್' : 'Login'}</button>
+              <button type="submit" className="blue-btn mt-3 w-100 btn-lg">{isKannada ? 'ಲಾಗಿನ್' : 'Login'}</button>
             </form>
           </div>
         </div>

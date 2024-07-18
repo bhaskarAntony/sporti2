@@ -7,7 +7,7 @@ function TermsAndConditions() {
 
   return (
     <div className='terms'>
-      <div className="contact-banner about-banner">
+      <div className="contact-banner">
         <div className="skew-container">
           <div className="skew-left">
             <h1 className="fs-2 fw-bold more">

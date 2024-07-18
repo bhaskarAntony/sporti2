@@ -9,6 +9,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useState } from 'react';
 import ThemeToggle from '../../Theme/ThemeToggle';
 import { useLanguage } from '../../context/LangaugeContext';
+import { useAuth } from '../../context/AuthContext';
 
 function Header({ toggleTheme, theme }) {
   const [show, setShow] = useState(false);
@@ -20,6 +21,7 @@ function Header({ toggleTheme, theme }) {
 
   const { isKannada } = useLanguage();
 
+  const { isAuthenticated, setIsAuthenticated, setUser } = useAuth();
   return (
     <header>
       {/* <ThemeToggle toggleTheme={toggleTheme} theme={theme} /> */}
@@ -42,7 +44,11 @@ function Header({ toggleTheme, theme }) {
           <Navbar.Collapse id="navbarScroll" className='p-0'>
             <div className="d-none d-lg-block w-100">
               <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
-                <Nav.Link href="/">{isKannada ? 'ಮನೆ' : 'Home'}</Nav.Link>
+              <Nav.Link href="/">{isKannada ? 'ಮನೆ' : 'Home'}</Nav.Link>
+              {
+                isAuthenticated?(
+                  <>
+                 
                 <Nav.Link href="/about">{isKannada ? 'ನಮ್ಮ ಬಗ್ಗೆ' : 'About Us'}</Nav.Link>
                 <Nav.Link href="/services/sporti1">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-1' : 'SPORTI-1'}</Nav.Link>
                 <Nav.Link href="/services/sporti2">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</Nav.Link>
@@ -59,6 +65,9 @@ function Header({ toggleTheme, theme }) {
                   <NavDropdown.Item href="/contact/sporti1">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-1' : 'SPORTI-1'}</NavDropdown.Item>
                   <NavDropdown.Item href="/contact/sporti2">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</NavDropdown.Item>
                 </NavDropdown>
+                  </>
+                ):(null)
+              }
               </Nav>
             </div>
             <div className="d-flex gap-2 d-none d-lg-block align-items-center flex-nowrap">

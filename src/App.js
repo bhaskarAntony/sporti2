@@ -1,6 +1,10 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Aos from 'aos';
+import { useAuth } from './context/AuthContext';
+import { useLanguage } from './context/LangaugeContext';
 import Header from './components/Header/Header';
 import { TranslationHOC } from './helpers/TranslationHOC';
 import Home from './pages/Home/Home';
@@ -11,7 +15,6 @@ import Event from './pages/Events/Event';
 import FoodCart from './pages/food/FoodCart';
 import EventView from './pages/Events/EventView';
 import Footer from './components/footer/Footer';
-import { useEffect, useState } from 'react';
 import RoomView from './pages/Rooms/RoomView';
 import LiveStream from './pages/Events/LiveStream';
 import Login from './pages/Login';
@@ -32,32 +35,31 @@ import AdditionalDetailsForm from './pages/membership/AdditionalDetailsForm';
 import Admin from './pages/membership/Admin';
 import MainContact from './pages/contact/MainContact';
 import MainservicePage from './pages/services/MainservicePage';
-import Aos from 'aos';
 import ConferenceHallBook from './pages/Conferencehall/ConferenceHallBook';
 import MainRoomBookingPage from './pages/Rooms/MainRoomBookingPage';
 import ServiceBook from './pages/Booking/ServiceBook';
 import MainRoomBook from './pages/Rooms/MainRoomBook';
 import ProtectedRoute from './components/ProtectedRoute';
 import FontSizeSelector from './font-resizer/FontSizeSelector';
-import { useAuth } from './context/AuthContext';
 import ScrollToTop from './components/ScrollToTop';
 import Payment from './pages/payment/Payment';
-import { useLanguage } from './context/LangaugeContext';
 import { Dropdown } from 'react-bootstrap';
 import FontSizeChanger from 'react-font-size-changer';
 
 function App() {
   const [isHighContrast, setIsHighContrast] = useState(false);
   const [fontSize, setFontSize] = useState('fs-6'); // Default font size
-
   const [theme, setTheme] = useState('light');
+  const { isAuthenticated, setIsAuthenticated, setUser, logout } = useAuth();
+  const { setIsKannada, isKannada } = useLanguage();
+  const [fontSizeIndex, setFontSizeIndex] = useState(5); // Default to 'fs-4'
+  const [fontSizeClass, setFontSizeClass] = useState('fs-6'); // Initial font size class
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
   useEffect(() => {
-    // Set default font size when component mounts
     document.documentElement.style.fontSize = fontSize;
   }, []);
 
@@ -65,12 +67,15 @@ function App() {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
-  const { logout } = useAuth();
-  const { setIsKannada, isKannada } = useLanguage();
-
   const highContrastClass = isHighContrast ? 'high-contrast' : '';
 
-  const [fontSizeIndex, setFontSizeIndex] = useState(5); // Default to 'fs-4'
+  const fontSizeClasses = [
+    'fs-1', 'fs-2', 'fs-3', 'fs-4', 'fs-5', 'fs-6', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'display-1', 'display-2', 'display-3', 'display-4', 'display-5', 'display-6'
+  ];
+
+  useEffect(() => {
+    setFontSizeClass(fontSizeClasses[fontSizeIndex]);
+  }, [fontSizeIndex]);
 
   const increaseFontSize = () => {
     if (fontSizeIndex > 0) {
@@ -84,15 +89,32 @@ function App() {
     }
   };
 
-  const fontSizeClasses = [
-    'fs-1', 'fs-2', 'fs-3', 'fs-4', 'fs-5', 'fs-6', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'display-1','display-2', 'display-3', 'display-4', 'display-5', 'display-6'
-  ];
-  
-  const [fontSizeClass, setFontSizeClass] = useState('fs-6'); // Initial font size class
+  // Function to check token validity
+  const checkTokenValidity = async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const response = await axios.post('http://localhost:3005/api/checkToken', { token });
+        if (response.data.valid) {
+          setIsAuthenticated(true);
+          setUser(response.data.user);
+        } else {
+          setIsAuthenticated(false);
+          logout();
+        }
+      } catch (error) {
+        setIsAuthenticated(false);
+        logout();
+        console.error('Token validation failed', error);
+      }
+    } else {
+      setIsAuthenticated(false);
+    }
+  };
 
   useEffect(() => {
-    setFontSizeClass(fontSizeClasses[fontSizeIndex]);
-  }, [fontSizeIndex]);
+    checkTokenValidity();
+  }, []);
 
   return (
     <div className={`App overflow-hidden ${highContrastClass} ${fontSizeClass}`}>
@@ -114,7 +136,7 @@ function App() {
             down: <button className="fbtn border-0 rounded" onClick={decreaseFontSize}>A-</button>,
             style: {
               backgroundColor: 'transparent',
-              border:'none',
+              border: 'none',
               color: 'black',
               WebkitBoxSizing: 'border-box',
               WebkitBorderRadius: '5px',
@@ -126,40 +148,40 @@ function App() {
       </div>
       <TranslationHOC>
         <BrowserRouter>
-          <ScrollToTop/>
-          <Header toggleTheme={toggleTheme} theme={theme}/>
+          <ScrollToTop />
+          <Header toggleTheme={toggleTheme} theme={theme} />
           <Routes>
-            <Route path='/' element={<Home/>}/>
-            <Route path='/cart' element={<FoodCart/>}/>
-            <Route path='/room/:sporti' element={<MainRoomBook/>}/>
-            <Route path='/roomview/:id/:sportiId' element={<RoomView/>}/>
-            <Route path='/event' element={<Event/>}/>
-            <Route path='/about' element={<About/>}/>
-            <Route path='/stream' element={<LiveStream/>}/>
-            <Route path='/faqs' element={<Faqs/>}/>
-            <Route path='/help' element={<Help/>}/>
-            <Route path='/gallery/:id' element={<Gallery/>}/>
-            <Route path='/events&gallery' element={<Events/>}/>
-            <Route path='/site_map' element={<SiteMap/>}/>
-            <Route path='/contact/:sporti' element={<Contact/>}/>
-            <Route path='/terms_and-conditions' element={<Tems_and_conditions/>}/>
-            <Route path='/privacy_policy' element={<Privacy/>}/>
-            <Route path='/eventView/:id' element={<EventView/>}/>
-            <Route path='/food/order/:id' element={<ViewFood/>}/>
-            <Route path='/login' element={<Login/>}/>
-            <Route path='/signup' element={<Registration/>}/>
-            <Route element={<ProtectedRoute/>}>
-              <Route path='/food' element={<Food/>}/>
-              <Route path='/payment/:applicationNo' element={<Payment/>}/>
-              <Route path='/services/book/:sporti' element={<ServiceBook/>}/>
+            <Route path='/' element={isAuthenticated ? <Home /> : <Login />} />
+            <Route path='/cart' element={<FoodCart />} />
+            <Route path='/room/:sporti' element={<MainRoomBook />} />
+            <Route path='/roomview/:id/:sportiId' element={<RoomView />} />
+            <Route path='/event' element={<Event />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/stream' element={<LiveStream />} />
+            <Route path='/faqs' element={<Faqs />} />
+            <Route path='/help' element={<Help />} />
+            <Route path='/gallery/:id' element={<Gallery />} />
+            <Route path='/events&gallery' element={<Events />} />
+            <Route path='/site_map' element={<SiteMap />} />
+            <Route path='/contact/:sporti' element={<Contact />} />
+            <Route path='/terms_and-conditions' element={<Tems_and_conditions />} />
+            <Route path='/privacy_policy' element={<Privacy />} />
+            <Route path='/eventView/:id' element={<EventView />} />
+            <Route path='/food/order/:id' element={<ViewFood />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<Registration />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path='/food' element={<Food />} />
+              <Route path='/payment/:applicationNo' element={<Payment />} />
+              <Route path='/services/book/:sporti' element={<ServiceBook />} />
             </Route>
-            <Route path='/services/:sporti' element={<Services/>}/>
-            <Route path='/registration' element={<Registration/>}/>
-            <Route path='/additional-details/:id' element={<AdditionalDetailsForm/>}/>
-            <Route path='/admin/:id' element={<Admin/>}/>
-            <Route path='/view/:id' element={<View/>}/>
+            <Route path='/services/:sporti' element={<Services />} />
+            <Route path='/registration' element={<Registration />} />
+            <Route path='/additional-details/:id' element={<AdditionalDetailsForm />} />
+            <Route path='/admin/:id' element={<Admin />} />
+            <Route path='/view/:id' element={<View />} />
           </Routes>
-          <Footer/>
+          <Footer />
         </BrowserRouter>
       </TranslationHOC>
     </div>
