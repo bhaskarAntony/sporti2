@@ -167,7 +167,7 @@ function MainRoomBook() {
     };
 
     const renderRoomTypes = () => {
-        if (formData.sporti === 'SPORTI-1' || formData.sporti === 'SPORTI-2') {
+        if (formData.sporti === 'SPORTI-1') {
             return (
                 <>
                     <Dropdown.Item eventKey="Family">{iskannada ? 'ಕುಟುಂಬ' : 'Family'}</Dropdown.Item>
@@ -176,7 +176,13 @@ function MainRoomBook() {
                 </>
             );
         } else {
-            return null;
+            return (
+                <>
+                 <Dropdown.Item eventKey="Family">{iskannada ? 'ಕುಟುಂಬ' : 'Family'}</Dropdown.Item>
+                    <Dropdown.Item eventKey="Suite (ADGP & Above)">{iskannada ? 'ವಿಐಪಿ' : 'Suite (ADGP & Above)'}</Dropdown.Item>
+                    <Dropdown.Item eventKey="Standard">{iskannada ? 'ಸಾಮಾನ್ಯ' : 'Standard'}</Dropdown.Item>
+                </>
+            );
         }
     };
 
