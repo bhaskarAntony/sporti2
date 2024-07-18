@@ -95,7 +95,7 @@ function App() {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        const response = await axios.post('http://localhost:3005/api/checkToken', { token });
+        const response = await axios.post('https://sporti-backend-2-o22y.onrender.com/api/login', { token });
         if (response.data.valid) {
           setIsAuthenticated(true);
           setUser(response.data.user);

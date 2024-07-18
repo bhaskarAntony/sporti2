@@ -18,7 +18,7 @@ const Login = (props) => {
   const login = async (email, password) => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:3005/api/login', { email, password });
+      const response = await axios.post('https://sporti-backend-2-o22y.onrender.com/api/login', { email, password });
       setUser(response.data.user);
     
       localStorage.setItem('token', response.data.token);
