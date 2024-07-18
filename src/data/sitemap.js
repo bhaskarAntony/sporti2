@@ -1,49 +1,59 @@
 const sitemapdata = [
     {
-        title:'home',
-        link:'/'
+        en_title: 'Home',
+        kn_title: 'ಮನೆ',
+        link: '/'
     },
     {
-        title:'food order',
-        link:'/food'
+        en_title: 'Food Order',
+        kn_title: 'ಅನ್ನದ ಆದೇಶ',
+        link: '/food'
     },
     {
-        title:'Events',
-        link:'/events'
+        en_title: 'Events',
+        kn_title: 'ಕಾರ್ಯಕ್ರಮಗಳು',
+        link: '/events'
     },
     {
-        title:'Room Booking',
-        link:'/room'
+        en_title: 'Room Booking',
+        kn_title: 'ಕೊಠಡಿ ಬುಕ್ಕಿಂಗ್',
+        link: '/room'
     },
     {
-        title:'Gallery',
-        link:'/gallery'
+        en_title: 'Gallery',
+        kn_title: 'ಗ್ಯಾಲರಿ',
+        link: '/gallery'
     },
     {
-        title:'Contact us',
-        link:'/contact'
+        en_title: 'Contact Us',
+        kn_title: 'ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ',
+        link: '/contact'
     },
     {
-        title:'About us',
-        link:'/about'
+        en_title: 'About Us',
+        kn_title: 'ನಮ್ಮ ಬಗ್ಗೆ',
+        link: '/about'
     },
     {
-        title:"FAQ's",
-        link:'/faqs'
+        en_title: "FAQ's",
+        kn_title: 'ಪದೇ ಪದೇ ಕೇಳಲಾಗುವ ಪ್ರಶ್ನೆಗಳು',
+        link: '/faqs'
     },
     {
-        title:'Privacy Policy',
-        link:'/privacy'
+        en_title: 'Privacy Policy',
+        kn_title: 'ಗೌಪ್ಯತಾ ನೀತಿ',
+        link: '/privacy'
     },
     {
-        title:'Terms and Conditions',
-        link:'/terms_and_conditions'
+        en_title: 'Terms and Conditions',
+        kn_title: 'ನಿಯಮಗಳು ಮತ್ತು ಶರತ್ತುಗಳು',
+        link: '/terms_and_conditions'
     },
     {
-        title:'Help',
-        link:'/help'
+        en_title: 'Help',
+        kn_title: 'ಸಹಾಯ',
+        link: '/help'
     }
-]
+];
 
-
-export default sitemapdata
+export default sitemapdata;

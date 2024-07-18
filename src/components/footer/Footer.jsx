@@ -12,14 +12,14 @@ function Footer() {
         <div className="row">
           <div className="col-md-8">
             <div className="left">
-              <h2 className='f2' >{isKannada ? 'ಶೀರ್ಷಿಕೆ' : 'Title'}</h2>
+              <h2 className='' >{isKannada ? 'ಶೀರ್ಷಿಕೆ' : 'Title'}</h2>
               <hr />
-              <p className='f6'>
+              <p className=''>
                 {isKannada
                   ? 'SPORTI ಸಮಾವೇಶಗಳು ಮತ್ತು ತರಬೇತಿ, ವಸತಿ, ಖಾಸಗಿ ಮತ್ತು ಸಾರ್ವಜನಿಕ ಕಾರ್ಯಕ್ರಮಗಳನ್ನು ಹಮ್ಮಿಕೊಳ್ಳಲು ಅಗತ್ಯವನ್ನು ಪೂರೈಸುತ್ತದೆ. ಇದು ಎಲೆಗಂಟ್ ಕಾನ್ಫರೆನ್ಸ್ ರೂಮ್‌ಗಳು, ತರಬೇತಿ ಕೊಠಡಿ, ವಿಶಾಲವಾದ ಕಾರ್ಯಕ್ರಮ ಸಭಾಂಗಣ, ಚಲನಚಿತ್ರಗಳು ಮತ್ತು ಡಾಕ್ಯುಮೆಂಟರಿಗಳನ್ನು ಪ್ರದರ್ಶನ ಮಾಡಲು ಮಿನಿ ಥಿಯೇಟರ್, ಆಧುನಿಕ ಮತ್ತು ಗುಣಮಟ್ಟದ ಸೌಕರ್ಯಗಳೊಂದಿಗೆ ಸಂಪೂರ್ಣ ಉನ್ನತ ಗುಣಮಟ್ಟದ ಕೊಠಡಿಗಳನ್ನು ಹೊಂದಿದೆ.'
                   : 'SPORTI fulfills the requirement of organizing conferences and training, accommodation, hosting private and public events, celebrations, and dining. It also boasts superior and quality infrastructure featuring elegant Conference rooms, Training room, extensive Event hall, state of the art Mini Theatre for screening movies and documentaries, luxurious accommodation - VIP, Family and Executive rooms, impressive indoor Dining hall and outdoor Barbecue, well equipped Gym for maintaining fitness, sporting avenues like Badminton, Table Tennis and Billiards and also a vast Hockey ground. SPORTI’s central location enables our guests to reach important official destinations with reduced travel time and also experience Bengaluru’s cosmopolitan culture post work hours. Both institutes are committed to providing high-quality experience and impeccable service to enhance the living experience.'}
               </p>
-              <p className='f6'>
+              <p className=''>
                 {isKannada
                   ? 'SPORTI - ಹಿರಿಯ ಪೊಲೀಸ್ ಅಧಿಕಾರಿಗಳ ಸಂಶೋಧನೆ ಮತ್ತು ತರಬೇತಿ ಸಂಸ್ಥೆ 1973ರಲ್ಲಿ ಸ್ಥಾಪನೆಯಾಯಿತು ಮತ್ತು ಪೊಲೀಸ್ ಇಲಾಖೆಯ ಅಗತ್ಯಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಪೂರೈಸುತ್ತಿದೆ. ಇದನ್ನು ಮೊದಲು ಹಿರಿಯ ಪೊಲೀಸ್ ಅಧಿಕಾರಿಗಳ ಮೆಸ್ ಎಂದು ಕರೆಯಲಾಗುತ್ತಿತ್ತು ಮತ್ತು 2019ರಲ್ಲಿ SPORTI ಎಂದು ಮರುನಾಮಕರಣ ಮಾಡಲಾಯಿತು.'
                   : 'SPORTI - Senior Police Officers Research and Training Institute was established in the year 1973 and has been successfully catering to the needs of the Police department. It was prior known as Senior Police Officer Mess and renamed to SPORTI in 2019 to enhance the quality of services being provided. Similarly, to expand the scope of services and offerings to more officers, KSRP Research and Training Institute was established in 2014 and was renamed as SPORTI-2 subsequently. This evolution reflects the institute\'s dedication to advancing knowledge and expertise in its field while adapting to meet the evolving needs of its stakeholders. Both SPORTI 1 and SPORTI 2 are all exclusive facilities for serving and retired senior police officials only.'}
@@ -27,7 +27,7 @@ function Footer() {
             </div>
           </div>
           <div className="col-md-4">
-            <h1 className="fs-2">{isKannada ? 'ತ್ವರಿತ ಲಿಂಕ್‌ಗಳು' : 'Quick Links'}</h1>
+            <h1 className="">{isKannada ? 'ತ್ವರಿತ ಲಿಂಕ್‌ಗಳು' : 'Quick Links'}</h1>
             <hr />
             <ul>
               <li><Link to="/services/sporti1">{isKannada ? 'ಸ್ಪೋರ್ಟಿ-1' : 'SPORTI-1'}</Link></li><hr />
