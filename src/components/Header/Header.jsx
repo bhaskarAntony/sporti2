@@ -23,7 +23,7 @@ function Header({ toggleTheme, theme }) {
   return (
     <header>
       {/* <ThemeToggle toggleTheme={toggleTheme} theme={theme} /> */}
-      <Navbar expand="lg" className="navbar p-0">
+      <Navbar expand="xl" className="navbar p-0">
         <Container fluid className='p-0'>
           <div className="logo-container d-flex align-items-center ">
             <Navbar.Brand href="/">
@@ -36,11 +36,11 @@ function Header({ toggleTheme, theme }) {
             </Navbar.Brand>
           </div>
 
-          <button className='btn p-0 bg-transparent text-white d-block d-md-none' onClick={handleShow}>
+          <button className='btn p-0 bg-transparent text-white d-block d-xl-none' onClick={handleShow}>
             <i className='bi bi-list fs-1'></i>
           </button>
           <Navbar.Collapse id="navbarScroll" className='p-0'>
-            <div className="d-none d-md-block w-100">
+            <div className="d-none d-lg-block w-100">
               <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
                 <Nav.Link href="/">{isKannada ? 'ಮನೆ' : 'Home'}</Nav.Link>
                 <Nav.Link href="/about">{isKannada ? 'ನಮ್ಮ ಬಗ್ಗೆ' : 'About Us'}</Nav.Link>

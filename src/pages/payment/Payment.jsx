@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './style.css'
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDialog } from '../../components/popups/DialogContext';
 import Loading from '../../components/popups/Loading';
 
@@ -116,6 +116,7 @@ const Payment = () => {
            <div className="d-flex gap-3  flex-nowrap justify-content-end p-2">
           {/* <button onClick={createPaymentForm} className='btn btn-success rounded-1 m-1'>Pay Online</button>
           <button onClick={OfflinePay} className='btn btn-danger rounded-1 m-1'>Pay Offline </button> */}
+              <Link to="/"  className='btn btn-danger rounded-1 m-1'>Go back to home</Link> 
           </div>
          
            <div className="bg-main text-light p-3">
@@ -125,6 +126,7 @@ const Payment = () => {
            </div>
         </div>
        </div>
+
          
         </div>
     );

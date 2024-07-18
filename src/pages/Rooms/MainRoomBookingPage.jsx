@@ -141,7 +141,7 @@ function MainRoomBook() {
                     roomPrice = 2100;
                 }
                 break;
-            case 'VIP':
+            case 'Suite (ADGP & Above)':
                 if (formData.guestType === 'Officers from Karnataka') {
                     roomPrice = 1300;
                 } else if (formData.guestType === 'Officers from Other States') {
@@ -171,7 +171,7 @@ function MainRoomBook() {
             return (
                 <>
                     <Dropdown.Item eventKey="Family">{iskannada ? 'ಕುಟುಂಬ' : 'Family'}</Dropdown.Item>
-                    <Dropdown.Item eventKey="VIP">{iskannada ? 'ವಿಐಪಿ' : 'VIP'}</Dropdown.Item>
+                    <Dropdown.Item eventKey="Suite (ADGP & Above)">{iskannada ? 'ವಿಐಪಿ' : 'Suite (ADGP & Above)'}</Dropdown.Item>
                     <Dropdown.Item eventKey="Standard">{iskannada ? 'ಸಾಮಾನ್ಯ' : 'Standard'}</Dropdown.Item>
                 </>
             );
@@ -226,12 +226,12 @@ function MainRoomBook() {
         }
 
         setIsLoading(true);
-        axios.post('https://sporti-backend-2-o22y.onrender.com/api/payment', formData)
+        axios.post('http://localhost:3005/api/payment', formData)
             .then(response => {
                 const { success, user } = response.data;
                 if (success) {
                     setIsLoading(false);
-                    openDialog('Success', `Your booking request has been sent. It usually takes less than 24 hours to review the request. SMS will be sent to registered mobile number regarding booking details. ${user.applicationNo}`, false);
+                    openDialog('Success', `Your booking request has been sent to admin for confirmation and it takes one  working day  for the same. SMS will be sent to the registered mobile number. please note the  acknowledgement number for future  reference ${user.applicationNo}`, false);
                     navigate(`/payment/${user.applicationNo}`);
                 } else {
                     setIsLoading(false);
@@ -254,7 +254,7 @@ function MainRoomBook() {
             <div className="row">
                 <div className="col-md-8 m-auto bg-white p-0">
                 <div className="bg-main p-3 text-center">
-                        <h1 className="fs-3 text-light">{iskannada ? 'ಕರ್ನಾಟಕ ಸರ್ಕಾರ ಸೇವೆ ಬುಕ್ಕಿಂಗ್ ವೇಳಾಪಟ್ಟಿ' : 'Karnataka Government SPORTI Room Booking Form'}</h1>
+                        <h1 className="fs-3 text-light">{iskannada ? 'SPORTI ಸೇವೆ ಬುಕ್ಕಿಂಗ್ ವೇಳಾಪಟ್ಟಿ' : 'Karnataka Government SPORTI Room Booking Form'}</h1>
                         <p className="text-light">
                             {iskannada ? 'ಈ ಫಾರಂ ಅಧಿಕಾರಿಗಳಿಗೆ ಇತರ ಸಲಹೆಗಳಿಂದ ಬಹುಮಾನಗಳನ್ನು ಪುಡಿಸುವ ಅವಕಾಶವನ್ನು ಒದಗಿಸುತ್ತದೆ.' : 'This form provides an opportunity for officers to book various rooms offered through the department.'}
                         </p>
@@ -277,7 +277,7 @@ function MainRoomBook() {
                         <div className="row">
                             <div className="col-md-12">
                                 <div className="form-group mt-3">
-                                    <label htmlFor="username" className="form-label">{iskannada ? 'ಬಳಕೆದಾರರ ಹೆಸರು' : 'Username'}</label>
+                                    <label htmlFor="username" className="form-label">{iskannada ? 'ಬಳಕೆದಾರರ ಹೆಸರು' : 'Officers name'}</label>
                                     <input type="text" className="form-control" name="username" id="username" value={formData.username} onChange={handleFormChange} />
                                     {errors.username && <small className="text-danger">{errors.username}</small>}
                                 </div>
@@ -291,7 +291,7 @@ function MainRoomBook() {
                             </div>
                             <div className="col-md-12">
                                 <div className="form-group mt-3">
-                                    <label htmlFor="officerCadre" className="form-label">{iskannada ? 'ಅಧಿಕಾರಿ ಕೇಡರ್' : 'Officer Cadre'}</label>
+                                    <label htmlFor="officerCadre" className="form-label">{iskannada ? 'ಅಧಿಕಾರಿ ಕೇಡರ್' : 'Officer Cadre (KA/No.KA)'}</label>
                                     <input type="text" className="form-control" name="officerCadre" id="officerCadre" value={formData.officerCadre} onChange={handleFormChange} />
                                     {errors.officerCadre && <small className="text-danger">{errors.officerCadre}</small>}
                                 </div>
@@ -359,7 +359,7 @@ function MainRoomBook() {
                                     <label htmlFor="guestType" className="form-label">{iskannada ? 'ಅತಿಥಿ ಪ್ರಕಾರ' : 'Guest Type'}</label>
                                     <Dropdown onSelect={(value) => handleDropdownChange('guestType', value)}>
                                         <Dropdown.Toggle variant="secondary" id="dropdown-guestType">
-                                            {formData.serviceType || (iskannada ? 'ಅತಿಥಿ ಪ್ರಕಾರ ಆಯ್ಕೆಮಾಡಿ' : 'Select Guest Type')}
+                                            {formData.serviceType || (iskannada ? 'ಅತಿಥಿ ಪ್ರಕಾರ ಆಯ್ಕೆಮಾಡಿ' : 'Officers Category')}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
                                             <Dropdown.Item eventKey="Officers from Karnataka">{iskannada ? 'ಕರ್ನಾಟಕದ ಅಧಿಕಾರಿಗಳು' : 'Officers from Karnataka'}</Dropdown.Item>
