@@ -76,7 +76,7 @@ text-align: center;
 .skew-left{
   flex: 1;
   background-color: #f80408;
-  transform: skew(45deg) translateX(-100px);
+  /* transform: skew(45deg) translateX(-100px); */
   min-height: 100px;
   display: flex;
   align-items: center;
@@ -85,13 +85,13 @@ text-align: center;
   width: 100%;
 }
 .skew-container h1{
-  transform: skew(-45deg);
+  /* transform: skew(-45deg); */
 }
 .skew-right{
   flex: 2;
   background:var(--gradient) !important;
-  transform: skew(45deg) translateX(-80px);
-  min-height: 60px;
+  /* transform: skew(45deg) translateX(-100px); */
+  min-height: 100px;
   width: 100%;
   color: #fff !important;
 

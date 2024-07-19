@@ -1,60 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import Aos from 'aos';
-import { useAuth } from './context/AuthContext';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { useLanguage } from './context/LangaugeContext';
 import Header from './components/Header/Header';
 import { TranslationHOC } from './helpers/TranslationHOC';
 import Home from './pages/Home/Home';
-import Food from './pages/food/Food';
-import ViewFood from './pages/food/ViewFood';
-import Room from './pages/Rooms/Room';
-import Event from './pages/Events/Event';
 import FoodCart from './pages/food/FoodCart';
-import EventView from './pages/Events/EventView';
-import Footer from './components/footer/Footer';
+import MainRoomBook from './pages/Rooms/MainRoomBook';
 import RoomView from './pages/Rooms/RoomView';
-import LiveStream from './pages/Events/LiveStream';
-import Login from './pages/Login';
+import Event from './pages/Events/Event';
 import About from './pages/about/About';
+import LiveStream from './pages/Events/LiveStream';
 import Faqs from './pages/faqs/Faqs';
-import Tems_and_conditions from './pages/terms/Tems_and_conditions';
-import Privacy from './pages/privacy/Privacy';
 import Help from './pages/Help/Help';
+import Gallery from './pages/gallery/Gallery';
+import Events from './components/events/Events';
 import SiteMap from './pages/sitemap/SiteMap';
 import Contact from './pages/contact/Contact';
-import Gallery from './pages/gallery/Gallery';
-import Signup from './pages/signup/Signup';
-import Services from './pages/services/Services';
-import Events from './components/events/Events';
-import View from './pages/view/View';
+import Tems_and_conditions from './pages/terms/Tems_and_conditions';
+import Privacy from './pages/privacy/Privacy';
+import EventView from './pages/Events/EventView';
+import ViewFood from './pages/food/ViewFood';
+import Login from './pages/Login';
 import Registration from './pages/registration/Registration';
 import AdditionalDetailsForm from './pages/membership/AdditionalDetailsForm';
 import Admin from './pages/membership/Admin';
-import MainContact from './pages/contact/MainContact';
-import MainservicePage from './pages/services/MainservicePage';
-import ConferenceHallBook from './pages/Conferencehall/ConferenceHallBook';
-import MainRoomBookingPage from './pages/Rooms/MainRoomBookingPage';
-import ServiceBook from './pages/Booking/ServiceBook';
-import MainRoomBook from './pages/Rooms/MainRoomBook';
-import ProtectedRoute from './components/ProtectedRoute';
-import FontSizeSelector from './font-resizer/FontSizeSelector';
-import ScrollToTop from './components/ScrollToTop';
+import View from './pages/view/View';
 import Payment from './pages/payment/Payment';
-import { Dropdown } from 'react-bootstrap';
-import FontSizeChanger from 'react-font-size-changer';
+import ServiceBook from './pages/Booking/ServiceBook';
+import Services from './pages/services/Services';
 import ErrorPage from './pages/notFound/ErrorPage';
+import Footer from './components/footer/Footer';
+import ProtectedRoute from './components/ProtectedRoute';
+import FontSizeChanger from 'react-font-size-changer';
+import ScrollToTop from './components/ScrollToTop';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+import { useAuth } from './context/AuthContext';
+import Cookies from 'js-cookie';
 
 function App() {
   const [isHighContrast, setIsHighContrast] = useState(false);
   const [fontSize, setFontSize] = useState('fs-6'); // Default font size
   const [theme, setTheme] = useState('light');
-  const { isAuthenticated, setIsAuthenticated, setUser, logout } = useAuth();
   const { setIsKannada, isKannada } = useLanguage();
   const [fontSizeIndex, setFontSizeIndex] = useState(5); // Default to 'fs-4'
   const [fontSizeClass, setFontSizeClass] = useState('fs-6'); // Initial font size class
+  const { isAuthenticated, logout, setIsAuthenticated, validateToken } = useAuth();
+  useEffect(()=>{
+    const token = Cookies.get('token');
+    if (token) {
+      validateToken(token).then(isValid => {
+        if (isValid) {
+          setIsAuthenticated(true);
+          // Optionally fetch user data here
+        }
+      });
+    }
+  })
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -65,7 +68,7 @@ function App() {
   }, []);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
   const highContrastClass = isHighContrast ? 'high-contrast' : '';
@@ -80,52 +83,31 @@ function App() {
 
   const increaseFontSize = () => {
     if (fontSizeIndex > 0) {
-      setFontSizeIndex((prevIndex) => prevIndex - 1);
+      setFontSizeIndex(prevIndex => prevIndex - 1);
     }
   };
 
   const decreaseFontSize = () => {
     if (fontSizeIndex < fontSizeClasses.length - 1) {
-      setFontSizeIndex((prevIndex) => prevIndex + 1);
+      setFontSizeIndex(prevIndex => prevIndex + 1);
     }
   };
 
-  // Function to check token validity
-  const checkTokenValidity = async () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const response = await axios.post('https://sporti-backend-2-o22y.onrender.com/api/login', { token });
-        if (response.data.valid) {
-          setIsAuthenticated(true);
-          setUser(response.data.user);
-        } else {
-          setIsAuthenticated(false);
-          logout();
-        }
-      } catch (error) {
-        setIsAuthenticated(false);
-        logout();
-        console.error('Token validation failed', error);
-      }
-    } else {
-      setIsAuthenticated(false);
-    }
-  };
-
-  useEffect(() => {
-    checkTokenValidity();
-  }, []);
 
   return (
     <div className={`App overflow-hidden ${highContrastClass} ${fontSizeClass}`}>
-      <div className='d-flex justify-content-end gap-2 p-1 gradient align-items-center'>
-        <button className='btn btn-dark rounded-1 btn-sm' onClick={() => setIsKannada(!isKannada)}>
+      <div className='d-flex justify-content-between gap-2 p-1 gradient align-items-center'>
+      {
+          isAuthenticated?(<button onClick={logout} className='btn btn-danger btn-sm'>Logout</button>):(<Link to='/login'  className='btn btn-danger btn-sm'>Login</Link>)
+        }
+      <div className='d-flex gap-3 align-items-center'>
+      <button className='btn btn-dark rounded-1 btn-sm' onClick={() => setIsKannada(!isKannada)}>
           {isKannada ? 'To English' : 'ಕನ್ನಡಕ್ಕೆ'}
         </button>
         <button className="btn btn-dark btn-sm rounded-1" onClick={() => setIsHighContrast(!isHighContrast)}>
           {isHighContrast ? 'Disable High Contrast' : 'Enable High Contrast'}
         </button>
+       
         <FontSizeChanger
           targets={['.content', '.content p', '.content h1', '.content h2', '.content h3', '.content h4', '.content h5', '.content h6', '.content span', '.content .f6']}
           options={{
@@ -147,18 +129,16 @@ function App() {
           }}
         />
       </div>
+      </div>
       <TranslationHOC>
-        <BrowserRouter>
-          <ScrollToTop />
-          <Header toggleTheme={toggleTheme} theme={theme} />
-          <Routes>
-            
-            <Route path='/' element={isAuthenticated ? <Home /> : <Login />} />
-          
-            {
-              isAuthenticated?(
-                <>
-                  <Route path='/cart' element={<FoodCart />} />
+        <ScrollToTop />
+        <Header toggleTheme={toggleTheme} theme={theme} />
+        <Routes>
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Registration />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path='/' element={<Home />} />
+            <Route path='/cart' element={<FoodCart />} />
             <Route path='/room/:sporti' element={<MainRoomBook />} />
             <Route path='/roomview/:id/:sportiId' element={<RoomView />} />
             <Route path='/event' element={<Event />} />
@@ -174,25 +154,16 @@ function App() {
             <Route path='/privacy_policy' element={<Privacy />} />
             <Route path='/eventView/:id' element={<EventView />} />
             <Route path='/food/order/:id' element={<ViewFood />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Registration />} />
-            <Route element={<ProtectedRoute />}>
-              <Route path='/food' element={<Food />} />
-              <Route path='/payment/:applicationNo' element={<Payment />} />
-              <Route path='/services/book/:sporti' element={<ServiceBook />} />
-            </Route>
-            <Route path='/services/:sporti' element={<Services />} />
-            <Route path='/registration' element={<Registration />} />
             <Route path='/additional-details/:id' element={<AdditionalDetailsForm />} />
             <Route path='/admin/:id' element={<Admin />} />
             <Route path='/view/:id' element={<View />} />
-                </>
-              ):(null)
-            }
-              <Route path='/*' element={<ErrorPage />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
+            <Route path='/payment/:applicationNo' element={<Payment />} />
+            <Route path='/services/book/:sporti' element={<ServiceBook />} />
+            <Route path='/services/:sporti' element={<Services />} />
+          </Route>
+          <Route path='/*' element={<ErrorPage />} />
+        </Routes>
+        <Footer />
       </TranslationHOC>
     </div>
   );

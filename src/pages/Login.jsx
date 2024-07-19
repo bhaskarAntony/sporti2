@@ -6,40 +6,33 @@ import { useDialog } from '../components/popups/DialogContext';
 import Loading from '../components/popups/Loading';
 import { useLanguage } from '../context/LangaugeContext';
 
-const Login = (props) => {
+const Login = () => {
   const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
-  const { setIsAuthenticated, setUser } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
   const navigate = useNavigate();
   const { openDialog } = useDialog();
   const { isKannada } = useLanguage();
 
-  const login = async (email, password) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('https://sporti-backend-2-o22y.onrender.com/api/login', { email, password });
-      setUser(response.data.user);
-    
-      localStorage.setItem('token', response.data.token);
-      setIsAuthenticated(true);
-      console.log(response.data.token);
-      // navigate('/');
+      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      console.log('Login response:', response.data);
+      login(response.data.token, response.data.user); // Use login function from context
+      navigate('/');
     } catch (error) {
+      console.error('Login error:', error.response ? error.response.data : error.message);
       openDialog(
         isKannada ? 'ಅಮಾನ್ಯ ಇಮೇಲ್ ಅಥವಾ ಪಾಸ್ವರ್ಡ್' : 'Invalid email or password',
         isKannada ? 'ದಯವಿಟ್ಟು ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.' : 'Please check the details and try again.',
         true
       );
-      console.error('Login failed', error);
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await login(email, password);
   };
 
   if (loading) {

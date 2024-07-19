@@ -4,14 +4,18 @@ import i1 from '../../assets/images/aboutus/smwaus_2.jpg';
 import team from '../../data/team';
 import membersData from '../../data/members';
 import { useLanguage } from '../../context/LangaugeContext';
+import aboutImage from '../../assets/images/aboutus/about_us_banner.jpg'
 
 function About() {
   const { isKannada } = useLanguage();
 
   return (
     <div>
-      <div className="contact-banner about-banner">
-        <div className="skew-container">
+      <div className="contact-banner ">
+        <img src={aboutImage} alt="" className="w-100 about-image" />
+       
+      </div>
+       <div className="skew-container">
           <div className="skew-left">
             <h1 className="fs-2 fw-bold">{isKannada ? 'ನಮ್ಮ ಬಗ್ಗೆ' : 'ABOUT US'}</h1>
           </div>
@@ -19,7 +23,6 @@ function About() {
             <h1 className="fs-2 fw-bold"></h1>
           </div>
         </div>
-      </div>
 
       <div className="container py-5">
         <div className="text-center">
