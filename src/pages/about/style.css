@@ -11,9 +11,9 @@
     object-position: center top;
 }
 .profile-card img{
-    height: 300px;
-    object-fit: contain;
+    max-height: 500px !important;
     object-fit: cover;
+    object-position: center top;
 }
 .profile-card{
     /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */

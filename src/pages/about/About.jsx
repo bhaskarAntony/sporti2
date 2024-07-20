@@ -76,7 +76,7 @@ function About() {
           <div className="row">
             {team.map((item, index) => (
               <div key={index} className="col-12 col-md-3 mb-4">
-                <div className="profile-card p-2 rounded-3 h-100">
+                <div className="profile-card p-2 rounded-3">
                   <img src={item.profile} alt={item.name} className="w-100 mb-3 rounded-3" />
                   <div className="card-body">
                     <h5 className="card-title fs-6 mt-3">{isKannada ? item.name_ka : item.name_en}</h5>
