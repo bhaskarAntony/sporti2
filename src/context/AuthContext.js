@@ -8,30 +8,34 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
       validateToken(token).then(isValid => {
+        setLoading(false);
         if (isValid) {
           setIsAuthenticated(true);
-          // Optionally fetch user data here
         } else {
           logout();
         }
       });
+    } else {
+      setLoading(false);
     }
-  }, []); // Ensure dependencies are set if using dynamic data
+  }, []);
 
   const validateToken = async (token) => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/validateToken', {}, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
-      if (response.data.success) { // Adjust based on API response
+      if (response.status === 200) {
+        setUser(response.data.user);
         setIsAuthenticated(true);
-        setUser(response.data.user); // Update user state if token is valid
+        console.log(isAuthenticated);
         return true;
       }
       return false;
@@ -42,7 +46,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = (token, userData) => {
-    Cookies.set('token', token, { expires: 7 }); // Token expires in 7 days
+    Cookies.set('token', token, { expires: 7 });
     setIsAuthenticated(true);
     setUser(userData);
     navigate('/');
@@ -56,7 +60,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout, validateToken, setIsAuthenticated }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, loading, login, logout, validateToken, setIsAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

@@ -239,16 +239,16 @@ function MainRoomBook() {
         }
 
         setIsLoading(true);
-        axios.post('https://sporti-backend-2-o22y.onrender.com/api/payment', formData)
+        axios.post('https://sporti-services-backend.onrender.com/api/sporti/service/book', formData)
             .then(response => {
                 const { success, user } = response.data;
                 if (success) {
                     setIsLoading(false);
-                    openDialog('Success', `Booking submitted successfully with application number ${user.applicationNo}`, false);
+                    openDialog('Success', `Your booking request has been sent to admin for confirmation and it takes one  working day  for the same. SMS will be sent to the registered mobile number. please note the  acknowledgement number for future  reference.  ApplicationNo is ${user.applicationNo}`, false);
                     navigate(`/payment/${user.applicationNo}`);
                 } else {
                     setIsLoading(false);
-                    openDialog('Error', 'Your application is not confirmed. Please wait until confirmation. The application will be confirmed within 24 working hours after booking.', true);
+                    openDialog('Error', 'something went wrong please try again later..', true);
                 }
             })
             .catch((error) => {

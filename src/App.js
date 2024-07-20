@@ -41,23 +41,23 @@ import Cookies from 'js-cookie';
 
 function App() {
   const [isHighContrast, setIsHighContrast] = useState(false);
-  const [fontSize, setFontSize] = useState('fs-6'); // Default font size
+  const [fontSize, setFontSize] = useState('fs-6');
   const [theme, setTheme] = useState('light');
   const { setIsKannada, isKannada } = useLanguage();
-  const [fontSizeIndex, setFontSizeIndex] = useState(5); // Default to 'fs-4'
-  const [fontSizeClass, setFontSizeClass] = useState('fs-6'); // Initial font size class
+  const [fontSizeIndex, setFontSizeIndex] = useState(5);
+  const [fontSizeClass, setFontSizeClass] = useState('fs-6');
   const { isAuthenticated, logout, setIsAuthenticated, validateToken } = useAuth();
-  useEffect(()=>{
-    const token = Cookies.get('token');
-    if (token) {
-      validateToken(token).then(isValid => {
-        if (isValid) {
-          setIsAuthenticated(true);
-          // Optionally fetch user data here
-        }
-      });
-    }
-  })
+
+  // useEffect(() => {
+  //   const token = Cookies.get('token');
+  //   if (token) {
+  //     validateToken(token).then(isValid => {
+  //       if (isValid) {
+  //         setIsAuthenticated(true);
+  //       }
+  //     });
+  //   }
+  // }, [validateToken, setIsAuthenticated]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -65,7 +65,7 @@ function App() {
 
   useEffect(() => {
     document.documentElement.style.fontSize = fontSize;
-  }, []);
+  }, [fontSize]);
 
   const toggleTheme = () => {
     setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
@@ -93,42 +93,44 @@ function App() {
     }
   };
 
-
   return (
     <div className={`App overflow-hidden ${highContrastClass} ${fontSizeClass}`}>
       <div className='d-flex justify-content-between gap-2 p-1 gradient align-items-center'>
-      {
-          isAuthenticated?(<button onClick={logout} className='btn btn-danger btn-sm'>Logout</button>):(<Link to='/login'  className='btn btn-danger btn-sm'>Login</Link>)
+        {
+          isAuthenticated ? (
+            <button onClick={logout} className='btn btn-danger btn-sm'>Logout</button>
+          ) : (
+            <Link to='/login' className='btn btn-danger btn-sm'>Login</Link>
+          )
         }
-      <div className='d-flex gap-3 align-items-center'>
-      <button className='btn btn-dark rounded-1 btn-sm' onClick={() => setIsKannada(!isKannada)}>
-          {isKannada ? 'To English' : 'ಕನ್ನಡಕ್ಕೆ'}
-        </button>
-        <button className="btn btn-dark btn-sm rounded-1" onClick={() => setIsHighContrast(!isHighContrast)}>
-          {isHighContrast ? 'Disable High Contrast' : 'Enable High Contrast'}
-        </button>
-       
-        <FontSizeChanger
-          targets={['.content', '.content p', '.content h1', '.content h2', '.content h3', '.content h4', '.content h5', '.content h6', '.content span', '.content .f6']}
-          options={{
-            stepSize: 1,
-            range: 3
-          }}
-          customButtons={{
-            up: <button className="fbtn border-0 rounded" onClick={increaseFontSize}>A+</button>,
-            down: <button className="fbtn border-0 rounded" onClick={decreaseFontSize}>A-</button>,
-            style: {
-              backgroundColor: 'transparent',
-              border: 'none',
-              color: 'black',
-              WebkitBoxSizing: 'border-box',
-              WebkitBorderRadius: '5px',
-              width: '30px'
-            },
-            buttonsMargin: 10
-          }}
-        />
-      </div>
+        <div className='d-flex gap-3 align-items-center'>
+          <button className='btn btn-light rounded-1 btn-sm' onClick={() => setIsKannada(!isKannada)}>
+            {isKannada ? 'English' : 'ಕನ್ನಡಕ್ಕೆ'}
+          </button>
+          <button className="btn btn-light btn-sm rounded-1" onClick={() => setIsHighContrast(!isHighContrast)}>
+            {isHighContrast ? 'Disable High Contrast' : 'Enable High Contrast'}
+          </button>
+          <FontSizeChanger
+            targets={['.content', '.content p', '.content h1', '.content h2', '.content h3', '.content h4', '.content h5', '.content h6', '.content span', '.content .f6']}
+            options={{
+              stepSize: 1,
+              range: 3
+            }}
+            customButtons={{
+              up: <button className="fbtn border-0 rounded" onClick={increaseFontSize}>A+</button>,
+              down: <button className="fbtn border-0 rounded" onClick={decreaseFontSize}>A-</button>,
+              style: {
+                backgroundColor: 'transparent',
+                border: 'none',
+                color: 'black',
+                WebkitBoxSizing: 'border-box',
+                WebkitBorderRadius: '5px',
+                width: '30px'
+              },
+              buttonsMargin: 10
+            }}
+          />
+        </div>
       </div>
       <TranslationHOC>
         <ScrollToTop />

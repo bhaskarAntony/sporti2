@@ -231,23 +231,23 @@ function MainRoomBook() {
             return;
         }
 
-        setIsLoading(true);
-        axios.post('http://localhost:3005/api/payment', formData)
-            .then(response => {
-                const { success, user } = response.data;
-                if (success) {
-                    setIsLoading(false);
-                    openDialog('Success', `Your booking request has been sent to admin for confirmation and it takes one  working day  for the same. SMS will be sent to the registered mobile number. please note the  acknowledgement number for future  reference ${user.applicationNo}`, false);
-                    navigate(`/payment/${user.applicationNo}`);
-                } else {
-                    setIsLoading(false);
-                    openDialog('Error', 'Your application is not confirmed. Please wait until confirmation. The application will be confirmed within 24 working hours after booking.', true);
-                }
-            })
-            .catch((error) => {
+        axios.post('http://localhost:5000/api/sporti/service/book', formData)
+        .then(response => {
+            const { success, user } = response.data;
+            if (success) {
                 setIsLoading(false);
-                console.error('Error submitting form:', error);
-            });
+                openDialog('Success', `Your booking request has been sent to admin for confirmation and it takes one  working day  for the same. SMS will be sent to the registered mobile number. please note the  acknowledgement number for future  reference ${user.applicationNo} `, false);
+                navigate(`/payment/${user.applicationNo}`);
+            } else {
+                setIsLoading(false);
+                openDialog('Error', 'Your application is not confirmed. Please wait until confirmation. The application will be confirmed within 24 working hours after booking.', true);
+            }
+        })
+        .catch((error) => {
+            setIsLoading(false);
+            openDialog('Error', 'Booking Error', true);
+            console.error('Error submitting form:', error);
+        });
     };
 
     if (isLoading) {

@@ -6,6 +6,8 @@ import ImagePopup from '../../components/popups/ImagePopup';
 import Loading from '../../components/popups/Loading';
 import { useLanguage } from '../../context/LangaugeContext';
 import document from '../../components/documents/menu.pdf'
+import sporti1banner from '../../assets/images/banners/sporti1_banner.jpg'
+import sporti2banner from '../../assets/images/banners/sporti2_banner.jpg'
 
 function Services() {
   const { sporti } = useParams(); // Destructure sporti from useParams()
@@ -37,9 +39,12 @@ function Services() {
 
   return (
     <div className='services'>
-      <div className={`contact-banner ${service.title=="SPORTI-1"? 'sporti1':'sporti2'}`}>
+      <div className={`contact-banner `}>
+        <img src={service.title== 'SPORTI-1'?(sporti1banner):(sporti2banner)} alt="sporti" className="w-100 sporti-banner" />
 
-        <div className="skew-container"> 
+
+      </div>
+      <div className="skew-container"> 
           <div className="skew-left">
             <h1 className="fs-2 fw-bold">SERVICES</h1>
           </div>
@@ -47,7 +52,6 @@ function Services() {
             <h1 className="fs-2 fw-bold">{service.title}</h1>
           </div>
         </div>
-      </div>
     {
       sporti == 'sporti2'?(
         <div className="row p-3 p-md-5">
