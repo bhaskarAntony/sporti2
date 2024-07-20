@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
   const validateToken = async (token) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/validateToken', {}, {
+      const response = await axios.post('https://sporti-services-backend.onrender.com/api/auth/validateToken', {}, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.status === 200) {

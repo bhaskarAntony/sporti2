@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const response = await axios.post('https://sporti-services-backend.onrender.com/api/auth/login', { email, password });
       console.log('Login response:', response.data);
       login(response.data.token, response.data.user); // Use login function from context
       navigate('/');
