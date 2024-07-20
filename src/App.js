@@ -108,7 +108,7 @@ function App() {
             {isKannada ? 'English' : 'ಕನ್ನಡಕ್ಕೆ'}
           </button>
           <button className="btn btn-light btn-sm rounded-1" onClick={() => setIsHighContrast(!isHighContrast)}>
-            {isHighContrast ? 'Disable High Contrast' : 'Enable High Contrast'}
+            {isHighContrast ? 'No Contrast' : 'High Contrast'}
           </button>
           <FontSizeChanger
             targets={['.content', '.content p', '.content h1', '.content h2', '.content h3', '.content h4', '.content h5', '.content h6', '.content span', '.content .f6']}
