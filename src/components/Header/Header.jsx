@@ -78,27 +78,27 @@ function Header({ toggleTheme, theme }) {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ul>
-            <li><Link to="/">{isKannada ? 'ಮನೆ' : 'Home'}</Link></li>
+            <li><Link to="/" onClick={handleClose}>{isKannada ? 'ಮನೆ' : 'Home'}</Link></li>
             {isAuthenticated && (
               <>
-                <li><Link to="/about">{isKannada ? 'ನಮ್ಮ ಬಗ್ಗೆ' : 'About Us'}</Link></li>
-                <li><Link to="/services/sporti1">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-1' : 'SPORTI-1'}</Link></li>
-                <li><Link to="/services/sporti2">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</Link></li>
-                <li><Link to="/events&gallery">{isKannada ? 'ಈವೆಂಟ್‌ಗಳು ಮತ್ತು ಗ್ಯಾಲರಿ' : 'Events & Gallery'}</Link></li>
-                <li><Link to="/faqs">{isKannada ? 'ಪ್ರಶ್ನೆಗಳು' : "FAQ's"}</Link></li>
-                <li className="nav-item dropdown">
+                <li><Link to="/about" onClick={handleClose}>{isKannada ? 'ನಮ್ಮ ಬಗ್ಗೆ' : 'About Us'}</Link></li>
+                <li><Link to="/services/sporti1" onClick={handleClose}>{isKannada ? 'ಸ್ಪೊರ್ಟಿ-1' : 'SPORTI-1'}</Link></li>
+                <li><Link to="/services/sporti2" onClick={handleClose}>{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</Link></li>
+                <li><Link to="/events&gallery" onClick={handleClose}>{isKannada ? 'ಈವೆಂಟ್‌ಗಳು ಮತ್ತು ಗ್ಯಾಲರಿ' : 'Events & Gallery'}</Link></li>
+                <li><Link to="/faqs" onClick={handleClose}>{isKannada ? 'ಪ್ರಶ್ನೆಗಳು' : "FAQ's"}</Link></li>
+                <li className="nav-item dropdown text-start">
                   <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownServices2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {isKannada ? 'ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ' : 'Contact us'}
                   </Link>
                   <ul className="dropdown-menu" aria-labelledby="navbarDropdownServices2">
-                    <li><Link className="dropdown-item text-dark" to="/contact/sporti1">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-1' : 'SPORTI-1'}</Link></li>
-                    <li><Link className="dropdown-item text-dark" to="/contact/sporti2">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</Link></li>
+                    <li><Link className="dropdown-item text-dark" to="/contact/sporti1" onClick={handleClose}>{isKannada ? 'ಸ್ಪೊರ್ಟಿ-1' : 'SPORTI-1'}</Link></li>
+                    <li><Link className="dropdown-item text-dark" to="/contact/sporti2" onClick={handleClose}>{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</Link></li>
                   </ul>
                 </li>
               </>
             )}
             {!isAuthenticated && (
-              <li><Link to="/login">{isKannada ? 'ಲಾಗಿನ್' : 'Login'}</Link></li>
+              <li><Link to="/login" onClick={handleClose}>{isKannada ? 'ಲಾಗಿನ್' : 'Login'}</Link></li>
             )}
           </ul>
         </Offcanvas.Body>
