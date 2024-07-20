@@ -263,7 +263,7 @@ function MainRoomBook() {
 
 
     return (
-        <div className='main-function-hall-booking container-fluid p-4 p-md-5'>
+        <div className='main-function-hall-booking container-fluid p-1 p-md-5'>
             <div className="row">
                 <div className="col-md-8 m-auto bg-white p-0">
                 <div className="bg-main p-3 text-center">

@@ -270,7 +270,7 @@ function MainFunctionHallBooking() {
     }
 
     return (
-        <div className='main-function-hall-booking container-fluid p-4 p-md-5'>
+        <div className='main-function-hall-booking container-fluid p-1 p-md-5'>
             <div className="row">
                 <div className="col-md-8 mx-auto">
                     <div className="bg-white rounded">
@@ -291,7 +291,7 @@ function MainFunctionHallBooking() {
                             </Dropdown>
                         </div>
                     </div>
-                        <div className="p-4">
+                        <div className="p-3">
                             <form onSubmit={submitForm}>
                                 <div className="mb-3">
                                     <label htmlFor="username" className="form-label">{selectedLanguage === 'kannada' ? translateToKannada('Officer\'s Name') : 'Officer\'s Name'}</label>
