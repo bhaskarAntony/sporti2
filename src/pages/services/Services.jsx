@@ -54,7 +54,7 @@ function Services() {
         </div>
     {
       sporti == 'sporti2'?(
-        <div className="row p-3 p-md-5">
+        <div className="row p-2 p-md-5">
       <div className="col-md-6 m-auto">
       <div className="alert alert-primary text-center">
         <h1 className="alert-title">Download the menu</h1>
@@ -65,7 +65,7 @@ function Services() {
       ):(null)
     }
 
-      <div className="container bg-white p-3 py-5">
+      <div className="container bg-white p-2 py-5">
         <div className="text-center mb-5">
           <i className="bi bi-stars fs-2 text-warning"></i>
           <h1 className="fs-2 fw-bold title">{service.title}</h1>

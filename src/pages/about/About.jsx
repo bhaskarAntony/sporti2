@@ -60,7 +60,7 @@ function About() {
         </div>
       </div>
 
-      <div className="light p-3 ">
+      <div className="light p-2 ">
         <div className="ourteam container">
           <div className="text-center">
             <i className="bi bi-stars fs-2 text-warning"></i>
@@ -91,7 +91,7 @@ function About() {
         </div>
       </div>
 
-      <div className="commity-members p-3 p-md-5">
+      <div className="commity-members p-2 p-md-5">
         <div className="text-center py-4">
           <h3 className="fs-4 subtitle">SPORTI</h3>
           <h1 className="title fs-2 fw-bold">
