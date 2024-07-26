@@ -6,6 +6,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDialog } from '../../components/popups/DialogContext';
 import { Dropdown } from 'react-bootstrap';
 import './style.css'; // Include the CSS file
+import DOMPurify from 'dompurify';
+
+function sanitizeInput(input) {
+    return DOMPurify.sanitize(input, { USE_PROFILES: { html: true } });
+}
 
 function MainFunctionHallBooking() {
     const { sporti } = useParams();
@@ -46,7 +51,6 @@ function MainFunctionHallBooking() {
         }));
     }, [formData.roomType, formData.guestType, formData.noGuests, formData.checkInDate, formData.checkOutDate, formData.serviceName, formData.serviceType, numberOfDays]);
 
-
     const handleClose = () => {
         setShowModal(false);
     };
@@ -61,7 +65,7 @@ function MainFunctionHallBooking() {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: value
+            [name]: sanitizeInput(value)
         });
         setErrors({
             ...errors,
@@ -72,7 +76,7 @@ function MainFunctionHallBooking() {
     const handleDropdownChange = (name, value) => {
         setFormData({
             ...formData,
-            [name]: value
+            [name]: sanitizeInput(value)
         });
         setErrors({
             ...errors,
@@ -151,7 +155,7 @@ function MainFunctionHallBooking() {
                 default:
                     baseCost = 0;
             }
-        } else if (formData.serviceName === 'Conference  Room') {
+        } else if (formData.serviceName === 'Conference Room') {
             switch (formData.serviceType) {
                 case 'Others':
                     baseCost = 15000;
@@ -235,11 +239,11 @@ function MainFunctionHallBooking() {
                 const { success, user } = response.data;
                 if (success) {
                     setIsLoading(false);
-                    openDialog('Success', `Your booking request has been sent to admin for confirmation and it takes one  working day  for the same. SMS will be sent to the registered mobile number. please note the  acknowledgement number for future  reference.  ApplicationNo is ${user.applicationNo} `, false);
+                    openDialog('Success', `Your booking request has been sent to admin for confirmation and it takes one working day for the same. SMS will be sent to the registered mobile number. please note the acknowledgement number for future reference. ApplicationNo is ${user.applicationNo}`, false);
                     navigate(`/payment/${user.applicationNo}`);
                 } else {
                     setIsLoading(false);
-                    openDialog('Error', 'something went wrong please try again later..', true);
+                    openDialog('Error', 'Something went wrong, please try again later.', true);
                 }
             })
             .catch((error) => {
@@ -268,119 +272,234 @@ function MainFunctionHallBooking() {
     if (isLoading) {
         return <Loading />;
     }
+    const decodeHtml = (encodedString) => {
+        try {
+            // Only decode if it is a valid encoded URI component
+            return decodeURIComponent(encodedString);
+        } catch (e) {
+            // Return the original string if decoding fails
+            // setError('URI malformed');
+            return encodedString;
+        }
+    };
 
     return (
         <div className='main-function-hall-booking container-fluid p-1 p-md-5'>
             <div className="row">
                 <div className="col-md-8 mx-auto">
                     <div className="bg-white rounded">
-                    <div className="bg-main p-3 text-center">
-                        <h1 className="fs-3 text-light">{selectedLanguage === 'kannada' ? 'ಕರ್ನಾಟಕ SPORTI ಸೇವೆ ಬುಕ್ಕಿಂಗ್ ವೇಳಾಪಟ್ಟಿ' : 'SPORTI Services Booking Form'}</h1>
-                        <p className="text-light">
-                            {selectedLanguage === 'kannada' ? 'ಈ ಫಾರಂ ಅಧಿಕಾರಿಗಳಿಗೆ ಇತರ ಸಲಹೆಗಳಿಂದ ಬಹುಮಾನಗಳನ್ನು ಪುಡಿಸುವ ಅವಕಾಶವನ್ನು ಒದಗಿಸುತ್ತದೆ.' : 'This form provides an opportunity for officers to book various sports services offered through the department.'}
-                        </p>
-                        <div className="d-flex justify-content-end">
-                            <Dropdown onSelect={(value) => setSelectedLanguage(value)} className='w-auto'>
-                                <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                                    {selectedLanguage === 'kannada' ? 'ಭಾಷೆ: ಕನ್ನಡ' : 'Language: English'}
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item eventKey="english">English</Dropdown.Item>
-                                    <Dropdown.Item eventKey="kannada">ಕನ್ನಡ</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
+                        <div className="bg-main p-2 p-md-3 text-light rounded-top">
+                            <h3 className='m-0 text-center'>
+                                {selectedLanguage === 'english' ? 'Main Function Hall Booking' : 'ಮೇನ್ಸ್ ಫಂಕ್ಷನ್ ಹಾಲ್ ಬುಕ್ಕಿಂಗ್'}
+                            </h3>
                         </div>
-                    </div>
-                        <div className="p-3">
-                            <form onSubmit={submitForm}>
-                                <div className="mb-3">
-                                    <label htmlFor="username" className="form-label">{selectedLanguage === 'kannada' ? translateToKannada('Officer\'s Name') : 'Officer\'s Name'}</label>
-                                    <input type="text" className={`form-control ${errors.username && 'is-invalid'}`} id="username" name="username" value={formData.username} onChange={handleFormChange} />
-                                    {errors.username && <div className="invalid-feedback">{errors.username}</div>}
+                        <form onSubmit={submitForm} className="p-2 p-md-4">
+                            <div className="row">
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="username" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Officer\'s Name' : translateToKannada('Officer\'s Name')}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="username"
+                                        name="username"
+                                        value={formData.username}
+                                        onChange={handleFormChange}
+                                        className="form-control"
+                                    />
+                                    {errors.username && <div className="text-danger">{errors.username}</div>}
+                                    <div dangerouslySetInnerHTML={{ __html: sanitizeInput(decodeHtml(formData.username)) }} />
+
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="officerDesignation" className="form-label">{selectedLanguage === 'kannada' ? translateToKannada('Designation') : 'Designation'}</label>
-                                    <input type="text" className={`form-control ${errors.officerDesignation && 'is-invalid'}`} id="officerDesignation" name="officerDesignation" value={formData.officerDesignation} onChange={handleFormChange} />
-                                    {errors.officerDesignation && <div className="invalid-feedback">{errors.officerDesignation}</div>}
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="officerDesignation" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Designation' : translateToKannada('Designation')}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="officerDesignation"
+                                        name="officerDesignation"
+                                        value={formData.officerDesignation}
+                                        onChange={handleFormChange}
+                                        className="form-control"
+                                    />
+                                    {errors.officerDesignation && <div className="text-danger">{errors.officerDesignation}</div>}
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="serviceType" className="form-label">{selectedLanguage === 'kannada' ? translateToKannada('Officers Category') : 'Officers Category'}</label>
-                                    <Dropdown onSelect={(value) => handleDropdownChange('serviceType', value)}>
-                                        <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                                            {formData.serviceType || 'Select Type'}
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="officerCadre" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Cadre' : translateToKannada('Cadre')}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="officerCadre"
+                                        name="officerCadre"
+                                        value={formData.officerCadre}
+                                        onChange={handleFormChange}
+                                        className="form-control"
+                                    />
+                                    {errors.officerCadre && <div className="text-danger">{errors.officerCadre}</div>}
+                                </div>
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="email" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Email' : translateToKannada('Email')}
+                                    </label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleFormChange}
+                                        className="form-control"
+                                    />
+                                    {errors.email && <div className="text-danger">{errors.email}</div>}
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="phoneNumber" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Phone Number' : translateToKannada('Phone Number')}
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        id="phoneNumber"
+                                        name="phoneNumber"
+                                        value={formData.phoneNumber}
+                                        onChange={handleFormChange}
+                                        className="form-control"
+                                    />
+                                    {errors.phoneNumber && <div className="text-danger">{errors.phoneNumber}</div>}
+                                </div>
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="eventdate" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Event start date' : translateToKannada('Event start date')}
+                                    </label>
+                                    <input
+                                        type="date"
+                                        id="eventdate"
+                                        name="eventdate"
+                                        value={formData.eventdate}
+                                        onChange={handleFormChange}
+                                        className="form-control"
+                                    />
+                                    {errors.eventdate && <div className="text-danger">{errors.eventdate}</div>}
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="serviceName" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Service Name' : translateToKannada('Service Name')}
+                                    </label>
+                                    <Dropdown onSelect={(value) => handleDropdownChange('serviceName', value)}>
+                                        <Dropdown.Toggle variant="success" id="dropdown-serviceName">
+                                            {formData.serviceName || 'Select Service Name'}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
-                                        <Dropdown.Item eventKey="Serving and Senior Police Officers">Serving and Senior Police Officers</Dropdown.Item>
-                                            <Dropdown.Item eventKey="Senior Police Officers of Other Govt Department">Senior Police Officers of Other Govt Department</Dropdown.Item>
-                                          
-                                            <Dropdown.Item eventKey="Others">Others</Dropdown.Item>
+                                            <Dropdown.Item eventKey="main function hall">Main Function Hall</Dropdown.Item>
+                                            <Dropdown.Item eventKey="conference room">Conference Room</Dropdown.Item>
+                                            <Dropdown.Item eventKey="barbeque area">Barbeque Area</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                    {errors.serviceType && <div className="invalid-feedback d-block">{errors.serviceType}</div>}
+                                    {errors.serviceName && <div className="text-danger">{errors.serviceName}</div>}
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="officerCadre" className="form-label">{selectedLanguage === 'kannada' ? translateToKannada('Officer Cadre (KA/No.KA)') : 'Officer Cadre (KA/No.KA)'}</label>
-                                    <input type="text" className={`form-control ${errors.officerCadre && 'is-invalid'}`} id="officerCadre" name="officerCadre" value={formData.officerCadre} onChange={handleFormChange} />
-                                    {errors.officerCadre && <div className="invalid-feedback">{errors.officerCadre}</div>}
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="email" className="form-label">{selectedLanguage === 'kannada' ? translateToKannada('Email') : 'Email'}</label>
-                                    <input type="email" className={`form-control ${errors.email && 'is-invalid'}`} id="email" name="email" value={formData.email} onChange={handleFormChange} />
-                                    {errors.email && <div className="invalid-feedback">{errors.email}</div>}
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="phoneNumber" className="form-label">{selectedLanguage === 'kannada' ? translateToKannada('Phone Number') : 'Phone Number'}</label>
-                                    <input type="text" className={`form-control ${errors.phoneNumber && 'is-invalid'}`} id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleFormChange} />
-                                    {errors.phoneNumber && <div className="invalid-feedback">{errors.phoneNumber}</div>}
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="eventdate" className="form-label">{selectedLanguage === 'kannada' ? translateToKannada('Event start date') : 'Event start date'}</label>
-                                    <input type="date" className={`form-control ${errors.eventdate && 'is-invalid'}`} id="eventdate" name="eventdate" value={formData.eventdate} onChange={handleFormChange} />
-                                    {errors.eventdate && <div className="invalid-feedback">{errors.eventdate}</div>}
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="serviceName" className="form-label">{selectedLanguage === 'kannada' ? translateToKannada('Hall type') : 'Hall type'}</label>
-                                    <Dropdown onSelect={(value) => handleDropdownChange('serviceName', value)}>
-                                        <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                                            {formData.serviceName || 'Select Service'}
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="serviceType" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Service Type' : translateToKannada('Service Type')}
+                                    </label>
+                                    <Dropdown onSelect={(value) => handleDropdownChange('serviceType', value)}>
+                                        <Dropdown.Toggle variant="success" id="dropdown-serviceType">
+                                            {formData.serviceType || 'Select Service Type'}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
-                                            <Dropdown.Item eventKey="main function hall">main function hall</Dropdown.Item>
-                                            <Dropdown.Item eventKey="Conference  Room">Conference  Room</Dropdown.Item>
+                                            <Dropdown.Item eventKey="Others">Others</Dropdown.Item>
+                                            <Dropdown.Item eventKey="Senior Police Officers of Other Govt Department">Senior Police Officers of Other Govt Department</Dropdown.Item>
+                                            <Dropdown.Item eventKey="Serving and Senior Police Officers">Serving and Senior Police Officers</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                    {errors.serviceType && <div className="text-danger">{errors.serviceType}</div>}
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="roomType" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Hall type' : translateToKannada('Hall type')}
+                                    </label>
+                                    <Dropdown onSelect={(value) => handleDropdownChange('roomType', value)}>
+                                        <Dropdown.Toggle variant="success" id="dropdown-roomType">
+                                            {formData.roomType || 'Select Hall Type'}
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item eventKey="Conference Room">Conference Room</Dropdown.Item>
+                                            <Dropdown.Item eventKey="Main Hall">Main Hall</Dropdown.Item>
                                             <Dropdown.Item eventKey="Barbeque Area">Barbeque Area</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                    {errors.serviceName && <div className="invalid-feedback d-block">{errors.serviceName}</div>}
+                                    {errors.roomType && <div className="text-danger">{errors.roomType}</div>}
                                 </div>
-                              
-                                <div className="mb-3">
-                                    <label htmlFor="noGuests" className="form-label">{selectedLanguage === 'kannada' ? translateToKannada('Approximate No of guests') : 'Approximate No of guests'}</label>
-                                    <input type="number" className="form-control" id="noGuests" name="noGuests" value={formData.noGuests} onChange={handleFormChange} />
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="noGuests" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Approximate No of guests' : translateToKannada('Approximate No of guests')}
+                                    </label>
+                                    <input
+                                        type="number"
+                                        id="noGuests"
+                                        name="noGuests"
+                                        value={formData.noGuests}
+                                        onChange={handleFormChange}
+                                        className="form-control"
+                                    />
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="numberOfDays" className="form-label">Number of Days</label>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="numberOfDays" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Number of days' : translateToKannada('Number of days')}
+                                    </label>
                                     <Dropdown onSelect={handleDaySelection}>
-                                        <Dropdown.Toggle variant="primary" id="dropdown-basic" className='form-control border'>
-                                            {numberOfDays || 'Select Number of Days'}
+                                        <Dropdown.Toggle variant="success" id="dropdown-days">
+                                            {numberOfDays} {numberOfDays === 1 ? 'day' : 'days'}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
                                             {generateDayOptions()}
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="totalCost" className="form-label">{selectedLanguage === 'kannada' ? translateToKannada('Total Cost (₹)') : 'Total Cost (₹)'}</label>
-                                    <input type="text" className="form-control" id="totalCost" name="totalCost" value={formData.totalCost} readOnly />
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="totalCost" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Total Cost (₹)' : translateToKannada('Total Cost (₹)')}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="totalCost"
+                                        name="totalCost"
+                                        value={formData.totalCost}
+                                        readOnly
+                                        className="form-control"
+                                    />
                                 </div>
-                                <div className="d-flex justify-content-end">
-                            <button type="submit" className="blue-btn rounded-1 m-1">{selectedLanguage === 'kannada' ? translateToKannada('Submit') : 'Submit'}</button>
-                            <button type="button" className="btn btn-danger m-1 rounded-1" onClick={() => navigate('/services')}>{selectedLanguage === 'kannada' ? translateToKannada('Cancel') : 'Cancel'}</button>
-                        </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <button type="submit" className="btn btn-primary">
+                                        {selectedLanguage === 'english' ? 'Submit' : translateToKannada('Submit')}
+                                    </button>
+                                </div>
+                                <div className="col-md-6 text-end">
+                                    <button type="button" className="btn btn-secondary" onClick={() => navigate('/')}>
+                                        {selectedLanguage === 'english' ? 'Cancel' : translateToKannada('Cancel')}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+
+            {/* Success Popup */}
+            {showModal && (
+                <SuccessPopup title={title} description={desc} handleClose={handleClose} />
+            )}
         </div>
     );
 }

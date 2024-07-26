@@ -46,7 +46,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = (token, userData) => {
-    Cookies.set('token', token, { expires: 7 });
+    // Cookies.set('token', token, { expires: 7 });
+    Cookies.set('token', token, { 
+      expires: 7, // Cookie expires in 7 days
+      secure: true, // Cookie is only sent over HTTPS
+      sameSite: 'Strict' // Not effective if set from frontend
+    });
     setIsAuthenticated(true);
     setUser(userData);
     navigate('/');

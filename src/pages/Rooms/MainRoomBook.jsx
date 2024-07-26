@@ -6,8 +6,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDialog } from '../../components/popups/DialogContext';
 import Loading from '../../components/popups/Loading';
+import DOMPurify from 'dompurify';
+
+function sanitizeInput(input) {
+    return DOMPurify.sanitize(input, { USE_PROFILES: { html: true } });
+}
 
 function MainRoomBook() {
+
     const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         username: '',
@@ -59,7 +65,7 @@ function MainRoomBook() {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: value
+            [name]: sanitizeInput(value)
         });
         setErrors({
             ...errors,
@@ -70,7 +76,7 @@ function MainRoomBook() {
     const handleDropdownChange = (name, value) => {
         setFormData({
             ...formData,
-            [name]: value
+            [name]: sanitizeInput(value)
         });
         setErrors({
             ...errors,

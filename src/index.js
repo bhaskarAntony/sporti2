@@ -15,6 +15,9 @@ import { LanguageProvider } from './context/LangaugeContext';  // Import Languag
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+
+
+
 root.render(
       <BrowserRouter>
     <AuthProvider>
