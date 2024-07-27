@@ -70,7 +70,7 @@ function Faqs() {
           <span className="fs-6 subtitle d-block text-center">{isKannada ? 'ನಮಗೆ ಸಂದೇಶ ಕಳುಹಿಸಲು ಮುಕ್ತವಾಗಿ ಕಳುಹಿಸಿ' : 'FEEL FREE TO SEND US A MESSAGE'}</span>
         </div>
 
-        <Feedback />
+        {/* <Feedback /> */}
       </div>
     </div>
   );
