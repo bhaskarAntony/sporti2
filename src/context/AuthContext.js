@@ -51,7 +51,6 @@ export const AuthProvider = ({ children }) => {
       expires: 7, // Cookie expires in 7 days
       secure: true, // Cookie is only sent over HTTPS
       sameSite: 'Strict', // Not effective if set from frontend,
-      httpOnly:true
     });
     setIsAuthenticated(true);
     setUser(userData);
