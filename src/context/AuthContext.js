@@ -29,13 +29,12 @@ export const AuthProvider = ({ children }) => {
 
   const validateToken = async (token) => {
     try {
-      const response = await axios.post('https://sporti-services-backend.onrender.com/api/auth/validateToken', {}, {
-        headers: { 'Authorization': `Bearer ${token}` }
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/validateToken`, {}, {
+        withCredentials: true
       });
       if (response.status === 200) {
         setUser(response.data.user);
         setIsAuthenticated(true);
-        console.log(isAuthenticated);
         return true;
       }
       return false;
@@ -45,16 +44,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = (token, userData) => {
-    // Cookies.set('token', token, { expires: 7 });
-    Cookies.set('token', token, { 
-      expires: 7, // Cookie expires in 7 days
-      secure: true, // Cookie is only sent over HTTPS
-      sameSite: 'Strict', // Not effective if set from frontend,
-    });
-    setIsAuthenticated(true);
-    setUser(userData);
-    navigate('/');
+  const login = async (email, password) => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, { email, password }, { withCredentials: true });
+      if (response.status === 200) {
+        setIsAuthenticated(true);
+        setUser(response.data.user);
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+    }
   };
 
   const logout = () => {

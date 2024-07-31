@@ -18,7 +18,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Client-side validation for max length and sanitization
     if (email.length > 30 || password.length > 30) {
       const message = isKannada ? 'ಇಮೇಲ್ ಅಥವಾ ಪಾಸ್ವರ್ಡ್ ಅತ್ಯಂತ ಉದ್ದವಾಗಿದೆ' : 'Email or password is too long';
@@ -31,20 +31,14 @@ const Login = () => {
       );
       return;
     }
-
+  
     // Basic input sanitization
-    const sanitizedEmail = DOMPurify.sanitize(email.trim().toLowerCase()); // Sanitize email input
-    const sanitizedPassword = DOMPurify.sanitize(password.trim()); // Sanitize password input
-
+    const sanitizedEmail = DOMPurify.sanitize(email.trim().toLowerCase());
+    const sanitizedPassword = DOMPurify.sanitize(password.trim());
+  
     setLoading(true);
     try {
-      const response = await axios.post('https://sporti-services-backend.onrender.com/api/auth/login', {
-        email: sanitizedEmail,
-        password: sanitizedPassword
-      });
-      console.log('Login response:', response.data);
-      login(response.data.token, response.data.user); // Use login function from context
-      navigate('/');
+      await login(sanitizedEmail, sanitizedPassword);
     } catch (error) {
       console.error('Login error:', error.response ? error.response.data : error.message);
       const message = isKannada ? 'ಅಮಾನ್ಯ ಇಮೇಲ್ ಅಥವಾ ಪಾಸ್ವರ್ಡ್' : 'Invalid email or password';
@@ -84,7 +78,7 @@ const Login = () => {
                   placeholder={isKannada ? 'ಇಮೇಲ್' : 'Email'}
                   className="form-control"
                   required
-                  maxLength="30" // Set max length for email
+                  maxLength="30"
                 />
               </div>
               <div className="form-group mt-3">
@@ -97,7 +91,7 @@ const Login = () => {
                   placeholder={isKannada ? 'ಪಾಸ್ವರ್ಡ್' : 'Password'}
                   className="form-control"
                   required
-                  maxLength="30" // Set max length for password
+                  maxLength="30"
                 />
               </div>
               <button type="submit" className="blue-btn mt-3 w-100 btn-lg">{isKannada ? 'ಲಾಗಿನ್' : 'Login'}</button>
