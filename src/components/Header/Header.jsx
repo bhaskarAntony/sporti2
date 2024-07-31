@@ -18,10 +18,10 @@ function Header({ toggleTheme, theme }) {
   return (
     <header>
       <Navbar expand="xl" className="navbar p-0">
-        <Container fluid className="p-0">
+        <Container fluid className="p-0 d-flex justify-content-between">
           <div className="logo-container d-flex align-items-center">
             <Navbar.Brand as={Link} to="/">
-              <div className="d-flex gap-2 align-items-center logo">
+              <div className="d-flex gap-2 align-items-center logo mx-3">
                 <img src={logo} alt="logo" className="main-logo" />
                 <h1 className="f3 fw-bold m-0">{isKannada ? 'ಸ್ಪೊರ್ಟಿ' : 'SPORTI'}</h1>
               </div>
@@ -37,7 +37,7 @@ function Header({ toggleTheme, theme }) {
 
           <Navbar.Collapse id="navbarScroll" className="p-0">
             <div className="d-none d-lg-block w-100">
-              <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
+              <Nav className="me-auto my-2 my-lg-0 gap-4 " style={{ maxHeight: '70px' }} navbarScroll>
                 <Nav.Link as={Link} to="/">{isKannada ? 'ಮನೆ' : 'Home'}</Nav.Link>
                 {isAuthenticated && (
                   <>

@@ -10,10 +10,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 0px !important;
     
 }
 .recent-tabs .nav-item{
     flex: 1;
+    margin: 0px !important;
 }
 .recent-tabs .active{
     /* border-bottom: 3px solid #8843a3 !important; */
@@ -24,7 +26,7 @@
     /* flex-wrap: nowrap !important; */
     /* overflow: auto; */
     align-items:center;
-    padding: 10px;
+    padding: 10px !important;
     justify-content: center;
 }
 
@@ -54,4 +56,11 @@
     background: linear-gradient(#00000051, #000);
     left: 0px;
     top: 0px;
+}
+
+@media (max-width:576px){
+    .recent-tabs .nav-item{
+        width: 100% !important;
+        flex: auto !important;
+    }
 }

@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
   const validateToken = async (token) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/validateToken`, {}, {
+      const response = await axios.post(`https://sporti-services-backend.onrender.com/api/auth/validateToken`, {}, {
         withCredentials: true
       });
       if (response.status === 200) {
@@ -45,8 +45,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password) => {
+    console.log(process.env.REACT_APP_BACKEND_URL);
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, { email, password }, { withCredentials: true });
+      const response = await axios.post(`https://sporti-services-backend.onrender.com/api/auth/login`, { email, password }, { withCredentials: true });
       if (response.status === 200) {
         setIsAuthenticated(true);
         setUser(response.data.user);
