@@ -37,10 +37,10 @@ function Header({ toggleTheme, theme }) {
 
           <Navbar.Collapse id="navbarScroll" className="p-0">
             <div className="d-none d-lg-block w-100">
-              <Nav className="me-auto my-2 my-lg-0 gap-4 " style={{ maxHeight: '70px' }} navbarScroll>
+              <Nav className="me-auto my-2 my-lg-0 gap-1 " style={{ maxHeight: '70px' }} navbarScroll>
                 <Nav.Link as={Link} to="/">{isKannada ? 'ಮನೆ' : 'Home'}</Nav.Link>
-                {isAuthenticated && (
-                  <>
+                {/* {isAuthenticated && (
+                  <> */}
                     <Nav.Link as={Link} to="/about">{isKannada ? 'ನಮ್ಮ ಬಗ್ಗೆ' : 'About Us'}</Nav.Link>
                     <Nav.Link as={Link} to="/services/sporti1">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-1' : 'SPORTI-1'}</Nav.Link>
                     <Nav.Link as={Link} to="/services/sporti2">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</Nav.Link>
@@ -56,8 +56,8 @@ function Header({ toggleTheme, theme }) {
                       <NavDropdown.Item as={Link} to="/contact/sporti1">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-1' : 'SPORTI-1'}</NavDropdown.Item>
                       <NavDropdown.Item as={Link} to="/contact/sporti2">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</NavDropdown.Item>
                     </NavDropdown>
-                  </>
-                )}
+                  {/* </>
+                )} */}
                 {!isAuthenticated && (
                   <Nav.Link as={Link} to="/login">{isKannada ? 'ಲಾಗಿನ್' : 'Login'}</Nav.Link>
                 )}
