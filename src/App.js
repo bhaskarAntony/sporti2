@@ -134,12 +134,14 @@ function App() {
       </div>
       <TranslationHOC>
         <ScrollToTop />
+        
         <Header toggleTheme={toggleTheme} theme={theme} />
         <Routes>
+        <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Registration />} />
           <Route element={<ProtectedRoute />}>
-            <Route path='/' element={<Home />} />
+          
             <Route path='/cart' element={<FoodCart />} />
             <Route path='/room/:sporti' element={<MainRoomBook />} />
             <Route path='/roomview/:id/:sportiId' element={<RoomView />} />

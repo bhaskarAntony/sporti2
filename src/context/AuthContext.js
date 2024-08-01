@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = Cookies.get('token');
+    console.log('token', token);
     if (token) {
       validateToken(token).then(isValid => {
         setLoading(false);
@@ -29,9 +30,10 @@ export const AuthProvider = ({ children }) => {
 
   const validateToken = async (token) => {
     try {
-      const response = await axios.post(`https://sporti-services-backend.onrender.com/api/auth/validateToken`, {}, {
+      const response = await axios.post(`http://localhost:5000/api/auth/validateToken`, {}, {
         withCredentials: true
       });
+      console.log(response);
       if (response.status === 200) {
         setUser(response.data.user);
         setIsAuthenticated(true);
