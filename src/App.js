@@ -38,6 +38,7 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 import { useAuth } from './context/AuthContext';
 import Cookies from 'js-cookie';
+import Security from './components/security/Security';
 
 function App() {
   const [isHighContrast, setIsHighContrast] = useState(false);
@@ -95,6 +96,7 @@ function App() {
 
   return (
     <div className={`App overflow-hidden ${highContrastClass} ${fontSizeClass}`}>
+      <Security/>
       <div className='d-flex justify-content-between gap-2 p-1 gradient align-items-center'>
         {
           isAuthenticated ? (
