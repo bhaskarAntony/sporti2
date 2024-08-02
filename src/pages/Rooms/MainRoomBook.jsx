@@ -9,7 +9,14 @@ import Loading from '../../components/popups/Loading';
 import DOMPurify from 'dompurify';
 
 function sanitizeInput(input) {
-    return DOMPurify.sanitize(input, { USE_PROFILES: { html: true } });
+    // First, sanitize HTML to prevent XSS
+    let sanitized = DOMPurify.sanitize(input, { USE_PROFILES: { html: true } });
+
+    // Allow specific characters while removing others
+    // Allow alphanumeric, space, @, ., -, _, and other specific symbols
+    sanitized = sanitized.replace(/[^a-zA-Z0-9@._\- ]/g, '');
+
+    return sanitized;
 }
 
 function MainRoomBook() {
@@ -245,7 +252,7 @@ function MainRoomBook() {
         }
 
         setIsLoading(true);
-        axios.post('https://sporti-services-backend.onrender.com/api/sporti/service/book', formData)
+        axios.post('https://sporti-backend-live.onrender.com/api/sporti/service/book', formData)
             .then(response => {
                 const { success, user } = response.data;
                 if (success) {

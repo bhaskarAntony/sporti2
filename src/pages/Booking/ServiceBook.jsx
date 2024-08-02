@@ -9,7 +9,14 @@ import './style.css'; // Include the CSS file
 import DOMPurify from 'dompurify';
 
 function sanitizeInput(input) {
-    return DOMPurify.sanitize(input, { USE_PROFILES: { html: true } });
+    // First, sanitize HTML to prevent XSS
+    let sanitized = DOMPurify.sanitize(input, { USE_PROFILES: { html: true } });
+
+    // Allow specific characters while removing others
+    // Allow alphanumeric, space, @, ., -, _, and other specific symbols
+    sanitized = sanitized.replace(/[^a-zA-Z0-9@._\- ]/g, '');
+
+    return sanitized;
 }
 
 function MainFunctionHallBooking() {
@@ -140,7 +147,8 @@ function MainFunctionHallBooking() {
 
     const calculateTotalCost = () => {
         let baseCost = 0;
-
+    
+        // Determine the base cost based on serviceName and serviceType
         if (formData.serviceName === 'main function hall') {
             switch (formData.serviceType) {
                 case 'Others':
@@ -184,8 +192,8 @@ function MainFunctionHallBooking() {
                     baseCost = 0;
             }
         }
-
-        setPerDayCost(baseCost);
+    
+        // Multiply base cost by the number of days
         return baseCost * numberOfDays;
     };
 
@@ -234,7 +242,7 @@ function MainFunctionHallBooking() {
         }
 
         setIsLoading(true);
-        axios.post('https://sporti-services-backend.onrender.com/api/sporti/service/book', formData)
+        axios.post('https://sporti-backend-live.onrender.com/api/sporti/service/book', formData)
             .then(response => {
                 const { success, user } = response.data;
                 if (success) {
@@ -288,11 +296,27 @@ function MainFunctionHallBooking() {
             <div className="row">
                 <div className="col-md-8 mx-auto">
                     <div className="bg-white rounded">
-                        <div className="bg-main p-2 p-md-3 text-light rounded-top">
-                            <h3 className='m-0 text-center'>
-                                {selectedLanguage === 'english' ? 'Main Function Hall Booking' : 'ಮೇನ್ಸ್ ಫಂಕ್ಷನ್ ಹಾಲ್ ಬುಕ್ಕಿಂಗ್'}
+                       
+
+                        <div className="bg-main p-3 text-center">
+                        <h3 className='m-0 text-center fs-1 mb-3 text-light'>
+                                {selectedLanguage === 'english' ? 'Main Function Hall Booking' : 'ಮೇನ್ ಫಂಕ್ಷನ್ ಹಾಲ್ ಬುಕ್ಕಿಂಗ್'}
                             </h3>
-                        </div>
+                        <p className="text-light">
+                            {selectedLanguage === 'kannada' ? 'ಈ ಫಾರಂ ಅಧಿಕಾರಿಗಳಿಗೆ ಇತರ ಸಲಹೆಗಳಿಂದ ಬಹುಮಾನಗಳನ್ನು ಪುಡಿಸುವ ಅವಕಾಶವನ್ನು ಒದಗಿಸುತ್ತದೆ.' : 'This form provides an opportunity for officers to book various rooms offered through the department.'}
+                        </p>
+                   <div className="d-flex justify-content-end">
+                   <Dropdown onSelect={(value) => setSelectedLanguage(value)} className='w-auto'>
+                        <Dropdown.Toggle variant="secondary" id="dropdown-language">
+                            {selectedLanguage === 'kannada' ? 'ಕನ್ನಡ' : 'English'}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item eventKey="english">English</Dropdown.Item>
+                            <Dropdown.Item eventKey="kannada">ಕನ್ನಡ</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                   </div>
+                    </div>
                         <form onSubmit={submitForm} className="p-2 p-md-4">
                             <div className="row">
                                 <div className="col-md-6 mb-3">
@@ -308,7 +332,7 @@ function MainFunctionHallBooking() {
                                         className="form-control"
                                     />
                                     {errors.username && <div className="text-danger">{errors.username}</div>}
-                                    <div dangerouslySetInnerHTML={{ __html: sanitizeInput(decodeHtml(formData.username)) }} />
+                                  
 
                                 </div>
                                 <div className="col-md-6 mb-3">
@@ -480,16 +504,11 @@ function MainFunctionHallBooking() {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-6">
-                                    <button type="submit" className="btn btn-primary">
-                                        {selectedLanguage === 'english' ? 'Submit' : translateToKannada('Submit')}
-                                    </button>
-                                </div>
-                                <div className="col-md-6 text-end">
-                                    <button type="button" className="btn btn-secondary" onClick={() => navigate('/')}>
-                                        {selectedLanguage === 'english' ? 'Cancel' : translateToKannada('Cancel')}
-                                    </button>
-                                </div>
+                               
+                                <div className="col-md-12 mt-4 p-3 d-flex justify-content-end gap-2">
+                            <button type="submit" className="blue-btn rounded-1 m-1">{selectedLanguage === 'kannada' ? 'ಸಲ್ಲಿಸು' : 'Submit'}</button>
+                            <button className="btn btn-danger rounded-1 m-1" type='reset'>Cancel</button>
+                            </div>
                             </div>
                         </form>
                     </div>

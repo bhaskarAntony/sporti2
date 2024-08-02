@@ -7,8 +7,6 @@ import { useDialog } from '../../components/popups/DialogContext';
 import Loading from '../../components/popups/Loading';
 import { useLanguage } from '../../context/LangaugeContext';
 
-
-
 const translations = {
     en: {
         title: 'SPORTI service booking details',
@@ -51,7 +49,7 @@ const Payment = () => {
 
     useEffect(() => {
         // Fetch booking data
-        axios.get(`https://sporti-services-backend.onrender.com/api/sporti/service/booking/${applicationNo}`)
+        axios.get(`https://sporti-backend-live.onrender.com/api/sporti/service/booking/${applicationNo}`)
             .then(response => {
                 setBooking(response.data.booking);
                 setLoading(false);
