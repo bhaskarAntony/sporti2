@@ -9,7 +9,7 @@ import './style.css';
 function Header({ toggleTheme, theme }) {
   const [show, setShow] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const { isKannada } = useLanguage();
 
   const handleClose = () => setShow(false);
@@ -79,8 +79,8 @@ function Header({ toggleTheme, theme }) {
         <Offcanvas.Body>
           <ul>
             <li><Link to="/" onClick={handleClose}>{isKannada ? 'ಮನೆ' : 'Home'}</Link></li>
-            {isAuthenticated && (
-              <>
+            {/* {isAuthenticated && (
+              <> */}
                 <li><Link to="/about" onClick={handleClose}>{isKannada ? 'ನಮ್ಮ ಬಗ್ಗೆ' : 'About Us'}</Link></li>
                 <li><Link to="/services/sporti1" onClick={handleClose}>{isKannada ? 'ಸ್ಪೊರ್ಟಿ-1' : 'SPORTI-1'}</Link></li>
                 <li><Link to="/services/sporti2" onClick={handleClose}>{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</Link></li>
@@ -95,11 +95,12 @@ function Header({ toggleTheme, theme }) {
                     <li><Link className="dropdown-item text-dark" to="/contact/sporti2" onClick={handleClose}>{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</Link></li>
                   </ul>
                 </li>
-              </>
-            )}
-            {!isAuthenticated && (
+              {/* </> */}
+            {/* )} */}
+
+            {!isAuthenticated ? (
               <li><Link to="/login" onClick={handleClose}>{isKannada ? 'ಲಾಗಿನ್' : 'Login'}</Link></li>
-            )}
+            ):(<button className="btn btn-danger w-100" onClick={logout}>Logout</button> )}
           </ul>
         </Offcanvas.Body>
       </Offcanvas>
