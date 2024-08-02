@@ -142,12 +142,7 @@ function App() {
         <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Registration />} />
-          <Route element={<ProtectedRoute />}>
-          
-            <Route path='/cart' element={<FoodCart />} />
-            <Route path='/room/:sporti' element={<MainRoomBook />} />
-            <Route path='/roomview/:id/:sportiId' element={<RoomView />} />
-            <Route path='/event' element={<Event />} />
+          <Route path='/event' element={<Event />} />
             <Route path='/about' element={<About />} />
             <Route path='/stream' element={<LiveStream />} />
             <Route path='/faqs' element={<Faqs />} />
@@ -158,6 +153,12 @@ function App() {
             <Route path='/contact/:sporti' element={<Contact />} />
             <Route path='/terms_and-conditions' element={<Tems_and_conditions />} />
             <Route path='/privacy_policy' element={<Privacy />} />
+            <Route path='/services/:sporti' element={<Services />} />
+            
+          <Route element={<ProtectedRoute />}>
+            <Route path='/cart' element={<FoodCart />} />
+            <Route path='/room/:sporti' element={<MainRoomBook />} />
+            <Route path='/roomview/:id/:sportiId' element={<RoomView />} />
             <Route path='/eventView/:id' element={<EventView />} />
             <Route path='/food/order/:id' element={<ViewFood />} />
             <Route path='/additional-details/:id' element={<AdditionalDetailsForm />} />
@@ -165,7 +166,6 @@ function App() {
             <Route path='/view/:id' element={<View />} />
             <Route path='/payment/:applicationNo' element={<Payment />} />
             <Route path='/services/book/:sporti' element={<ServiceBook />} />
-            <Route path='/services/:sporti' element={<Services />} />
           </Route>
           <Route path='/*' element={<ErrorPage />} />
         </Routes>
