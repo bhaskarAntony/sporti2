@@ -154,8 +154,8 @@ function App() {
             <Route path='/terms_and-conditions' element={<Tems_and_conditions />} />
             <Route path='/privacy_policy' element={<Privacy />} />
             <Route path='/services/:sporti' element={<Services />} />
-
-          <Route>
+            
+          <Route element={<ProtectedRoute />}>
             <Route path='/cart' element={<FoodCart />} />
             <Route path='/room/:sporti' element={<MainRoomBook />} />
             <Route path='/roomview/:id/:sportiId' element={<RoomView />} />
