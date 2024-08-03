@@ -16,6 +16,9 @@ function sanitizeInput(input, field) {
     if (field === 'email') {
         // Allow alphanumeric, @, ., and -
         sanitized = sanitized.replace(/[^a-zA-Z0-9@._-]/g, '');
+    } else if (field === 'phoneNumber' || field === 'noGuests') {
+        // Allow only numbers
+        sanitized = sanitized.replace(/[^0-9]/g, '');
     } else {
         // Allow alphanumeric and space
         sanitized = sanitized.replace(/[^a-zA-Z0-9 ]/g, '');
@@ -305,7 +308,7 @@ function MainFunctionHallBooking() {
 
                         <div className="bg-main p-3 text-center">
                         <h3 className='m-0 text-center fs-1 mb-3 text-light'>
-                                {selectedLanguage === 'english' ? 'Main Function Hall Booking' : 'ಮೇನ್ ಫಂಕ್ಷನ್ ಹಾಲ್ ಬುಕ್ಕಿಂಗ್'}
+                                {selectedLanguage === 'english' ? 'SPORTI Services Booking' : 'ಮೇನ್ ಫಂಕ್ಷನ್ ಹಾಲ್ ಬುಕ್ಕಿಂಗ್'}
                             </h3>
                         <p className="text-light">
                             {selectedLanguage === 'kannada' ? 'ಈ ಫಾರಂ ಅಧಿಕಾರಿಗಳಿಗೆ ಇತರ ಸಲಹೆಗಳಿಂದ ಬಹುಮಾನಗಳನ್ನು ಪುಡಿಸುವ ಅವಕಾಶವನ್ನು ಒದಗಿಸುತ್ತದೆ.' : 'This form provides an opportunity for officers to book various rooms offered through the department.'}
@@ -474,7 +477,7 @@ function MainFunctionHallBooking() {
                                 </div>
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="noGuests" className="form-label">
-                                        {selectedLanguage === 'english' ? 'Approximate No of guests' : translateToKannada('Approximate No of guests')}
+                                        {selectedLanguage === 'english' ? 'Approximate No of guest' : translateToKannada('Approximate No of guests')}
                                     </label>
                                     <input
                                         type="number"
@@ -483,7 +486,7 @@ function MainFunctionHallBooking() {
                                         value={formData.noGuests}
                                         onChange={handleFormChange}
                                         className="form-control"
-                                        maxLength={5}
+                                        maxLength={4}
                                     />
                                 </div>
                             </div>

@@ -16,6 +16,9 @@ function sanitizeInput(input, field) {
     if (field === 'email') {
         // Allow alphanumeric, @, ., and -
         sanitized = sanitized.replace(/[^a-zA-Z0-9@._-]/g, '');
+    } else if (field === 'phoneNumber' || field === 'noGuests') {
+        // Allow only numbers
+        sanitized = sanitized.replace(/[^0-9]/g, '');
     } else {
         // Allow alphanumeric and space
         sanitized = sanitized.replace(/[^a-zA-Z0-9 ]/g, '');
@@ -25,7 +28,6 @@ function sanitizeInput(input, field) {
 }
 
 function MainRoomBook() {
-
     const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         username: '',
