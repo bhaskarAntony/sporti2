@@ -8,13 +8,18 @@ import { useDialog } from '../../components/popups/DialogContext';
 import Loading from '../../components/popups/Loading';
 import DOMPurify from 'dompurify';
 
-function sanitizeInput(input) {
+function sanitizeInput(input, field) {
     // First, sanitize HTML to prevent XSS
     let sanitized = DOMPurify.sanitize(input, { USE_PROFILES: { html: true } });
 
     // Allow specific characters while removing others
-    // Allow alphanumeric, space, @, ., -, _, and other specific symbols
-    sanitized = sanitized.replace(/[^a-zA-Z0-9@._\- ]/g, '');
+    if (field === 'email') {
+        // Allow alphanumeric, @, ., and -
+        sanitized = sanitized.replace(/[^a-zA-Z0-9@._-]/g, '');
+    } else {
+        // Allow alphanumeric and space
+        sanitized = sanitized.replace(/[^a-zA-Z0-9 ]/g, '');
+    }
 
     return sanitized;
 }
@@ -72,7 +77,7 @@ function MainRoomBook() {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: sanitizeInput(value)
+            [name]: sanitizeInput(value, name)
         });
         setErrors({
             ...errors,
@@ -304,28 +309,28 @@ function MainRoomBook() {
                             <div className="col-md-12">
                                 <div className="form-group mt-3">
                                     <label htmlFor="username" className="form-label">{selectedLanguage === 'kannada' ? 'ಬಳಕೆದಾರರ ಹೆಸರು' : 'Username'}</label>
-                                    <input type="text" className="form-control" name="username" id="username" value={formData.username} onChange={handleFormChange} />
+                                    <input type="text" className="form-control" name="username" id="username" value={formData.username} onChange={handleFormChange} maxlength={20} />
                                     {errors.username && <small className="text-danger">{errors.username}</small>}
                                 </div>
                             </div>
                             <div className="col-md-12">
                                 <div className="form-group mt-3">
                                     <label htmlFor="officerDesignation" className="form-label">{selectedLanguage === 'kannada' ? 'ಹುದ್ದೆ' : 'Designation'}</label>
-                                    <input type="text" className="form-control" name="officerDesignation" id="officerDesignation" value={formData.officerDesignation} onChange={handleFormChange} />
+                                    <input type="text" className="form-control" name="officerDesignation" id="officerDesignation" value={formData.officerDesignation} onChange={handleFormChange} maxlength={20} />
                                     {errors.officerDesignation && <small className="text-danger">{errors.officerDesignation}</small>}
                                 </div>
                             </div>
                             <div className="col-md-12">
                                 <div className="form-group mt-3">
                                     <label htmlFor="email" className="form-label">{selectedLanguage === 'kannada' ? 'ಇಮೇಲ್' : 'Email'}</label>
-                                    <input type="text" className="form-control" name="email" id="email" value={formData.email} onChange={handleFormChange} />
+                                    <input type="text" className="form-control" name="email" id="email" value={formData.email} onChange={handleFormChange} maxlength={20}/>
                                     {errors.email && <small className="text-danger">{errors.email}</small>}
                                 </div>
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group mt-3">
                                     <label htmlFor="phoneNumber" className="form-label">{selectedLanguage === 'kannada' ? 'ಫೋನ್ ನಂಬರ್' : 'Phone Number'}</label>
-                                    <input type="text" className="form-control" name="phoneNumber" id="phoneNumber" value={formData.phoneNumber} onChange={handleFormChange} />
+                                    <input type="text" className="form-control" name="phoneNumber" id="phoneNumber" value={formData.phoneNumber} onChange={handleFormChange} maxlength={13} minlength={10}/>
                                     {errors.phoneNumber && <small className="text-danger">{errors.phoneNumber}</small>}
                                 </div>
                             </div>
@@ -346,7 +351,7 @@ function MainRoomBook() {
                             <div className="col-md-6">
                                 <div className="form-group mt-3">
                                     <label htmlFor="officerCadre" className="form-label">{selectedLanguage === 'kannada' ? 'ಅಧಿಕಾರಿ ಕೇಡರ್' : 'Officer Cadre'}</label>
-                                    <input type="text" className="form-control" name="officerCadre" id="officerCadre" value={formData.officerCadre} onChange={handleFormChange} />
+                                    <input type="text" className="form-control" name="officerCadre" id="officerCadre" value={formData.officerCadre} onChange={handleFormChange} maxlength={20}/>
                                     {errors.officerCadre && <small className="text-danger">{errors.officerCadre}</small>}
                                 </div>
                             </div>
@@ -398,7 +403,7 @@ function MainRoomBook() {
                             <div className="col-md-6">
                                 <div className="form-group mt-3">
                                     <label htmlFor="noGuests" className="form-label">{selectedLanguage === 'kannada' ? 'ಅತಿಥಿಗಳ ಸಂಖ್ಯೆ' : 'Number of Guests'}</label>
-                                    <input type="number" className="form-control" name="noGuests" id="noGuests" value={formData.noGuests} onChange={handleFormChange} min="1" />
+                                    <input type="number" className="form-control" name="noGuests" id="noGuests" value={formData.noGuests} onChange={handleFormChange} min="1" maxlength={5}/>
                                 </div>
                             </div>
                             <div className="col-md-6">

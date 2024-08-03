@@ -7,6 +7,12 @@ import Loading from '../components/popups/Loading';
 import { useLanguage } from '../context/LangaugeContext';
 import DOMPurify from 'dompurify';
 
+function sanitizeInput(input, field) {
+  // First, sanitize HTML to prevent XSS
+  let sanitized = DOMPurify.sanitize(input, { USE_PROFILES: { html: true } });
+  sanitized = sanitized.replace(/[^a-zA-Z0-9@._-]/g, '');
+  return sanitized;
+}
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,13 +38,11 @@ const Login = () => {
       return;
     }
   
-    // Basic input sanitization
-    const sanitizedEmail = DOMPurify.sanitize(email.trim().toLowerCase());
-    const sanitizedPassword = DOMPurify.sanitize(password.trim());
+  
   
     setLoading(true);
     try {
-      await login(sanitizedEmail, sanitizedPassword);
+      await login(sanitizeInput(email), sanitizeInput(password));
     } catch (error) {
       console.error('Login error:', error.response ? error.response.data : error.message);
       const message = isKannada ? 'ಅಮಾನ್ಯ ಇಮೇಲ್ ಅಥವಾ ಪಾಸ್ವರ್ಡ್' : 'Invalid email or password';
@@ -74,7 +78,7 @@ const Login = () => {
                   type="email"
                   id="email"
                   value={email}
-                  onChange={(e) => setEmail(DOMPurify.sanitize(e.target.value))}
+                  onChange={(e) => setEmail(sanitizeInput(e.target.value))}
                   placeholder={isKannada ? 'ಇಮೇಲ್' : 'Email'}
                   className="form-control"
                   required
@@ -87,7 +91,7 @@ const Login = () => {
                   type="password"
                   id="password"
                   value={password}
-                  onChange={(e) => setPassword(DOMPurify.sanitize(e.target.value))}
+                  onChange={(e) => setPassword(sanitizeInput(e.target.value))}
                   placeholder={isKannada ? 'ಪಾಸ್ವರ್ಡ್' : 'Password'}
                   className="form-control"
                   required

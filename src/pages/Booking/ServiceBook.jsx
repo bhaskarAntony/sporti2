@@ -8,13 +8,18 @@ import { Dropdown } from 'react-bootstrap';
 import './style.css'; // Include the CSS file
 import DOMPurify from 'dompurify';
 
-function sanitizeInput(input) {
+function sanitizeInput(input, field) {
     // First, sanitize HTML to prevent XSS
     let sanitized = DOMPurify.sanitize(input, { USE_PROFILES: { html: true } });
 
     // Allow specific characters while removing others
-    // Allow alphanumeric, space, @, ., -, _, and other specific symbols
-    sanitized = sanitized.replace(/[^a-zA-Z0-9@._\- ]/g, '');
+    if (field === 'email') {
+        // Allow alphanumeric, @, ., and -
+        sanitized = sanitized.replace(/[^a-zA-Z0-9@._-]/g, '');
+    } else {
+        // Allow alphanumeric and space
+        sanitized = sanitized.replace(/[^a-zA-Z0-9 ]/g, '');
+    }
 
     return sanitized;
 }
@@ -72,7 +77,7 @@ function MainFunctionHallBooking() {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: sanitizeInput(value)
+            [name]: sanitizeInput(value, name)
         });
         setErrors({
             ...errors,
@@ -330,6 +335,7 @@ function MainFunctionHallBooking() {
                                         value={formData.username}
                                         onChange={handleFormChange}
                                         className="form-control"
+                                        maxLength={20}
                                     />
                                     {errors.username && <div className="text-danger">{errors.username}</div>}
                                   
@@ -346,6 +352,7 @@ function MainFunctionHallBooking() {
                                         value={formData.officerDesignation}
                                         onChange={handleFormChange}
                                         className="form-control"
+                                        maxLength={20}
                                     />
                                     {errors.officerDesignation && <div className="text-danger">{errors.officerDesignation}</div>}
                                 </div>
@@ -362,6 +369,7 @@ function MainFunctionHallBooking() {
                                         value={formData.officerCadre}
                                         onChange={handleFormChange}
                                         className="form-control"
+                                        maxLength={20}
                                     />
                                     {errors.officerCadre && <div className="text-danger">{errors.officerCadre}</div>}
                                 </div>
@@ -376,6 +384,7 @@ function MainFunctionHallBooking() {
                                         value={formData.email}
                                         onChange={handleFormChange}
                                         className="form-control"
+                                        maxLength={20}
                                     />
                                     {errors.email && <div className="text-danger">{errors.email}</div>}
                                 </div>
@@ -392,6 +401,8 @@ function MainFunctionHallBooking() {
                                         value={formData.phoneNumber}
                                         onChange={handleFormChange}
                                         className="form-control"
+                                        maxLength={13}
+                                        minLength={10}
                                     />
                                     {errors.phoneNumber && <div className="text-danger">{errors.phoneNumber}</div>}
                                 </div>
@@ -472,6 +483,7 @@ function MainFunctionHallBooking() {
                                         value={formData.noGuests}
                                         onChange={handleFormChange}
                                         className="form-control"
+                                        maxLength={5}
                                     />
                                 </div>
                             </div>
