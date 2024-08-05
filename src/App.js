@@ -154,7 +154,7 @@ function App() {
             <Route path='/terms_and-conditions' element={<Tems_and_conditions />} />
             <Route path='/privacy_policy' element={<Privacy />} />
             <Route path='/services/:sporti' element={<Services />} />
-            
+            <Route path='/payment/:applicationNo' element={<Payment />} />
           <Route element={<ProtectedRoute />}>
             <Route path='/cart' element={<FoodCart />} />
             <Route path='/room/:sporti' element={<MainRoomBook />} />
@@ -164,7 +164,7 @@ function App() {
             <Route path='/additional-details/:id' element={<AdditionalDetailsForm />} />
             <Route path='/admin/:id' element={<Admin />} />
             <Route path='/view/:id' element={<View />} />
-            <Route path='/payment/:applicationNo' element={<Payment />} />
+           
             <Route path='/services/book/:sporti' element={<ServiceBook />} />
           </Route>
           <Route path='/*' element={<ErrorPage />} />

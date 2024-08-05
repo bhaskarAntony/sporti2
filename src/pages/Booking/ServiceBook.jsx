@@ -103,6 +103,11 @@ function MainFunctionHallBooking() {
             [name]: ''
         });
     };
+    const handleDaySelection = (value) => {
+        setNumberOfDays(parseFloat(value));
+        setFormData({...formData, "numberOfDays":parseFloat(value)})
+    };
+    
 
     const validateForm = () => {
         let isValid = true;
@@ -287,9 +292,9 @@ function MainFunctionHallBooking() {
         return options;
     };
 
-    const handleDaySelection = (value) => {
-        setNumberOfDays(parseFloat(value));
-    };
+    // const handleDaySelection = (value) => {
+    //     setNumberOfDays(parseFloat(value));
+    // };
 
     if (isLoading) {
         return <Loading />;
@@ -365,7 +370,9 @@ function MainFunctionHallBooking() {
                                     />
                                     {errors.officerDesignation && <div className="text-danger">{errors.officerDesignation}</div>}
                                 </div>
+                                
                             </div>
+                            
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="officerCadre" className="form-label">
@@ -464,7 +471,7 @@ function MainFunctionHallBooking() {
                                     {errors.serviceType && <div className="text-danger">{errors.serviceType}</div>}
                                 </div>
                             </div>
-                            <div className="row">
+                            {/* <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="roomType" className="form-label">
                                         {selectedLanguage === 'english' ? 'Hall type' : translateToKannada('Hall type')}
@@ -495,20 +502,20 @@ function MainFunctionHallBooking() {
                                         maxLength={4}
                                     />
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="numberOfDays" className="form-label">
                                         {selectedLanguage === 'english' ? 'Number of days' : translateToKannada('Number of days')}
                                     </label>
                                     <Dropdown onSelect={handleDaySelection}>
-                                        <Dropdown.Toggle variant="success" id="dropdown-days">
-                                            {numberOfDays} {numberOfDays === 1 ? 'day' : 'days'}
-                                        </Dropdown.Toggle>
-                                        <Dropdown.Menu>
-                                            {generateDayOptions()}
-                                        </Dropdown.Menu>
-                                    </Dropdown>
+                                    <Dropdown.Toggle variant="success" id="dropdown-days">
+                                        {numberOfDays} {numberOfDays === 1 ? 'day' : 'days'}
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        {generateDayOptions()}
+                                    </Dropdown.Menu>
+                                </Dropdown>
                                 </div>
                                 {/* <div className="col-md-6 mb-3">
                                     <label htmlFor="totalCost" className="form-label">

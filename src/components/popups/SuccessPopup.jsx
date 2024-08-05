@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import errorImage from './error.png'
+import successImage from './success.png'
 
 function SuccessPopup({show, close, title, desc, error}) {
   return (
@@ -13,13 +15,13 @@ function SuccessPopup({show, close, title, desc, error}) {
          {
           error?(
             <>
-             <img src='https://cdn0.iconfinder.com/data/icons/shift-interfaces/32/Error-512.png' alt="" className="w-50 m-auto rounded-4" />
+             <img src={errorImage} alt="error" className="w-50 m-auto rounded-4" />
           <h1 className="fs-3 mt-4 text-danger">{title}</h1>
           <p className="fs-5 text-secondary">{desc}</p>
             </>
           ):(
             <>
-             <img src='https://static-00.iconduck.com/assets.00/success-icon-512x512-qdg1isa0.png' alt="" className="w-50 m-auto rounded-4" />
+             <img src={successImage} alt="success" className="w-50 m-auto rounded-4" />
           <h1 className="fs-3 mt-4 text-success">{title}</h1>
           <p className="fs-5 text-secondary">{desc}</p>
             </>
