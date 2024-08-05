@@ -11,7 +11,12 @@ import DOMPurify from 'dompurify';
 function sanitizeInput(input, field) {
     // First, sanitize HTML to prevent XSS
     let sanitized = DOMPurify.sanitize(input, { USE_PROFILES: { html: true } });
-
+    if (field === 'checkIn') {
+        return input; // Assume date format is controlled by the <input> element
+    }
+    if (field === 'checkOut') {
+        return input; // Assume date format is controlled by the <input> element
+    }
     // Allow specific characters while removing others
     if (field === 'email') {
         // Allow alphanumeric, @, ., and -
@@ -50,16 +55,16 @@ function MainRoomBook() {
     const [desc, setDesc] = useState(null);
     const [title, setTitle] = useState(null);
     const [selectedLanguage, setSelectedLanguage] = useState('english');
-    const [numberOfDays, setNumberOfDays] = useState(0);
-    const [perDayCost, setPerDayCost] = useState(0);
+    // const [numberOfDays, setNumberOfDays] = useState(0);
+    // const [perDayCost, setPerDayCost] = useState(0);
 
-    useEffect(() => {
-        const totalCost = calculateTotalCost();
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            totalCost,
-        }));
-    }, [formData.roomType, formData.guestType, formData.noGuests, formData.checkIn, formData.checkOut]);
+    // useEffect(() => {
+    //     const totalCost = calculateTotalCost();
+    //     setFormData((prevFormData) => ({
+    //         ...prevFormData,
+    //         totalCost,
+    //     }));
+    // }, [formData.roomType, formData.guestType, formData.noGuests, formData.checkIn, formData.checkOut]);
 
 
     const handleClose = () => {
@@ -150,53 +155,53 @@ function MainRoomBook() {
         return Object.keys(newErrors).length === 0;
     };
 
-    const calculateTotalCost = () => {
-        let roomPrice = 0;
+    // const calculateTotalCost = () => {
+    //     let roomPrice = 0;
 
-        switch (formData.roomType) {
-            case 'Family':
-                if (formData.guestType === 'Officers from Karnataka') {
-                    roomPrice = 1600;
-                } else if (formData.guestType === 'Officers from Other States') {
-                    roomPrice = 2100;
-                }
-                else if (formData.guestType === 'Serving and Senior Police Officers') {
-                    roomPrice = 1600;
-                }
-                break;
-            case 'VIP':
-                if (formData.guestType === 'Officers from Karnataka') {
-                    roomPrice = 1300;
-                } else if (formData.guestType === 'Officers from Other States') {
-                    roomPrice = 1600;
-                } else if (formData.guestType === 'Serving and Senior Police Officers') {
-                    roomPrice = 2700;
-                }
-                break;
-            case 'Standard':
-                if (formData.guestType === 'Officers from Karnataka') {
-                    roomPrice = 800;
-                } else if (formData.guestType === 'Officers from Other States') {
-                    roomPrice = 1100;
-                } else if (formData.guestType === 'Serving and Senior Police Officers') {
-                    roomPrice = 1600;
-                }
-                break;
-            default:
-                roomPrice = 0;
-        }
+    //     switch (formData.roomType) {
+    //         case 'Family':
+    //             if (formData.guestType === 'Officers from Karnataka') {
+    //                 roomPrice = 1600;
+    //             } else if (formData.guestType === 'Officers from Other States') {
+    //                 roomPrice = 2100;
+    //             }
+    //             else if (formData.guestType === 'Serving and Senior Police Officers') {
+    //                 roomPrice = 1600;
+    //             }
+    //             break;
+    //         case 'VIP':
+    //             if (formData.guestType === 'Officers from Karnataka') {
+    //                 roomPrice = 1300;
+    //             } else if (formData.guestType === 'Officers from Other States') {
+    //                 roomPrice = 1600;
+    //             } else if (formData.guestType === 'Serving and Senior Police Officers') {
+    //                 roomPrice = 2700;
+    //             }
+    //             break;
+    //         case 'Standard':
+    //             if (formData.guestType === 'Officers from Karnataka') {
+    //                 roomPrice = 800;
+    //             } else if (formData.guestType === 'Officers from Other States') {
+    //                 roomPrice = 1100;
+    //             } else if (formData.guestType === 'Serving and Senior Police Officers') {
+    //                 roomPrice = 1600;
+    //             }
+    //             break;
+    //         default:
+    //             roomPrice = 0;
+    //     }
 
-        setPerDayCost(roomPrice);
+    //     setPerDayCost(roomPrice);
 
-        const checkInDate = new Date(formData.checkIn);
-        const checkOutDate = new Date(formData.checkOut);
-        const diffTime = Math.abs(checkOutDate - checkInDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    //     const checkInDate = new Date(formData.checkIn);
+    //     const checkOutDate = new Date(formData.checkOut);
+    //     const diffTime = Math.abs(checkOutDate - checkInDate);
+    //     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-        setNumberOfDays(diffDays);
+    //     setNumberOfDays(diffDays);
 
-        return roomPrice * formData.noGuests * diffDays;
-    };
+    //     return roomPrice * formData.noGuests * diffDays;
+    // };
 
 
     const renderRoomTypes = () => {
@@ -227,7 +232,7 @@ function MainRoomBook() {
             Email: formData.email,
             Phone: formData.phoneNumber,
             ProductInfo: formData.roomType,
-            AmountPaid: calculateTotalCost()
+            // AmountPaid: calculateTotalCost()
         };
 
         const requestDataString = `K1USRID=${requestData.K1USRID}|K1PWD=${requestData.K1PWD}|Name=${requestData.Name}|AppNo=${requestData.AppNo}|Phone=${requestData.Phone}|Email=${requestData.Email}|ProductInfo=${requestData.ProductInfo}|AmountPaid=${requestData.AmountPaid}`;
@@ -259,13 +264,14 @@ function MainRoomBook() {
         }
 
         setIsLoading(true);
-        axios.post('https://sporti-backend-live.onrender.com/api/sporti/service/book', formData)
+        axios.post('https://sporti-backend-live.onrender.com/api/sporti/service/room/book', formData)
             .then(response => {
                 const { success, user } = response.data;
                 if (success) {
                     setIsLoading(false);
                     openDialog('Success', `Your booking request has been sent to admin for confirmation and it takes one  working day  for the same. SMS will be sent to the registered mobile number. please note the  acknowledgement number for future  reference.  ApplicationNo is ${user.applicationNo}`, false);
-                    navigate(`/payment/${user.applicationNo}`);
+                    navigate(`/`);
+                    // navigate(`/payment/${user.applicationNo}`);
                 } else {
                     setIsLoading(false);
                     openDialog('Error', 'something went wrong please try again later..', true);
@@ -408,12 +414,12 @@ function MainRoomBook() {
                                     <input type="number" className="form-control" name="noGuests" id="noGuests" value={formData.noGuests} onChange={handleFormChange} min="1" maxlength={5}/>
                                 </div>
                             </div>
-                            <div className="col-md-6">
+                            {/* <div className="col-md-6">
                                 <div className="form-group mt-3">
                                     <label className="form-label">{selectedLanguage === 'kannada' ? 'ಒಟ್ಟು ವೆಚ್ಚ (₹)' : 'Total Cost (₹)'}</label>
                                     <input type="text" className="form-control" value={formData.totalCost} readOnly />
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="col-md-12 mt-4 p-3 d-flex justify-content-end gap-2">
                             <button type="submit" className="blue-btn rounded-1 m-1">{selectedLanguage === 'kannada' ? 'ಸಲ್ಲಿಸು' : 'Submit'}</button>
                             <button className="btn btn-danger rounded-1 m-1" type='reset'>Cancel</button>

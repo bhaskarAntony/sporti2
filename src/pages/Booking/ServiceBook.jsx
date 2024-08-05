@@ -12,6 +12,9 @@ function sanitizeInput(input, field) {
     // First, sanitize HTML to prevent XSS
     let sanitized = DOMPurify.sanitize(input, { USE_PROFILES: { html: true } });
 
+    if (field === 'eventdate') {
+        return input; // Assume date format is controlled by the <input> element
+    }
     // Allow specific characters while removing others
     if (field === 'email') {
         // Allow alphanumeric, @, ., and -
@@ -29,6 +32,16 @@ function sanitizeInput(input, field) {
 
 function MainFunctionHallBooking() {
     const { sporti } = useParams();
+    const navigate = useNavigate();
+    const { openDialog } = useDialog();
+    const [errors, setErrors] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [desc, setDesc] = useState(null);
+    const [title, setTitle] = useState(null);
+    const [selectedLanguage, setSelectedLanguage] = useState('english');
+    const [numberOfDays, setNumberOfDays] = useState(0);
+    const [perDayCost, setPerDayCost] = useState(0);
     const [formData, setFormData] = useState({
         username: '',
         officerDesignation: '',
@@ -44,27 +57,19 @@ function MainFunctionHallBooking() {
         totalCost: 0,
         applicationNo: '',
         eventdate: '',
-        sporti: sporti
+        sporti: sporti,
+        numberOfDays:numberOfDays
     });
 
-    const navigate = useNavigate();
-    const { openDialog } = useDialog();
-    const [errors, setErrors] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-    const [desc, setDesc] = useState(null);
-    const [title, setTitle] = useState(null);
-    const [selectedLanguage, setSelectedLanguage] = useState('english');
-    const [numberOfDays, setNumberOfDays] = useState(0);
-    const [perDayCost, setPerDayCost] = useState(0);
+ 
 
-    useEffect(() => {
-        const totalCost = calculateTotalCost();
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            totalCost,
-        }));
-    }, [formData.roomType, formData.guestType, formData.noGuests, formData.checkInDate, formData.checkOutDate, formData.serviceName, formData.serviceType, numberOfDays]);
+    // useEffect(() => {
+    //     const totalCost = calculateTotalCost();
+    //     setFormData((prevFormData) => ({
+    //         ...prevFormData,
+    //         totalCost,
+    //     }));
+    // }, [formData.roomType, formData.guestType, formData.noGuests, formData.checkInDate, formData.checkOutDate, formData.serviceName, formData.serviceType, numberOfDays]);
 
     const handleClose = () => {
         setShowModal(false);
@@ -153,57 +158,57 @@ function MainFunctionHallBooking() {
         return isValid;
     };
 
-    const calculateTotalCost = () => {
-        let baseCost = 0;
+    // const calculateTotalCost = () => {
+    //     let baseCost = 0;
     
-        // Determine the base cost based on serviceName and serviceType
-        if (formData.serviceName === 'main function hall') {
-            switch (formData.serviceType) {
-                case 'Others':
-                    baseCost = 45000;
-                    break;
-                case 'Senior Police Officers of Other Govt Department':
-                    baseCost = 25000;
-                    break;
-                case 'Serving and Senior Police Officers':
-                    baseCost = 20000;
-                    break;
-                default:
-                    baseCost = 0;
-            }
-        } else if (formData.serviceName === 'Conference Room') {
-            switch (formData.serviceType) {
-                case 'Others':
-                    baseCost = 15000;
-                    break;
-                case 'Senior Police Officers of Other Govt Department':
-                    baseCost = 10000;
-                    break;
-                case 'Serving and Senior Police Officers':
-                    baseCost = 7500;
-                    break;
-                default:
-                    baseCost = 0;
-            }
-        } else if (formData.serviceName === 'Barbeque Area') {
-            switch (formData.serviceType) {
-                case 'Others':
-                    baseCost = 10000;
-                    break;
-                case 'Senior Police Officers of Other Govt Department':
-                    baseCost = 7500;
-                    break;
-                case 'Serving and Senior Police Officers':
-                    baseCost = 5000;
-                    break;
-                default:
-                    baseCost = 0;
-            }
-        }
+    //     // Determine the base cost based on serviceName and serviceType
+    //     if (formData.serviceName === 'main function hall') {
+    //         switch (formData.serviceType) {
+    //             case 'Others':
+    //                 baseCost = 45000;
+    //                 break;
+    //             case 'Senior Police Officers of Other Govt Department':
+    //                 baseCost = 25000;
+    //                 break;
+    //             case 'Serving and Senior Police Officers':
+    //                 baseCost = 2;
+    //                 break;
+    //             default:
+    //                 baseCost = 0;
+    //         }
+    //     } else if (formData.serviceName === 'Conference Room') {
+    //         switch (formData.serviceType) {
+    //             case 'Others':
+    //                 baseCost = 15000;
+    //                 break;
+    //             case 'Senior Police Officers of Other Govt Department':
+    //                 baseCost = 10000;
+    //                 break;
+    //             case 'Serving and Senior Police Officers':
+    //                 baseCost = 7500;
+    //                 break;
+    //             default:
+    //                 baseCost = 0;
+    //         }
+    //     } else if (formData.serviceName === 'Barbeque Area') {
+    //         switch (formData.serviceType) {
+    //             case 'Others':
+    //                 baseCost = 10000;
+    //                 break;
+    //             case 'Senior Police Officers of Other Govt Department':
+    //                 baseCost = 7500;
+    //                 break;
+    //             case 'Serving and Senior Police Officers':
+    //                 baseCost = 5000;
+    //                 break;
+    //             default:
+    //                 baseCost = 0;
+    //         }
+    //     }
     
-        // Multiply base cost by the number of days
-        return baseCost * numberOfDays;
-    };
+    //     // Multiply base cost by the number of days
+    //     return baseCost * numberOfDays;
+    // };
 
     const handleLanguageChange = (language) => {
         setSelectedLanguage(language);
@@ -250,13 +255,14 @@ function MainFunctionHallBooking() {
         }
 
         setIsLoading(true);
-        axios.post('https://sporti-backend-live.onrender.com/api/sporti/service/book', formData)
+        axios.post('https://sporti-backend-live.onrender.com/api/sporti/service/service/book', formData)
             .then(response => {
                 const { success, user } = response.data;
                 if (success) {
                     setIsLoading(false);
                     openDialog('Success', `Your booking request has been sent to admin for confirmation and it takes one working day for the same. SMS will be sent to the registered mobile number. please note the acknowledgement number for future reference. ApplicationNo is ${user.applicationNo}`, false);
-                    navigate(`/payment/${user.applicationNo}`);
+                    // navigate(`/payment/${user.applicationNo}`);
+                    navigate(`/`);
                 } else {
                     setIsLoading(false);
                     openDialog('Error', 'Something went wrong, please try again later.', true);
@@ -504,7 +510,7 @@ function MainFunctionHallBooking() {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>
-                                <div className="col-md-6 mb-3">
+                                {/* <div className="col-md-6 mb-3">
                                     <label htmlFor="totalCost" className="form-label">
                                         {selectedLanguage === 'english' ? 'Total Cost (₹)' : translateToKannada('Total Cost (₹)')}
                                     </label>
@@ -516,7 +522,7 @@ function MainFunctionHallBooking() {
                                         readOnly
                                         className="form-control"
                                     />
-                                </div>
+                                </div> */}
                             </div>
                             <div className="row">
                                
