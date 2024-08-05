@@ -82,6 +82,13 @@ const fontSizeClasses = [
     return (
       <div>
         <Hero />
+        <marquee behavior="scroll" direction="left" scrollamount="10" className='d-block p-1 text-white bg-danger'>
+          {
+            isKannada?(<span><b>ಅಪ್ಲಿಕೇಶನ್:</b> SPORTI ಘಟನೆಗಳು ಕರ್ನಾಟಕದ ACP ಮತ್ತು ಅದನ್ನು ಉನ್ನತ ಅಧಿಕಾರಿಗಳಿಗೆ ಮಾತ್ರ ಲಭ್ಯವಾಗುತ್ತದೆ. ಸಾಮಾನ್ಯ ಜನರಿಗೆ ಉಲ್ಲೇಖಿತ ಸೇವೆಗಳ ಪ್ರವೇಶವಿಲ್ಲ.</span>):(
+              <span><b>Disclaimer:</b> SPORTI events are accessible for police sector of Karnataka designated ACP and above higher Officials. General public has no access for the mentioned services.</span>
+            )
+          }
+          </marquee>
         <Recents />
         <About />
       </div>

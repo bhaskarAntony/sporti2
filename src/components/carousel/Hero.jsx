@@ -24,8 +24,8 @@ function Hero() {
           
         />
         <Carousel.Caption >
-          <h3 className='fs-1'>{isKannada?item.caption_ka:item.caption_en}</h3>
-          <p className='fs-5'>{isKannada?item.description_ka:item.description_en}</p>
+          <h3 className='fs-1 text-dark fw-bold'>{isKannada?item.caption_ka:item.caption_en}</h3>
+          <p className='fs-5 text-dark fw-bold'>{isKannada?item.description_ka:item.description_en}</p>
         </Carousel.Caption>
       </Carousel.Item>
       ))

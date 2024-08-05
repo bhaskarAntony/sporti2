@@ -7,7 +7,7 @@
     max-height: 80vh;
 }
 .carousel-caption{
-    background: #000000bc;
+    background: #ffffff6b;
     width: 100%;
     height: fit-content;
     left: 0px !important;
@@ -16,9 +16,10 @@
     flex-direction: column;
     justify-content: end;
     backdrop-filter: blur(2px);
+    color: #fff !important;
 }
 .carousel-control-next-icon, .carousel-control-prev-icon{
-    background-color: blueviolet;
+    background:linear-gradient(45deg, #282972, #522872);
     padding: 10px !important;
     opacity: 1 !important;
     border-radius: 5px;
@@ -27,9 +28,9 @@
 
 @media(max-width:768px){
     .carousel-item{
-        height: 80vh;
+        min-height: 80vh;
     }
     .carousel-item img{
-       height: 80vh;
+       max-height: 100%;
     }
 }
