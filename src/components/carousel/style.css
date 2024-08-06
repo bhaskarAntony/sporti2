@@ -7,7 +7,7 @@
     max-height: 80vh;
 }
 .carousel-caption{
-    background: #000000;
+    background: #eeeeee59;
     width: 100%;
     height: fit-content;
     left: 0px !important;
@@ -16,8 +16,7 @@
     flex-direction: column;
     justify-content: end;
     backdrop-filter: blur(2px);
-    color: #fff !important;
-    position: inherit !important;
+    color: #0f0f0f !important;
 }
 .carousel-control-next-icon, .carousel-control-prev-icon{
     background:linear-gradient(45deg, #282972, #522872);
@@ -31,9 +30,16 @@
 
 @media(max-width:768px){
     .carousel-item{
-        height: fit-content !important;
+        /* height: fit-content; */
+        max-height:fit-content;
     }
     .carousel-item img{
-       height: fit-content !important;
+       /* height: fit-content; */
+       max-height:fit-content;
+    }
+    .carousel-caption{
+        position: inherit !important;
+        background: #000;
+        color: #ffffff !important;
     }
 }
