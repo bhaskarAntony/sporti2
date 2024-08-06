@@ -12,7 +12,7 @@ function Footer() {
                 <div className="row">
                     <div className="col-md-8">
                         <div className="left">
-                            <h2 className=''>{isKannada ? 'ಶೀರ್ಷಿಕೆ' : 'Title'}</h2>
+                            <h2 className=''>{isKannada ? 'SPORTI' : 'SPORTI'}</h2>
                             <hr />
                             <p className=''>
                                 {isKannada

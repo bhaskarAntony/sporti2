@@ -1,10 +1,10 @@
 .carousel-item{
-    /* max-height: 80vh; */
+    max-height: 80vh;
     overflow: hidden;
 }
 .carousel-item img{
     object-fit: cover;
-    /* max-height: 80vh; */
+    max-height: 80vh;
 }
 .carousel-caption{
     background: #000000;
@@ -30,10 +30,10 @@
 
 
 @media(max-width:768px){
-    /* .carousel-item{
-        height: 70vh;
+    .carousel-item{
+        height: fit-content !important;
     }
     .carousel-item img{
-       height: 70vh;
-    } */
+       height: fit-content !important;
+    }
 }
