@@ -1,13 +1,13 @@
 .carousel-item{
-    max-height: 80vh;
+    /* max-height: 80vh; */
     overflow: hidden;
 }
 .carousel-item img{
     object-fit: cover;
-    max-height: 80vh;
+    /* max-height: 80vh; */
 }
 .carousel-caption{
-    background: #ffffff78;
+    background: #000000;
     width: 100%;
     height: fit-content;
     left: 0px !important;
@@ -17,6 +17,7 @@
     justify-content: end;
     backdrop-filter: blur(2px);
     color: #fff !important;
+    position: inherit !important;
 }
 .carousel-control-next-icon, .carousel-control-prev-icon{
     background:linear-gradient(45deg, #282972, #522872);
@@ -26,11 +27,13 @@
 }
 
 
+
+
 @media(max-width:768px){
-    .carousel-item{
+    /* .carousel-item{
         height: 70vh;
     }
     .carousel-item img{
        height: 70vh;
-    }
+    } */
 }

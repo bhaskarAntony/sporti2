@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password) => {
-    console.log(process.env.REACT_APP_BACKEND_URL);
+    console.log(process.env.REACT_APP_BACKEND_URL);//
     try {
       const response = await axios.post(`https://sporti-backend-live.onrender.com/api/auth/login`, { email, password }, { withCredentials: true });
       if (response.status === 200) {

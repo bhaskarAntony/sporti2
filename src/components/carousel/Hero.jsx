@@ -16,16 +16,16 @@ function Hero() {
       <Carousel className=' overflow-hidden' fade >
     {
       heroImages.map((item, index)=>(
-        <Carousel.Item data-aos="zoom-out">
+        <Carousel.Item>
         <img
           className="d-block w-100"
           src={item.url}
-          alt="First slide"
+          alt="slide image"
           
         />
         <Carousel.Caption >
-          <h3 className='fs-1 text-dark fw-bold'>{isKannada?item.caption_ka:item.caption_en}</h3>
-          <p className='fs-5 text-dark fw-bold'>{isKannada?item.description_ka:item.description_en}</p>
+          <h3 className='fs-1  fw-bold'>{isKannada?item.caption_ka:item.caption_en}</h3>
+          <p className='fs-5  fw-bold'>{isKannada?item.description_ka:item.description_en}</p>
         </Carousel.Caption>
       </Carousel.Item>
       ))
