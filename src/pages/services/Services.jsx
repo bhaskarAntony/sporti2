@@ -44,26 +44,28 @@ function Services() {
 
 
       </div>
-      <div className="skew-container"> 
-          <div className="skew-left">
-            <h1 className="fs-2 fw-bold">SERVICES</h1>
-          </div>
-          <div className="skew-right d-flex align-items-center">
-            <h1 className="fs-2 fw-bold">{service.title}</h1>
-          </div>
-        </div>
-    {
-      sporti == 'sporti2'?(
-        <div className="row p-2 p-md-5">
-      <div className="col-md-6 m-auto">
-      <div className="alert alert-primary text-center">
-        <h1 className="alert-title">Download the menu</h1>
-        <a href={document} className="btn btn btn-primary" download={document}>Download Menu</a>
-      </div>
-      </div>
-    </div>
-      ):(null)
-    }
+      <div className="skew-container">
+                <div className="skew-left">
+                    <h1 className="fs-2 fw-bold">{isKannada ? 'ಸೇವೆಗಳು' : 'SERVICES'}</h1>
+                </div>
+                <div className="skew-right d-flex align-items-center">
+                    <h1 className="fs-2 fw-bold">{isKannada ? 'ಸ್ಪೋರ್ಟಿ':('SPORTI')}</h1>
+                </div>
+            </div>
+            {
+                sporti === 'sporti2' ? (
+                    <div className="row p-2 p-md-5">
+                        <div className="col-md-6 m-auto">
+                            <div className="alert alert-primary text-center">
+                                <h1 className="alert-title">{isKannada ? 'ಮೆನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ' : 'Download the menu'}</h1>
+                                <a href={document} className="btn btn-primary" download={document}>
+                                    {isKannada ? 'ಮೆನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ' : 'Download Menu'}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                ) : null
+            }
 
       <div className="container bg-white p-2 py-5">
         <div className="text-center mb-5">

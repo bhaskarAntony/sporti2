@@ -98,42 +98,46 @@ function App() {
     <div className={`App overflow-hidden ${highContrastClass} ${fontSizeClass}`}>
       <Security/>
       <div className='d-flex justify-content-between gap-2 p-1 gradient align-items-center'>
-        {
+      {
           isAuthenticated ? (
-            <button onClick={logout} className='btn btn-danger btn-sm'>Logout</button>
+              <button onClick={logout} className='btn btn-danger btn-sm'>
+                  {isKannada ? 'ನಿಗಮಿತವಾಗಿ' : 'Logout'}
+              </button>
           ) : (
-            <Link to='/login' className='btn btn-danger btn-sm'>Login</Link>
+              <Link to='/login' className='btn btn-danger btn-sm'>
+                  {isKannada ? 'ಲಾಗಿನ್' : 'Login'}
+              </Link>
           )
-        }
-        <div className='d-flex gap-3 align-items-center'>
+      }
+      <div className='d-flex gap-3 align-items-center'>
           <button className='btn btn-light rounded-1 btn-sm' onClick={() => setIsKannada(!isKannada)}>
-            {isKannada ? 'English' : 'ಕನ್ನಡಕ್ಕೆ'}
+              {isKannada ? 'English' : 'ಕನ್ನಡಕ್ಕೆ'}
           </button>
           <button className="btn btn-light btn-sm rounded-1" onClick={() => setIsHighContrast(!isHighContrast)}>
-            {isHighContrast ? 'No Contrast' : 'High Contrast'}
+              {isKannada?(isHighContrast ? 'ಹೆಚ್ಚಿನ ಕಾನ್ಟ್ರಾಸ್ಟ್ ಇಲ್ಲ' : 'ಹೆಚ್ಚಿನ ಕಾನ್ಟ್ರಾಸ್ಟ್'):(isHighContrast ? 'No Contrast' : 'High Contrast')}
           </button>
           <FontSizeChanger
-            targets={['.content', '.content p', '.content h1', '.content h2', '.content h3', '.content h4', '.content h5', '.content h6', '.content span', '.content .f6']}
-            options={{
-              stepSize: 1,
-              range: 3
-            }}
-            customButtons={{
-              up: <button className="fbtn border-0 rounded" onClick={increaseFontSize}>A+</button>,
-              down: <button className="fbtn border-0 rounded" onClick={decreaseFontSize}>A-</button>,
-              style: {
-                backgroundColor: 'transparent',
-                border: 'none',
-                color: 'black',
-                WebkitBoxSizing: 'border-box',
-                WebkitBorderRadius: '5px',
-                width: '30px'
-              },
-              buttonsMargin: 10
-            }}
+              targets={['.content', '.content p', '.content h1', '.content h2', '.content h3', '.content h4', '.content h5', '.content h6', '.content span', '.content .f6']}
+              options={{
+                  stepSize: 1,
+                  range: 3
+              }}
+              customButtons={{
+                  up: <button className="fbtn border-0 rounded" onClick={increaseFontSize}>A+</button>,
+                  down: <button className="fbtn border-0 rounded" onClick={decreaseFontSize}>A-</button>,
+                  style: {
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      color: 'black',
+                      WebkitBoxSizing: 'border-box',
+                      WebkitBorderRadius: '5px',
+                      width: '30px'
+                  },
+                  buttonsMargin: 10
+              }}
           />
-        </div>
       </div>
+  </div>
       <TranslationHOC>
         <ScrollToTop />
         
