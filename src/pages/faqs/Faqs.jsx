@@ -13,7 +13,10 @@ function Faqs() {
         <div className="contact-banner">
           <div className="skew-container">
             <div className="skew-left">
-              <h1 className="fs-2 fw-bold">{isKannada ? 'ಪತಿ' : "FAQ's"}</h1>
+            <h1 className="fs-2 fw-bold">
+          {isKannada ? 'ಪ್ರಶ್ನೆಗಳು' : 'FAQ\'s'}
+        </h1>
+
             </div>
             <div className="skew-right d-flex align-items-center">
               <h1 className="fs-2 fw-bold"></h1>

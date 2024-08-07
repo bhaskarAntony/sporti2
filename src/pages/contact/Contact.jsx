@@ -27,7 +27,9 @@ function Contact() {
       <div className='contact-banner'>
         <div className="skew-container">
           <div className="skew-left">
-            <h1 className="fs-2 fw-bold">CONTACT US</h1>
+              <h1 className="fs-2 fw-bold">
+             {isKannada ? 'ನಮಗೆ ಸಂಪರ್ಕಿಸಿರಿ' : 'CONTACT US'}
+             </h1>
           </div>
           <div className="skew-right d-flex align-items-center">
             <h1 className="fs-2 fw-bold">{contact.title[lang]}</h1>
