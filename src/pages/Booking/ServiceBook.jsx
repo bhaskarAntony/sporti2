@@ -349,7 +349,7 @@ function MainFunctionHallBooking() {
                                         value={formData.username}
                                         onChange={handleFormChange}
                                         className="form-control"
-                                        maxLength={20}
+                                        maxLength={40}
                                     />
                                     {errors.username && <div className="text-danger">{errors.username}</div>}
                                   
@@ -366,7 +366,7 @@ function MainFunctionHallBooking() {
                                         value={formData.officerDesignation}
                                         onChange={handleFormChange}
                                         className="form-control"
-                                        maxLength={20}
+                                        maxlength={60}
                                     />
                                     {errors.officerDesignation && <div className="text-danger">{errors.officerDesignation}</div>}
                                 </div>
@@ -399,7 +399,7 @@ function MainFunctionHallBooking() {
                                         value={formData.officerCadre}
                                         onChange={handleFormChange}
                                         className="form-control"
-                                        maxLength={20}
+                                        maxLength={40}
                                     />
                                     {errors.officerCadre && <div className="text-danger">{errors.officerCadre}</div>}
                                 </div>
@@ -415,7 +415,7 @@ function MainFunctionHallBooking() {
                                         value={formData.email}
                                         onChange={handleFormChange}
                                         className="form-control"
-                                        maxLength={20}
+                                        maxLength={40}
                                     />
                                     {errors.email && <div className="text-danger">{errors.email}</div>}
                                 </div>

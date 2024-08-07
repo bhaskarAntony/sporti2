@@ -252,6 +252,7 @@ function MainRoomBook() {
                                     value={formData.username}
                                     onChange={handleFormChange}
                                     className="form-control"
+                                    max={50}
                                 />
                                 {errors.username && <div className="text-danger">{errors.username}</div>}
                             </div>
@@ -316,6 +317,7 @@ function MainRoomBook() {
                                     value={formData.email}
                                     onChange={handleFormChange}
                                     className="form-control"
+                                    maxlength={40}
                                 />
                                 {errors.email && <div className="text-danger">{errors.email}</div>}
                             </div>
@@ -328,6 +330,8 @@ function MainRoomBook() {
                                     value={formData.phoneNumber}
                                     onChange={handleFormChange}
                                     className="form-control"
+                                    min={10}
+                                    max={13}
                                 />
                                 {errors.phoneNumber && <div className="text-danger">{errors.phoneNumber}</div>}
                             </div>
@@ -390,6 +394,7 @@ function MainRoomBook() {
                                     value={formData.noGuests}
                                     onChange={handleFormChange}
                                     className="form-control"
+                                    min={1}
                                 />
                                 {errors.noGuests && <div className="text-danger">{errors.noGuests}</div>}
                             </div>
