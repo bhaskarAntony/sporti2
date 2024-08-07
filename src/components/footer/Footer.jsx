@@ -47,10 +47,13 @@ function Footer() {
                     <b>{isKannada ? 'ಅಸಮಂಜಸತೆ:' : 'Disclaimer:'}</b> 
                     {isKannada 
                         ? 'SPORTI ಕಾರ್ಯಕ್ರಮಗಳು ಕರ್ನಾಟಕದ ಹಿರಿಯ ಪೊಲೀಸ್ ಅಧಿಕಾರಿಗಳಿಗೆ ಮಾತ್ರ ಲಭ್ಯವಿದೆ. ಸಾಮಾನ್ಯ ಜನರಿಗೆ ಈ ಸೇವೆಗಳು ಲಭ್ಯವಿಲ್ಲ.' 
-                        : 'SPORTI events accessible for Senior Police Officers  of karnataka only'}
+                        : 'SPORTI events accessible for Senior Police Officers  of Karnataka only'}
                 </div>
                 <div className="text-center">
-                    <span className="fs-6">Copyrights@2024</span>
+                <span className="fs-6">
+                {isKannada ? 'ಕಾಪಿರೈಟ್@2024' : 'Copyrights@2024'}
+                </span>
+
                 </div>
             </section>
         </footer>

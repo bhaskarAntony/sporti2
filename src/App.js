@@ -159,24 +159,27 @@ function App() {
             <Route path='/privacy_policy' element={<Privacy />} />
             <Route path='/services/:sporti' element={<Services />} />
             <Route path='/payment/:applicationNo' element={<Payment />} />
+            <Route path='/room/:sporti' element={<MainRoomBook />} />
+            <Route path='/services/book/:sporti' element={<ServiceBook />} />
+            <Route path='/eventView/:id' element={<EventView />} />
           <Route element={<ProtectedRoute />}>
             <Route path='/cart' element={<FoodCart />} />
-            <Route path='/room/:sporti' element={<MainRoomBook />} />
+          
             <Route path='/roomview/:id/:sportiId' element={<RoomView />} />
-            <Route path='/eventView/:id' element={<EventView />} />
+            
             <Route path='/food/order/:id' element={<ViewFood />} />
             <Route path='/additional-details/:id' element={<AdditionalDetailsForm />} />
             <Route path='/admin/:id' element={<Admin />} />
             <Route path='/view/:id' element={<View />} />
            
-            <Route path='/services/book/:sporti' element={<ServiceBook />} />
+      
           </Route>
           <Route path='/*' element={<ErrorPage />} />
         </Routes>
         <marquee behavior="scroll" direction="left" scrollamount="10" className='d-block p-1 text-white bg-danger'>
         {
             isKannada?(<span><b>ಅಪ್ಲಿಕೇಶನ್:</b> SPORTI ಕಾರ್ಯಕ್ರಮಗಳು ಕರ್ನಾಟಕದ ಹಿರಿಯ ಪೊಲೀಸ್ ಅಧಿಕಾರಿಗಳಿಗೆ ಮಾತ್ರ ಲಭ್ಯವಿದೆ. ಸಾಮಾನ್ಯ ಜನರಿಗೆ ಈ ಸೇವೆಗಳು ಲಭ್ಯವಿಲ್ಲ.</span>):(
-              <span><b>Disclaimer:</b> SPORTI events accessible for Senior Police Officers  of karnataka only</span>
+              <span><b>Disclaimer:</b> SPORTI events accessible for Senior Police Officers  of Karnataka only</span>
             )
           }
           </marquee>

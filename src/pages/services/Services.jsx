@@ -59,8 +59,8 @@ function Services() {
                             <div className="alert alert-primary text-center">
                                 <h1 className="alert-title">{isKannada ? 'ಮೆನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ' : 'Download the menu'}</h1>
                                 <a href={document} className="btn btn-primary" download={document}>
-                                    {isKannada ? 'ಮೆನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ' : 'Download Menu'}
-                                </a>
+                                    {isKannada ? 'ಆಹಾರ ಮೆನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ' : 'Download Food Menu'}
+                                  </a>
                             </div>
                         </div>
                     </div>

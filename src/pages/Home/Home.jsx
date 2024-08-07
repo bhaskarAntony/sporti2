@@ -85,7 +85,7 @@ const fontSizeClasses = [
         <marquee behavior="scroll" direction="left" scrollamount="10" className='d-block p-1 text-white bg-danger'>
           {
             isKannada?(<span><b>ಅಪ್ಲಿಕೇಶನ್:</b> SPORTI ಕಾರ್ಯಕ್ರಮಗಳು ಕರ್ನಾಟಕದ ಹಿರಿಯ ಪೊಲೀಸ್ ಅಧಿಕಾರಿಗಳಿಗೆ ಮಾತ್ರ ಲಭ್ಯವಿದೆ. ಸಾಮಾನ್ಯ ಜನರಿಗೆ ಈ ಸೇವೆಗಳು ಲಭ್ಯವಿಲ್ಲ.</span>):(
-              <span><b>Disclaimer:</b> SPORTI events accessible for Senior Police Officers  of karnataka only</span>
+              <span><b>Disclaimer:</b> SPORTI events accessible for Senior Police Officers  of Karnataka only</span>
             )
           }
           </marquee>
