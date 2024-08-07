@@ -44,7 +44,7 @@ function Header({ toggleTheme, theme }) {
                     <Nav.Link as={Link} to="/about">{isKannada ? 'ನಮ್ಮ ಬಗ್ಗೆ' : 'About Us'}</Nav.Link>
                     <Nav.Link as={Link} to="/services/sporti1">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-1' : 'SPORTI-1'}</Nav.Link>
                     <Nav.Link as={Link} to="/services/sporti2">{isKannada ? 'ಸ್ಪೊರ್ಟಿ-2' : 'SPORTI-2'}</Nav.Link>
-                    <Nav.Link as={Link} to="/events&gallery">{isKannada ? 'ಈವೆಂಟ್‌ಗಳು ಮತ್ತು ಗ್ಯಾಲರಿ' : 'Events & Gallery'}</Nav.Link>
+                    <Nav.Link as={Link} to="/events&gallery">{isKannada ? 'ಈವೆಂಟ್‌ಗಳು & ಗ್ಯಾಲರಿ' : 'Events & Gallery'}</Nav.Link>
                     <Nav.Link as={Link} to="/faqs">{isKannada ? 'ಪ್ರಶ್ನೆಗಳು' : "FAQ's"}</Nav.Link>
                     <NavDropdown
                       title={isKannada ? 'ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ' : 'Contact us'}
@@ -87,7 +87,7 @@ function Header({ toggleTheme, theme }) {
                 <li><Link to="/events&gallery" onClick={handleClose}>{isKannada ? 'ಈವೆಂಟ್‌ಗಳು ಮತ್ತು ಗ್ಯಾಲರಿ' : 'Events & Gallery'}</Link></li>
                 <li><Link to="/faqs" onClick={handleClose}>{isKannada ? 'ಪ್ರಶ್ನೆಗಳು' : "FAQ's"}</Link></li>
                 <li className="nav-item dropdown text-start">
-                  <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownServices2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <Link className="nav-link dropdown-toggle m-0" to="#" id="navbarDropdownServices2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {isKannada ? 'ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ' : 'Contact us'}
                   </Link>
                   <ul className="dropdown-menu" aria-labelledby="navbarDropdownServices2">
