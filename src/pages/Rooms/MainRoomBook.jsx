@@ -265,7 +265,7 @@ function MainRoomBook() {
                                     value={formData.officerDesignation}
                                     onChange={handleFormChange}
                                     className="form-control"
-                                    maxlength={40}
+                                    maxlength={60}
                                 />
                                 {errors.officerDesignation && <div className="text-danger">{errors.officerDesignation}</div>}
                             </div>

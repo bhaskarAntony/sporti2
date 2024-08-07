@@ -349,7 +349,7 @@ function MainFunctionHallBooking() {
                                         value={formData.username}
                                         onChange={handleFormChange}
                                         className="form-control"
-                                        maxLength={40}
+                                        maxLength={50}
                                     />
                                     {errors.username && <div className="text-danger">{errors.username}</div>}
                                   
@@ -499,17 +499,7 @@ function MainFunctionHallBooking() {
                                 </div>
                             </div>
                             
-                            <div className="row">
-                              
-                               
-                            </div>
-                            <div className="row">
-                               
-                              
-                            </div>
-                            <div className="row">
-                               
-                            </div>
+                           
                             {/* <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="roomType" className="form-label">
