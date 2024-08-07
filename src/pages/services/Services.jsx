@@ -57,7 +57,7 @@ function Services() {
                     <div className="row p-2 p-md-5">
                         <div className="col-md-6 m-auto">
                             <div className="alert alert-primary text-center">
-                                <h1 className="alert-title">{isKannada ? 'ಮೆನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ' : 'Download the menu'}</h1>
+                                <h1 className="alert-title">{isKannada ? 'ಆಹಾರ ಮೆನು' : 'Food menu'}</h1>
                                 <a href={document} className="btn btn-primary" download={document}>
                                     {isKannada ? 'ಆಹಾರ ಮೆನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ' : 'Download Food Menu'}
                                   </a>
