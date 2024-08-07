@@ -41,8 +41,8 @@ function Contact() {
             <div key={index} className={`col-12 col-md-4 contact-main-card mb-3`}>
               <div className="contact-card text-white p-3 h-100 rounded-2">
                 <i className={`bi bi-${item.icon} display-2 mb-3`}></i>
-                <h1 className="fs-3 fw-bold">{item.title[lang]}</h1>
-                <p className="fs-5 mt-3">{item.desc[lang]}</p>
+                <h1 className="fs-3 fw-bold">{isKannada?(item.title.kn):(item.title.en)}</h1>
+                <p className="fs-5 mt-3">{item.desc.kn?(item.desc[lang]):(item.desc)}</p>
               </div>
             </div>
           ))}
@@ -60,11 +60,11 @@ function Contact() {
         ></iframe>
       </div>
 
-      <div className="feedback text-center p-3">
+      {/* <div className="feedback text-center p-3">
         <i className="bi bi-stars fs-2 text-warning"></i>
         <h1 className="fs-2 fw-bold">WRITE TO US</h1>
         <span className="fs-6 subtitle d-block text-center">FEEL FREE TO SEND US A MESSAGE</span>
-      </div>
+      </div> */}
 
     
     </div>

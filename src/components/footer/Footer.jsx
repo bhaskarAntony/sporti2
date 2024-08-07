@@ -46,8 +46,8 @@ function Footer() {
                 <div className="fs-6 p-2 text-center alert alert-warning">
                     <b>{isKannada ? 'ಅಸಮಂಜಸತೆ:' : 'Disclaimer:'}</b> 
                     {isKannada 
-                        ? 'SPORTI ಕಾರ್ಯಕ್ರಮಗಳು ಕರ್ನಾಟಕದ ಪೊಲೀಸ್ ಇಲಾಖೆಯ ಆಯ್ಕೆಯ ಅಧಿಕಾರಿ ACP ಮತ್ತು ಹೆಚ್ಚಿನ ಅಧಿಕಾರಿಗಳಿಗೆ ಲಭ್ಯವಿದೆ. ಸಾಮಾನ್ಯ ಜನರಿಗೆ ಉಲ್ಲೇಖಿತ ಸೇವೆಗಳು ಲಭ್ಯವಿಲ್ಲ.' 
-                        : 'SPORTI events are accessible for police sector of Karnataka designated ACP and above higher Officials. General public has no access for the mentioned services.'}
+                        ? 'SPORTI ಕಾರ್ಯಕ್ರಮಗಳು ಕರ್ನಾಟಕದ ಹಿರಿಯ ಪೊಲೀಸ್ ಅಧಿಕಾರಿಗಳಿಗೆ ಮಾತ್ರ ಲಭ್ಯವಿದೆ. ಸಾಮಾನ್ಯ ಜನರಿಗೆ ಈ ಸೇವೆಗಳು ಲಭ್ಯವಿಲ್ಲ.' 
+                        : 'SPORTI events accessible for Senior Police Officers  of karnataka only'}
                 </div>
                 <div className="text-center">
                     <span className="fs-6">Copyrights@2024</span>

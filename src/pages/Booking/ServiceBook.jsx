@@ -370,10 +370,24 @@ function MainFunctionHallBooking() {
                                     />
                                     {errors.officerDesignation && <div className="text-danger">{errors.officerDesignation}</div>}
                                 </div>
-                                
-                            </div>
-                            
-                            <div className="row">
+
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="serviceType" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Officers Category' : translateToKannada('Officers Category')}
+                                    </label>
+                                    <Dropdown onSelect={(value) => handleDropdownChange('serviceType', value)}>
+                                        <Dropdown.Toggle variant="success" id="dropdown-serviceType">
+                                            {formData.serviceType || 'Select Officers Category'}
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu>
+                                        <Dropdown.Item eventKey="Serving and Senior Police Officers">Serving and Retired Officers of Karnataka Cadre</Dropdown.Item>
+                                            <Dropdown.Item eventKey="Senior Police Officers of Other Govt Department">⁠Officers from other Cadres</Dropdown.Item>
+                                           
+                                            <Dropdown.Item eventKey="Others">Others</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                    {errors.serviceType && <div className="text-danger">{errors.serviceType}</div>}
+                                </div>
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="officerCadre" className="form-label">
                                         {selectedLanguage === 'english' ? 'Cadre' : translateToKannada('Cadre')}
@@ -389,6 +403,7 @@ function MainFunctionHallBooking() {
                                     />
                                     {errors.officerCadre && <div className="text-danger">{errors.officerCadre}</div>}
                                 </div>
+                                
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="email" className="form-label">
                                         {selectedLanguage === 'english' ? 'Email' : translateToKannada('Email')}
@@ -404,8 +419,7 @@ function MainFunctionHallBooking() {
                                     />
                                     {errors.email && <div className="text-danger">{errors.email}</div>}
                                 </div>
-                            </div>
-                            <div className="row">
+
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="phoneNumber" className="form-label">
                                         {selectedLanguage === 'english' ? 'Phone Number' : translateToKannada('Phone Number')}
@@ -436,40 +450,65 @@ function MainFunctionHallBooking() {
                                     />
                                     {errors.eventdate && <div className="text-danger">{errors.eventdate}</div>}
                                 </div>
-                            </div>
-                            <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="serviceName" className="form-label">
-                                        {selectedLanguage === 'english' ? 'Service Name' : translateToKannada('Service Name')}
+                                        {selectedLanguage === 'english' ? 'Hall Type' : translateToKannada('Service Name')}
                                     </label>
                                     <Dropdown onSelect={(value) => handleDropdownChange('serviceName', value)}>
                                         <Dropdown.Toggle variant="success" id="dropdown-serviceName">
-                                            {formData.serviceName || 'Select Service Name'}
+                                            {formData.serviceName ==""?'Select Service Name':formData.serviceName}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
+                                        <Dropdown.Item eventKey="conference room">Conference Room</Dropdown.Item>
                                             <Dropdown.Item eventKey="main function hall">Main Function Hall</Dropdown.Item>
-                                            <Dropdown.Item eventKey="conference room">Conference Room</Dropdown.Item>
+                                           
                                             <Dropdown.Item eventKey="barbeque area">Barbeque Area</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     {errors.serviceName && <div className="text-danger">{errors.serviceName}</div>}
                                 </div>
-                                <div className="col-md-6 mb-3">
+                                {/* <div className="col-md-6 mb-3">
                                     <label htmlFor="serviceType" className="form-label">
-                                        {selectedLanguage === 'english' ? 'Service Type' : translateToKannada('Service Type')}
+                                        {selectedLanguage === 'english' ? 'Officers Category' : translateToKannada('Officers Category')}
                                     </label>
                                     <Dropdown onSelect={(value) => handleDropdownChange('serviceType', value)}>
                                         <Dropdown.Toggle variant="success" id="dropdown-serviceType">
-                                            {formData.serviceType || 'Select Service Type'}
+                                            {formData.serviceType || 'Select Officers Category'}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
+                                            
+                                            <Dropdown.Item eventKey="Senior Police Officers of Other Govt Department">Senior Police Officers (Other Cadres)</Dropdown.Item>
+                                            <Dropdown.Item eventKey="Serving and Senior Police Officers">Serving and Senior Police Officers (KA)</Dropdown.Item>
                                             <Dropdown.Item eventKey="Others">Others</Dropdown.Item>
-                                            <Dropdown.Item eventKey="Senior Police Officers of Other Govt Department">Senior Police Officers of Other Govt Department</Dropdown.Item>
-                                            <Dropdown.Item eventKey="Serving and Senior Police Officers">Serving and Senior Police Officers</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     {errors.serviceType && <div className="text-danger">{errors.serviceType}</div>}
+                                </div> */}
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="numberOfDays" className="form-label">
+                                        {selectedLanguage === 'english' ? 'Number of days' : translateToKannada('Number of days')}
+                                    </label>
+                                    <Dropdown onSelect={handleDaySelection}>
+                                    <Dropdown.Toggle variant="success" id="dropdown-days">
+                                        {numberOfDays} {numberOfDays === 1 ? 'day' : 'days'}
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        {generateDayOptions()}
+                                    </Dropdown.Menu>
+                                </Dropdown>
                                 </div>
+                            </div>
+                            
+                            <div className="row">
+                              
+                               
+                            </div>
+                            <div className="row">
+                               
+                              
+                            </div>
+                            <div className="row">
+                               
                             </div>
                             {/* <div className="row">
                                 <div className="col-md-6 mb-3">
@@ -504,19 +543,7 @@ function MainFunctionHallBooking() {
                                 </div>
                             </div> */}
                             <div className="row">
-                                <div className="col-md-6 mb-3">
-                                    <label htmlFor="numberOfDays" className="form-label">
-                                        {selectedLanguage === 'english' ? 'Number of days' : translateToKannada('Number of days')}
-                                    </label>
-                                    <Dropdown onSelect={handleDaySelection}>
-                                    <Dropdown.Toggle variant="success" id="dropdown-days">
-                                        {numberOfDays} {numberOfDays === 1 ? 'day' : 'days'}
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        {generateDayOptions()}
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                                </div>
+                                
                                 {/* <div className="col-md-6 mb-3">
                                     <label htmlFor="totalCost" className="form-label">
                                         {selectedLanguage === 'english' ? 'Total Cost (₹)' : translateToKannada('Total Cost (₹)')}

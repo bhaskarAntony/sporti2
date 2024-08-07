@@ -14,7 +14,7 @@ function About() {
                 <p className=" gray-text">{isKannada?about.desc_ka:about.desc_en}</p>
                 </div>
                 <div className="btns d-flex flex-wrap gap-3 mt-3"> 
-                    <a href='/about' className="main-btn">Know More</a>
+                    <a href='/about' className="main-btn">  {isKannada ? 'ಹೆಚ್ಚು ತಿಳಿಯಿರಿ' : 'Know More'}</a>
                     {/* <a href='/services' className="btn-outline text-dark">Our services</a> */}
                 </div>
             </div>

@@ -87,7 +87,7 @@ function Services() {
                     //   Book Now
                     // </Link>
                      <Link to={item.link} className='blue-btn rounded-5'>
-                     Book Now
+                     {isKannada?'ಬುಕ್ ಮಾಡಿ':'Book Now'}
                    </Link>
                     ):(null)
                   }

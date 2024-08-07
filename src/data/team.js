@@ -2,6 +2,7 @@ import profile1 from '../assets/images/contacts/contact_1.jpg';
 import profile2 from '../assets/images/contacts/contact_2.jpg';
 import profile3 from '../assets/images/contacts/deepan.jpg';
 import profile4 from '../assets/images/contacts/mufid.jpg';
+import profile5 from '../assets/images/contacts/sandeep_patil.png';
 
 const team = [
     {
@@ -23,7 +24,7 @@ const team = [
         desc_ka: 'ಆಯುಕ್ತರು, ಬೆಂಗಳೂರು ನಗರ ಪೊಲೀಸ್',
     },
     {
-        profile: 'https://english.varthabharati.in/storage/uploads/karavali/sandeep_vb_67.jpeg',
+        profile: profile5,
         name_en: 'Sri Sandeep Patil, IPS',
         name_ka: 'ಶ್ರೀ ಸಂದೀಪ್ ಪಾಟೀಲ್, ಐಪಿಎಸ್',
         role_en: 'Supervisory officer, SPORTI-2',

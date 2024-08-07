@@ -146,6 +146,7 @@ function Privacy() {
             </>
         );
     };
+    
 
     return renderPrivacyContent();
 }

@@ -11,7 +11,8 @@ import image10 from '../assets/images/sporti2_gallery/image10.jpg'
 const gallerydata = [
    {
     id:1,
-    title:'Sporti-1 Gallery',
+    en_title: 'Sporti-1 Gallery',
+    kn_title: 'ಸ್ಪೋರ್ಟಿ-1 ಗ್ಯಾಲರಿ',
     image:'./images/events/SportiGallery/1.JPG',
     images:[
         {
@@ -106,7 +107,8 @@ const gallerydata = [
    },
    {
     id:2,
-    title:'Sporti-2 Gallery',
+    en_title: 'Sporti-2 Gallery',
+    kn_title: 'ಸ್ಪೋರ್ಟಿ-2 ಗ್ಯಾಲರಿ',
     image:'/images/events/SportiGallery/image5.jpg',
     images:[
         {
@@ -155,7 +157,8 @@ const gallerydata = [
 
    {
     id:4,
-    title:'Superannuation ceremony of Sri. Pratap Reddy, IPS',
+    en_title: 'Superannuation ceremony of Sri. Pratap Reddy, IPS',
+    kn_title: 'ಶ್ರೀ. ಪ್ರತಾಪ್ ರೆಡ್ಡಿ, ಐಪಿಎಸ್ ಅವರ ಸೇವಾ ನಿವೃತ್ತಿ ಸಮಾರಂಭ',
     image:'/images/events/superannuation/e1.jpg',
     images:[
         {

@@ -1,7 +1,8 @@
 const eventData = [
     {
         id:4,
-        title:'Superannuation ceremony of Sri. Pratap Reddy, IPS',
+        en_title: 'Superannuation ceremony of Sri. Pratap Reddy, IPS',
+        kn_title: 'ಶ್ರೀ. ಪ್ರತಾಪ್ ರೆಡ್ಡಿ, ಐಪಿಎಸ್ ಅವರ ಸೇವಾ ನಿವೃತ್ತಿ ಸಮಾರಂಭ',
         image:'/images/events/superannuation/e1.jpg',
         images:[
             {
