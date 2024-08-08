@@ -23,7 +23,7 @@ function Hero() {
           alt="slide image"
           
         />
-        <Carousel.Caption >
+        <Carousel.Caption className='bg-main'>
           <h3 className='fs-1  fw-bold'>{isKannada?item.caption_ka:item.caption_en}</h3>
           <p className='fs-5  fw-bold'>{isKannada?item.description_ka:item.description_en}</p>
         </Carousel.Caption>

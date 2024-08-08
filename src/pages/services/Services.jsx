@@ -5,7 +5,8 @@ import { Link, useParams } from 'react-router-dom';
 import ImagePopup from '../../components/popups/ImagePopup';
 import Loading from '../../components/popups/Loading';
 import { useLanguage } from '../../context/LangaugeContext';
-import document from '../../components/documents/menu.pdf'
+import sporti1Menu from '../../components/documents/sporti1_menu.pdf'
+import sporti2Menu from '../../components/documents/sporti2_menu.pdf'
 import sporti1banner from '../../assets/images/banners/sporti1_banner.jpg'
 import sporti2banner from '../../assets/images/banners/sporti2_banner.jpg'
 
@@ -52,20 +53,16 @@ function Services() {
                     <h1 className="fs-2 fw-bold">{isKannada ? 'ಸ್ಪೋರ್ಟಿ':('SPORTI')}</h1>
                 </div>
             </div>
-            {
-                sporti === 'sporti2' ? (
                     <div className="row p-2 p-md-5">
-                        <div className="col-md-6 m-auto">
-                            <div className="alert alert-primary text-center">
-                                <h1 className="alert-title">{isKannada ? 'ಆಹಾರ ಮೆನು' : 'Food menu'}</h1>
-                                <a href={document} className="btn btn-primary" download={document}>
+                        <div className="col-md-4 m-auto">
+                            <div className="bg-main text-center p-3 w-100 shadow rounded" title= {isKannada ? 'ಆಹಾರ ಮೆನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ' : 'Download Food Menu'}>
+                                <h1 className="fs-1 text-light">{isKannada ? 'ಆಹಾರ ಮೆನು' : 'Food menu'}</h1>
+                                <a href={document} className="btn btn-light" download={sporti === "sporti1"?sporti1Menu:sporti2Menu}>
                                     {isKannada ? 'ಆಹಾರ ಮೆನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ' : 'Download Food Menu'}
                                   </a>
                             </div>
                         </div>
                     </div>
-                ) : null
-            }
 
       <div className="container bg-white p-2 py-5">
         <div className="text-center mb-5">

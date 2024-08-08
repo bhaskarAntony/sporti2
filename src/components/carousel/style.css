@@ -39,7 +39,7 @@
     }
     .carousel-caption{
         position: inherit !important;
-        background: #000;
+        background: linear-gradient(45deg, #3b246c, #9b56d0);
         color: #ffffff !important;
     }
 }
